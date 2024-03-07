@@ -1,0 +1,17 @@
+{
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "CodeGPT.apiKey": "CodeGPT Plus Beta",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "cSpell.words": [
+    "chakra",
+    "seasalt",
+    "supabase"
+  ]
+}
