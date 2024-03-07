@@ -39,7 +39,7 @@ const NavbarAlpha = () => {
     return (
         <Navbar  
             minWidth="480px" 
-            bgGradient="linear(to-b, gray.300, gray.50)"
+            bgGradient="linear(to-r, white, gray.300)"
             position="sticky"
             borderBottomWidth="1px"
             shouldHideOnScroll

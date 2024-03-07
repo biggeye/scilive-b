@@ -61,8 +61,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     <ErrorBoundary>
        <Box
         position="relative"
-        h="92vh"
+        h="100%"
         textAlign="center"
+        bgGradient="linear(to-t, gray.200, white)"
       >
         {children}
       </Box>

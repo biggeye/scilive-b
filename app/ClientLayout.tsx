@@ -1,34 +1,31 @@
 'use client'
 import React from 'react';
-import { AppShell, SaasProvider } from '@saas-ui/react';
 import { RecoilRoot } from "recoil";
 import NavbarAlpha from '@/components/NavbarAlpha';
 import { UserProvider } from '@/lib/user/UserProvider';
 import { ClientLayoutProps } from '@/types';
-
+import { SaasProvider, AppShell } from '@saas-ui/react'
 import { AuthProvider } from '@saas-ui/auth'
 import { createAuthService } from '@saas-ui/supabase'
 import { createClient } from '@/utils/supabase/client';
-
+import { sciLiveTheme } from './theme';
 
 
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
-
+ 
   const supabaseClient = createClient();
 
   return (
-    <SaasProvider>
+    <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
           <UserProvider>
-            <AppShell variant="static"
+            <AppShell
+            h="100vh" variant="static"
               navbar={<NavbarAlpha />}>
-              <main
-                id="skip"
-                className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
-              >
+             
                 {children}
-              </main>
+          
             </AppShell>
           </UserProvider>
         </RecoilRoot>

@@ -7,7 +7,7 @@ import { Box, useToast, CircularProgress } from "@chakra-ui/react";
 import { createClient } from "@/utils/supabase/client";
 import { useRecoilState } from "recoil";
 import { finalPredictionState } from "@/state/replicate/prediction-atoms";
-import { avatarScriptState } from "@/state/d-id/createTalk-atoms";
+import { voiceoverScriptState } from "@/state/d-id/createTalk-atoms";
 import { ErrorBoundary } from "@saas-ui/react";
 
 interface DashboardLayoutProps {
@@ -19,7 +19,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const toast = useToast();
   const supabase = createClient();
   const [finalPrediction, setFinalPrediction] = useRecoilState(finalPredictionState);
-  const [avatarScript, setAvatarScript] = useRecoilState(avatarScriptState);
+  const [voiceoverScript, setVoiceoverScript] = useRecoilState(voiceoverScriptState);
 
   useEffect(() => {
     const handleEvent = (payload: any) => {
@@ -38,7 +38,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         setFinalPrediction(output);
       } else if (newRow.content) {
         const output = newRow.content;
-        setAvatarScript(output);
+        setVoiceoverScript(output);
       }
     };
   

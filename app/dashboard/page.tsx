@@ -4,7 +4,6 @@ import { Skeleton, Tabs, Tab, TabList, TabPanels, TabPanel, VStack, Box, Grid, G
 import ImageCreator from '@/components/dashboard/ImageCreator';
 import ImageEditor from '@/components/dashboard/ImageEditor';
 import DisplayResults from '@/components/dashboard/DisplayResults';
-import VoiceCloner from '@/components/dashboard/VoiceCloner';
 import ScriptWriter from '@/components/dashboard/ScriptWriter';
 import AvatarCreator from '@/components/dashboard/AvatarCreator';
 
@@ -23,7 +22,6 @@ const DashboardPage = () => {
           <Tab>Image Creator</Tab>
           <Tab>Image Editor</Tab>
           <Tab>Script Writer</Tab>
-          <Tab>Voice Cloner</Tab>
           <Tab>Avatar Creator</Tab>
         </TabList>
         <TabPanels>
@@ -38,7 +36,7 @@ const DashboardPage = () => {
           <TabPanel>
             <VStack spacing={1}>
               <DisplayResults localPage="editImage" />     // TODO ImageEditor gallery sidepanel opens, but with no contents
-                <Box position="fixed" backdropFilter="blur(50px)" width="98vw" bottom="0px">
+                <Box position="fixed" bgGradient="linear(to-t, gray.300, transparent)" backdropFilter="blur(50px)" width="98vw" bottom="0px">
                   <ImageEditor />
                 </Box>
             </VStack>
@@ -48,12 +46,7 @@ const DashboardPage = () => {
               <ScriptWriter />
             </VStack>
           </TabPanel>
-          <TabPanel>
-            <VStack spacing={1}>
-              <VoiceCloner />
-            </VStack>
-          </TabPanel>
-          <TabPanel>
+           <TabPanel>
             <VStack spacing={1}>
               <AvatarCreator />
             </VStack>

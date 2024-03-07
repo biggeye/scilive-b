@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import { Grid, GridItem, FormLabel, CardHeader, Heading, Card, Button, Textarea, Box, VStack, HStack, Input, useToast } from '@chakra-ui/react';
 import { Form, FormLayout } from '@saas-ui/react';
 import { useRecoilState } from 'recoil';
-import { avatarScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/d-id/createTalk-atoms';
+import { voiceoverScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/leap/scriptWriter-atoms';
+
 
 const ScriptWriter = () => {
   // Ensure initial state is an empty string instead of null
   const [hostName, setHostName] = useRecoilState(hostNameState);
   const [podcastName, setPodcastName] = useRecoilState(podcastNameState);
   const [webpageUrl, setWebpageUrl] = useRecoilState(webpageUrlState);
-  const [avatarScript, setAvatarScript] = useRecoilState(avatarScriptState);
+  const [voiceoverScript, setVoiceoverScript] = useRecoilState(voiceoverScriptState);
   const [isTextareaEnabled, setTextareaEnabled] = useState(false);
   const toast = useToast();
 
@@ -19,10 +20,10 @@ const ScriptWriter = () => {
   };
 
   const handleScriptChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setAvatarScript(event.target.value || ''); // Ensure value is never null
+    setVoiceoverScript(event.target.value || ''); // Ensure value is never null
   };
 
-  const fetchAvatarScript = async () => {
+  const fetchvoiceoverScript = async () => {
     if (!webpageUrl) {
       toast({
         title: "Error",
@@ -54,7 +55,7 @@ const ScriptWriter = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setAvatarScript(data.website_summary);
+      setVoiceoverScript(data.website_summary);
       setTextareaEnabled(true); // Enable Textarea after successful API call
     } catch (error) {
       console.error('Error fetching script:', error);
@@ -89,7 +90,7 @@ const ScriptWriter = () => {
           borderWidth="0.5px"
           p={{ base: "1", md: "2", lg: "4" }}
           maxW="lg">
-          <Form onSubmit={fetchAvatarScript} display="flex" flexDirection="column" alignItems="center" mb={4}>
+          <Form onSubmit={fetchvoiceoverScript} display="flex" flexDirection="column" alignItems="center" mb={4}>
             <CardHeader alignItems="center" justifyContent="space-between">
               <Heading>
                 Voiceover Generator
@@ -133,7 +134,7 @@ const ScriptWriter = () => {
           className="featured-image-card">
           <Textarea
             mb={4}
-            value={avatarScript}
+            value={voiceoverScript}
             onChange={handleScriptChange}
             placeholder="The script will appear here"
             isDisabled={!isTextareaEnabled}

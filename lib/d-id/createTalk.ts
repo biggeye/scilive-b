@@ -1,7 +1,7 @@
 // File: /lib/d-id/talks/createTalk.ts
 import fetch from 'node-fetch';
 
-export async function createAvatar(avatarScript: string, sourceUrl: string) {
+export async function createAvatar(voiceoverScript: string, sourceUrl: string) {
   const didAuth = process.env.NEXT_PUBLIC_DID_BASIC_API;
   console.log(didAuth);
   const options = {
@@ -17,7 +17,7 @@ export async function createAvatar(avatarScript: string, sourceUrl: string) {
         subtitles: 'false',
         provider: { type: 'microsoft', voice_id: 'en-US-JennyNeural' },
         ssml: 'false',
-        input: avatarScript,
+        input: voiceoverScript,
       },
       config: { fluent: 'false', pad_audio: '0.0' },
       source_url: sourceUrl,
