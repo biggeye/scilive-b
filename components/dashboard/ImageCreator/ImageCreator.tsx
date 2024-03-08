@@ -18,6 +18,7 @@ import {
   finalPredictionState,
   globalLoadingState,
 } from '@/state/replicate/prediction-atoms';
+import { userProfileState } from '@/state/user/user_state-atoms';
 import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
 import {
   Form,
@@ -29,7 +30,7 @@ import { currentPageState } from '@/state/user/user_state-atoms';
 
 const ImageCreator = () => {
   const toast = useToast();
-  const { userProfile } = getUserProfile();
+  const userProfile = useRecoilValue(userProfileState);
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);

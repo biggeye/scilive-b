@@ -23,15 +23,14 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { finalPredictionState, userImageDataUriState, userImagePreviewState, userImageUploadState, predictionErrorState, globalLoadingState } from '@/state/replicate/prediction-atoms';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import { currentUserAvatarUrlState } from '@/state/user/user_state-atoms';
-import { currentPageState } from '@/state/user/user_state-atoms';
-
+import { userProfileState } from '@/state/user/user_state-atoms';
+import { currentPageState } from '@/state/user/user_state-atoms'
 // import TYPES
 import { GalleryItem } from '@/types';
 
 const ImageEditor = () => {
   const supabase = createClient();
-  const { userProfile } = getUserProfile();
-  const userId = userProfile.id;
+  const userProfile = useRecoilValue(userProfileState);
 
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   useEffect(() => {
@@ -49,7 +48,6 @@ const ImageEditor = () => {
   // Gallery State and Fetching
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
-  const [currentUserAvatarUrl, setCurrentUserAvatarUrl] = useRecoilState(currentUserAvatarUrlState);
   const onEdit = useCallback(async (imageUrl: string) => {
 
     useEffect(() => {

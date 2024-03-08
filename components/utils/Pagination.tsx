@@ -1,6 +1,6 @@
 import React from 'react';
 import { Center, Box, Button, Flex, IconButton, Spacer } from '@chakra-ui/react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { ChevronLeftIcon, ChevronRightIcon, MdKeyboardArrowLeft, MdKeyboardArrowRight } from '@react-icons/md';
 
 interface PaginationProps {
     totalGroups: number;
@@ -56,7 +56,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <IconButton
       size={{ base: "sm", md: "md" }}
         aria-label="Previous group"
-        icon={<ChevronLeftIcon />}
+        icon={<MdKeyboardArrowLeft />}
         onClick={() => setCurrentGroup(Math.max(currentGroup - 1, 0))}
         isDisabled={currentGroup === 0}
         mr="2"
@@ -67,7 +67,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <IconButton
         size={{ base: "sm", md: "md" }}
         aria-label="Next group"
-        icon={<ChevronRightIcon />}
+        icon={<MdKeyboardArrowRight />}
         onClick={() => setCurrentGroup(Math.min(currentGroup + 1, totalGroups - 1))}
         isDisabled={currentGroup === totalGroups - 1}
         ml="2"

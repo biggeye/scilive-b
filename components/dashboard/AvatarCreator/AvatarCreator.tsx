@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { CardBody, Heading, CardHeader, Card, Select, Input, Box, Button, FormControl, FormLabel, Textarea, useToast, VStack, Image, Grid, GridItem, CircularProgress, Checkbox } from '@chakra-ui/react';
 import { avatarNameState, avatarDescriptionState, avatarUrlState, frameStyleState, photoStyleState } from '@/state/leap/avatar-atoms';
 import { getUserProfile } from '@/lib/userClientSide';
+import { userProfileState } from '@/state/user/user_state-atoms';
 import { createClient } from '@/utils/supabase/client';
 import {
   Form,
@@ -29,8 +30,7 @@ const AvatarCreator: React.FC = () => {
 
   const toast = useToast();
 
-  const { userProfile } = getUserProfile();
-  const userId = userProfile.id;
+  const userProfile = useRecoilValue(userProfileState);
 
   useEffect(() => {
     const subscription = supabase

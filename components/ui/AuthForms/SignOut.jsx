@@ -1,13 +1,13 @@
 'use client'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getUserProfile } from '@/lib/userClientSide';
+import { createClient } from '@/utils/supabase/client';
 import { Button } from '@chakra-ui/react';
 
 export default function SignOut() {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-  const { supabase } = getUserProfile();
+  const supabase = create();
 
   useEffect(() => {
     setIsMounted(true);

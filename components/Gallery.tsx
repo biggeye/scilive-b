@@ -11,8 +11,7 @@ import {
   ModalBody,
   IconButton,
 } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-
+import { MdOutlineDeleteForever, MdEditNote } from "react-icons/md";
 // Define the props the Gallery component expects
 interface GalleryProps {
   items: {
@@ -41,8 +40,8 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
           <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
             <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.id)} />
             <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
-              <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.id)} mr="2" />
-              <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.id)} />
+              <IconButton aria-label="Edit item" icon={<MdEditNote />} size="sm" onClick={() => onEdit(item.id)} mr="2" />
+              <IconButton aria-label="Delete item" icon={<MdOutlineDeleteForever />} size="sm" onClick={() => onDelete(item.id)} />
             </Box>
             {item.title && (
               <Text fontSize="sm" color="white" pos="absolute" bottom="2" left="2" noOfLines={1}>

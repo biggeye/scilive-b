@@ -7,11 +7,12 @@ import {
   PersonaSecondaryLabel,
 } from '@saas-ui/react'
 import { getUserProfile } from '@/lib/userClientSide';
+import { userProfileState } from '@/state/user/user_state-atoms';
+
 
 const CustomPersona = () => {
 
-  const { userProfile } = getUserProfile();
-  const userName = userProfile.full_name;
+  const userProfile = useRecoilValue(userProfileState);
 
   return (
     <PersonaContainer size="lg">
@@ -20,7 +21,7 @@ const CustomPersona = () => {
         </AvatarBadge>
       </Avatar>
       <PersonaDetails>
-        <PersonaLabel>{userName}</PersonaLabel>
+        <PersonaLabel>{userProfile.full_name}</PersonaLabel>
         <PersonaSecondaryLabel>Account Status</PersonaSecondaryLabel>
       </PersonaDetails>
     </PersonaContainer>
