@@ -2,7 +2,6 @@
 import React from 'react';
 import { RecoilRoot } from "recoil";
 import NavbarAlpha from '@/components/NavbarAlpha';
-import { UserProvider } from '@/lib/user/UserProvider';
 import { ClientLayoutProps } from '@/types';
 import { SaasProvider, AppShell } from '@saas-ui/react'
 import { AuthProvider } from '@saas-ui/auth'
@@ -19,7 +18,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
     <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
-          <UserProvider>
             <AppShell
             h="100vh" variant="static"
               navbar={<NavbarAlpha />}>
@@ -27,7 +25,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
                 {children}
           
             </AppShell>
-          </UserProvider>
         </RecoilRoot>
       </AuthProvider>
     </SaasProvider>

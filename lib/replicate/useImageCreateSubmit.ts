@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useUserContext } from "../user/UserProvider";
+import { getUserProfile } from '@/lib/userClientSide';
 import { uploadPrediction } from "./uploadPrediction"; // Ensure this is correctly typed in its own file
 import { convertToDataURI } from "../../utils/convertToDataURI";
 import {
@@ -23,8 +23,8 @@ export const useImageCreateSubmit = () => {
   const [modelBootResult, setModelBootResult] = useRecoilState<string | null>(modelBootResultState);
   const [predictionError, setPredictionError] = useRecoilState<string | null>(predictionErrorState);
   const [finalPrediction, setFinalPrediction] = useRecoilState<string | null>(finalPredictionState);
-  const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState<string | null>(finalPredictionPromptState);
-  const userProfile = useUserContext();
+  const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState(finalPredictionPromptState);
+  const userProfile = getUserProfile();
   const userId = userProfile?.userProfile?.id;
 
   const submitImageCreate = async (userInput: string): Promise<string | null> => {

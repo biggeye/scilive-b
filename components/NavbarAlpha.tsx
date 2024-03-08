@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import {
     Box,
     IconButton,
@@ -25,16 +25,19 @@ import {
 import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent } from '@saas-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import Logo from '@/components/utils/Logo';
-import { useUserContext } from "@/lib/user/UserProvider";
 import SignOut from './ui/AuthForms/SignOut';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
+import userProfileState from '@/state/user/user_state-atoms';
+import { getUserProfile } from '@/lib/userClientSide';
 
 const NavbarAlpha = () => {
-    const { userProfile } = useUserContext();
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
+    const [userProfile, setUserProfile] = useState(null);
+    const [error, setError] = useState(null);
 
-    const userName = userProfile.full_name;
-    const userId = userProfile?.id; // Ensure userProfile is accessed safely
+    useEffect(() => {
+        getUserProfile().then(setUserProfile).catch(setError);
+    }, []);
 
     return (
         <Navbar  
@@ -71,7 +74,7 @@ const NavbarAlpha = () => {
                     <MenuButton>
                         <PersonaAvatar
                             src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
-                            name={userProfile.full_name || ""}
+                            name={userProfile?.full_name || ""}
                             borderRadius="full"
                             size="xs"
                             aria-label="User menu"
@@ -79,7 +82,7 @@ const NavbarAlpha = () => {
                         />
                     </MenuButton>
                     <MenuList>
-                        {userId ? (
+                        {userProfile?.id ? (
                             <MenuGroup>
                                 <MenuItem><div className="code">{userName}</div></MenuItem>
                                 <MenuDivider />
@@ -105,7 +108,7 @@ const NavbarAlpha = () => {
                     <DrawerHeader>
                         <PersonaAvatar
                             src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
-                            name={userProfile.full_name || ""}
+                            name={userProfile?.full_name || ""}
                             borderRadius="md"
                             size="lg"
                             aria-label="User menu"
@@ -138,7 +141,7 @@ const NavbarAlpha = () => {
                                 <NavItem icon={<HamburgerIcon />} href="/train">Train SDXL Model</NavItem>
                             </NavGroup>
 
-                            {userId &&
+                            {userProfile &&
                                 <NavGroup title="Your Account">
                                     <NavItem icon={<HamburgerIcon />} href="/dashboard/assets">Gallery</NavItem>
                                     <NavItem icon={<HamburgerIcon />} href="/account">Settings</NavItem>
@@ -149,9 +152,9 @@ const NavbarAlpha = () => {
                         </Stack>
                     </DrawerBody>
                     <DrawerFooter>
-                        {userId ? (
+                        {userProfile ? (
                             <SignOut />) : (
-                            <Link href="/auth/signup">Login / Signup</Link>
+                            <Link href="/signin">Login / Signup</Link>
                         )}
                     </DrawerFooter>
                 </DrawerContent>

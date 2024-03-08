@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { CardBody, Heading, CardHeader, Card, Select, Input, Box, Button, FormControl, FormLabel, Textarea, useToast, VStack, Image, Grid, GridItem, CircularProgress, Checkbox } from '@chakra-ui/react';
 import { avatarNameState, avatarDescriptionState, avatarUrlState, frameStyleState, photoStyleState } from '@/state/leap/avatar-atoms';
-import { useUserContext } from '@/lib/user/UserProvider';
+import { getUserProfile } from '@/lib/userClientSide';
 import { createClient } from '@/utils/supabase/client';
 import {
   Form,
@@ -29,7 +29,7 @@ const AvatarCreator: React.FC = () => {
 
   const toast = useToast();
 
-  const { userProfile } = useUserContext();
+  const { userProfile } = getUserProfile();
   const userId = userProfile.id;
 
   useEffect(() => {

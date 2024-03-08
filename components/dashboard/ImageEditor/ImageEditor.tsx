@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, ChangeEvent, FormEvent, useCallback, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { useUserContext } from '@/lib/user/UserProvider';
+import { getUserProfile } from '@/lib/userClientSide';
 import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
 import { handleGalleryEditSelection } from '@/lib/replicate/handleGalleryEditSelection';
 import { convertToDataURI } from '@/utils/convertToDataURI';
@@ -30,7 +30,7 @@ import { GalleryItem } from '@/types';
 
 const ImageEditor = () => {
   const supabase = createClient();
-  const { userProfile } = useUserContext();
+  const { userProfile } = getUserProfile();
   const userId = userProfile.id;
 
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);

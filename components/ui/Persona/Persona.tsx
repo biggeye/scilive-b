@@ -6,11 +6,11 @@ import {
   PersonaLabel,
   PersonaSecondaryLabel,
 } from '@saas-ui/react'
-import { useUserContext } from '@/lib/user/UserProvider';
+import { getUserProfile } from '@/lib/userClientSide';
 
 const CustomPersona = () => {
 
-  const { userProfile } = useUserContext();
+  const { userProfile } = getUserProfile();
   const userName = userProfile.full_name;
 
   return (

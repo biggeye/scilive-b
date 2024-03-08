@@ -66,5 +66,12 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "supabase": "^1.142.2",
     "typescript": "^5.3.3"
-  }
+  },
+  "name": "scilive-alpha-main",
+  "version": "0.5.0b",
+  "description": "suite of tools leveraging generative models to maximize creative output",
+  "main": "layout.tsx",
+  "repository": "https://github.com/biggeye/scilive-beta-pre.git",
+  "author": "biggeye <justin_bonner@protonmail.com>",
+  "license": "MIT"
 }

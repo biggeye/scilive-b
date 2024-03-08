@@ -9,7 +9,7 @@ import {
   InputRightAddon,
   useToast,
 } from '@chakra-ui/react';
-import { useUserContext } from '@/lib/user/UserProvider';
+import { getUserProfile } from '@/lib/userClientSide';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import {
@@ -29,7 +29,7 @@ import { currentPageState } from '@/state/user/user_state-atoms';
 
 const ImageCreator = () => {
   const toast = useToast();
-  const { userProfile } = useUserContext();
+  const { userProfile } = getUserProfile();
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
