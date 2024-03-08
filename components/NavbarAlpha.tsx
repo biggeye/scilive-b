@@ -23,16 +23,18 @@ import {
     MenuDivider,
 } from '@chakra-ui/react';
 import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent } from '@saas-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { MdMenu } from "react-icons/md";
 import Logo from '@/components/utils/Logo';
 import SignOut from './ui/AuthForms/SignOut';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
-import userProfileState from '@/state/user/user_state-atoms';
+import { userProfileState } from '@/state/user/user_state-atoms';
 import { getUserProfile } from '@/lib/userClientSide';
+import { UserProfile } from '@/types';
+import { useRecoilState } from 'recoil';
 
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
-    const [userProfile, setUserProfile] = useState(null);
+    const [userProfile, setUserProfile] = useRecoilState<UserProfile>(userProfileState);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -84,7 +86,7 @@ const NavbarAlpha = () => {
                     <MenuList>
                         {userProfile?.id ? (
                             <MenuGroup>
-                                <MenuItem><div className="code">{userName}</div></MenuItem>
+                                <MenuItem><div className="code">{userProfile.full_name}</div></MenuItem>
                                 <MenuDivider />
                                 <MenuItem><NavbarLink href="/gallery">Gallery</NavbarLink></MenuItem>
                                 <MenuItem><NavbarLink href="/account">Account</NavbarLink></MenuItem>
@@ -130,21 +132,21 @@ const NavbarAlpha = () => {
                     <DrawerBody>
                         <Stack as="nav" spacing={4}>
                             <NavGroup title="Content Production">
-                                <NavItem icon={<HamburgerIcon />} href="/dashboard/create-image">Create Images</NavItem>
-                                <NavItem icon={<HamburgerIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
-                                <NavItem icon={<HamburgerIcon />} href="/dashboard/clone-voice">Clone Voice</NavItem>
-                                <NavItem icon={<HamburgerIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
-                                <NavItem icon={<HamburgerIcon />} href="/dashboard/write-script">Write Script</NavItem>
+                                <NavItem icon={<MdMenu />} href="/dashboard/create-image">Create Images</NavItem>
+                                <NavItem icon={<MdMenu />} href="/dashboard/edit-image">Edit Images</NavItem>
+                                <NavItem icon={<MdMenu />} href="/dashboard/clone-voice">Clone Voice</NavItem>
+                                <NavItem icon={<MdMenu />} href="/dashboard/create-avatar">Create Avatar</NavItem>
+                                <NavItem icon={<MdMenu />} href="/dashboard/write-script">Write Script</NavItem>
                             </NavGroup>
 
                             <NavGroup title="Model Training">
-                                <NavItem icon={<HamburgerIcon />} href="/train">Train SDXL Model</NavItem>
+                                <NavItem icon={<MdMenu />} href="/train">Train SDXL Model</NavItem>
                             </NavGroup>
 
                             {userProfile &&
                                 <NavGroup title="Your Account">
-                                    <NavItem icon={<HamburgerIcon />} href="/dashboard/assets">Gallery</NavItem>
-                                    <NavItem icon={<HamburgerIcon />} href="/account">Settings</NavItem>
+                                    <NavItem icon={<MdMenu />} href="/dashboard/assets">Gallery</NavItem>
+                                    <NavItem icon={<MdMenu />} href="/account">Settings</NavItem>
                                     <Spacer />
 
                                 </NavGroup>}
