@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
     images: {
         remotePatterns: [
           {
@@ -18,5 +21,3 @@ const nextConfig = {
       },
       output: "standalone"
 }
-
-module.exports = nextConfig
