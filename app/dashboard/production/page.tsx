@@ -5,7 +5,6 @@ import {
   Card, Grid, GridItem, Tabs, TabList, TabPanels, Tab, TabPanel, Button, Box, VStack, HStack, useToast
 } from "@chakra-ui/react";
 
-import VoiceCloner from '@/components/dashboard/VoiceCloner';
 import ScriptWriter from '@/components/dashboard/ScriptWriter';
 import AvatarCreator from '@/components/dashboard/AvatarCreator';
 
@@ -22,15 +21,11 @@ const VideoProduction = () => {
         variant="enclosed-colored"
       >
         <TabList mb="1em">
-          <Tab>Voice</Tab>
           <Tab>Avatar</Tab>
           <Tab>Script</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <VStack spacing={4}>
-              <VoiceCloner />
-            </VStack>
           </TabPanel>
           <TabPanel>
             <VStack spacing={4}>
