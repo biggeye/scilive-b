@@ -96,7 +96,7 @@ const NavbarAlpha = () => {
                         ) : (
                             <MenuGroup>
                                 <MenuDivider />
-                                <MenuItem><NavbarLink href="/auth/signup">Login / Signup</NavbarLink></MenuItem>
+                                <MenuItem><NavbarLink href="/signin">Login / Signup</NavbarLink></MenuItem>
                             </MenuGroup>
                         )}
                     </MenuList>
