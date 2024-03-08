@@ -1,6 +1,9 @@
+import { github, google } from '@/components/icons/Icons'
 import Logo from '@/components/icons/Logo'
+import { GitHubLogo, GoogleLogo } from '@/public/logos'
 import { Card, CardHeader, CardBody } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
+import { GithubIcon, InstagramIcon } from 'lucide-react'
 
 export default function AuthPage() {
   return (
@@ -9,7 +12,16 @@ export default function AuthPage() {
         <Logo width="100px" />
       </CardHeader>
       <CardBody>
-        <Auth />
+      <Auth
+          providers={{
+            github: {
+              name: 'Github',
+            },
+            google: {
+              name: 'Google',
+            }
+          }}
+        />
       </CardBody>
     </Card>
   )
