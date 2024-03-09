@@ -22,7 +22,6 @@ export const sciLiveTheme = extendTheme({
         ...baseTheme.components,
         Button: {
           baseStyle: {
-            ...baseTheme.components.Button.baseStyle,
             _hover: {
               borderColor: 'primary.500', // Adjust to match the primary color in your theme
             },
@@ -30,7 +29,6 @@ export const sciLiveTheme = extendTheme({
         },
         Box: {
           baseStyle: {
-            ...baseTheme.components.Box.baseStyle,
             _hover: {
               borderColor: 'primary.500', // Adjust to match the primary color in your theme
             },

@@ -1,4 +1,4 @@
-import uploadWebsiteSummary from '@/lib/leap/uploadWebsiteSummary';
+import { uploadWebsiteSummary } from '@/lib/leap/uploadWebsiteSummary';
 
 type WorkflowStatus = 'completed' | 'running' | 'failed';
 
