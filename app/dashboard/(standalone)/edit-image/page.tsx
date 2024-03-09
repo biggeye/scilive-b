@@ -2,7 +2,7 @@
 import React from 'react';
 import ImageEditor from '@/components/dashboard/ImageEditor/ImageEditor';
 import DisplayResults from '@/components/dashboard/DisplayResults';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Flex, Grid, GridItem } from '@chakra-ui/react';
 import { useEffect } from 'react'; // Make sure 'react' is lowercase
 import { currentPageState } from '@/state/user/user_state-atoms';
 import { useRecoilState } from 'recoil';
@@ -15,9 +15,12 @@ const EditImages = () => {
     }, []); // Empty dependency array to run only on mount
 
     return (
-        <Grid templateAreas={`"results"
-                              "form"`}
-              gridTemplateRows="2">
+        <Flex alignItems="baseline" justifyContent="space-between">
+        <Grid templateAreas={{base:`"results"
+                              "form"`,
+                            md: `"form results"`}}
+              gridTemplateRows={{base: "2", md: "1"}}>
+                
             <GridItem>
                 <DisplayResults localPage="editImage" />
             </GridItem>
@@ -26,6 +29,7 @@ const EditImages = () => {
                 <ImageEditor />
             </GridItem>
         </Grid>
+        </Flex>
     );
 }
 

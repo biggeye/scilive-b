@@ -17,12 +17,12 @@ const StripeWidget = () => {
   }, []);
 
   return (
-    <Flex direction="row">
+
     <stripe-pricing-table
       pricing-table-id="prctbl_1OpzT1AmOI0sMNRG6yAq23IR"
       publishable-key="pk_test_51OQLxJAmOI0sMNRGKBubMCmBIWLNVZAdSuToiWDYh7f5oaQUhuwJiEBiPHmzabrWkITBZmQm3vehPC56QxkAQ75l00QU78l23A">
     </stripe-pricing-table>
-    </Flex>
+ 
   );
 };
 
