@@ -6,8 +6,8 @@ import { getURL } from '@/utils/helpers';
 import './main.css';
 
 const meta = {
-  title: 'Next.js Subscription Starter',
-  description: 'Brought to you by Vercel, Stripe, and Supabase.',
+  title: 'sciLive',
+  description: 'powered by SciFiction.com',
   cardImage: '/og.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
@@ -19,10 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
     title: meta.title,
     description: meta.description,
     referrer: 'origin-when-cross-origin',
-    keywords: ['Vercel', 'Supabase', 'Next.js', 'Stripe', 'Subscription'],
-    authors: [{ name: 'Vercel', url: 'https://vercel.com/' }],
-    creator: 'Vercel',
-    publisher: 'Vercel',
+    keywords: ['SciFiction.com', 'sciLive', 'AI', 'science fiction', 'content creation', 'avatar creation', 'image model training', 'live streaming'],
+    authors: [{ name: 'Justin Bonner', url: 'https://scilive.cloud' }],
+    creator: 'Big Eye Data',
+    publisher: 'SciFiction.com',
     robots: meta.robots,
     icons: { icon: meta.favicon },
     metadataBase: new URL(meta.url),

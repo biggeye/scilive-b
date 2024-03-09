@@ -28,18 +28,12 @@ import Logo from '@/components/utils/Logo';
 import SignOut from './ui/AuthForms/SignOut';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
 import { userProfileState } from '@/state/user/user_state-atoms';
-import { getUserProfile } from '@/lib/userClientSide';
-import { UserProfile } from '@/types';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
-    const [userProfile, setUserProfile] = useRecoilState<UserProfile>(userProfileState);
+    const userProfile = useRecoilValue(userProfileState);
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        getUserProfile().then(setUserProfile).catch(setError);
-    }, []);
 
     return (
         <Navbar  
@@ -156,7 +150,7 @@ const NavbarAlpha = () => {
                     <DrawerFooter>
                         {userProfile ? (
                             <SignOut />) : (
-                            <Link href="/signin">Login / Signup</Link>
+                            <Link as="h3" href="/signin">Login / Signup</Link>
                         )}
                     </DrawerFooter>
                 </DrawerContent>

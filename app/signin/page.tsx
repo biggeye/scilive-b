@@ -1,14 +1,14 @@
-import { github, google } from '@/components/icons/Icons'
-import Logo from '@/components/icons/Logo'
-import { GitHubLogo, GoogleLogo } from '@/public/logos'
-import { Card, CardHeader, CardBody } from '@chakra-ui/react'
+import Logo from '@/components/utils/Logo'
+import { Spacer, Container, Card, CardHeader, CardBody } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
 
 export default function AuthPage() {
   return (
-    <Card flex="1" maxW="400px">
+    <Container maxW="400px" display="flex" flexDirection="row">
+      <Spacer />
+    <Card>
       <CardHeader display="flex" alignItems="center" justifyContent="center">
-        <Logo width="100px" />
+        <Logo height="200px" width="200px" />
       </CardHeader>
       <CardBody>
       <Auth
@@ -23,5 +23,7 @@ export default function AuthPage() {
         />
       </CardBody>
     </Card>
+    <Spacer />
+    </Container>
   )
 }

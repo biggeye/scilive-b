@@ -7,7 +7,7 @@ import { Button } from '@chakra-ui/react';
 export default function SignOut() {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-  const supabase = create();
+  const supabase = createClient();
 
   useEffect(() => {
     setIsMounted(true);
@@ -26,7 +26,7 @@ export default function SignOut() {
     <Button
     padding={".5px"}
     mt={2}
-    
+
     type="submit"
     onClick={handleSignOut}>
       Sign Out

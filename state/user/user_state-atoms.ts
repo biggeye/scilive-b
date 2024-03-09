@@ -1,7 +1,7 @@
 //state/user_state-atoms.ts
 
 import { atom } from "recoil";
-import UserProfile from '@/types';
+import { UserProfile } from '@/types';
 
 export const currentUserIdState = atom<string | null> ({
  key: "currentUserIdState",
@@ -23,9 +23,14 @@ export const viewModeState = atom<string> ({
     default: 'tabs',
 });
 
-
-
 export const userProfileState = atom<UserProfile | null> ({
     key: "userProfileState",
-    default: null,
+    default: {
+        id: null,
+        full_name: "",
+        username: "",
+        avatar_url: "",
+        website: "",
+        email: "",
+        },
 });

@@ -22,10 +22,10 @@ export type AuthProvider =
 export interface UserProfile {
   id: string | null;
   full_name: string | "";
-  username: string | null;
+  username: string | "";
   avatar_url: string | null;
-  website: string | null;
-  email: string | null;
+  website: string | "";
+  email: string | "";
 }
 
 export interface UserState {

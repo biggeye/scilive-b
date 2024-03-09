@@ -9,7 +9,8 @@ export async function middleware(request: NextRequest) {
 
     if (!user) {
       console.log("middleware: (!user")
-      return NextResponse.redirect('/auth/signup')
+      
+      return NextResponse.redirect('/signin')
     }
 
     return response
