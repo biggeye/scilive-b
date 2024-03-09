@@ -5,7 +5,7 @@ export const sciLiveTheme = extendTheme({
     ...baseTheme,
     colors: {
         ...baseTheme.colors,
-        brand: {
+        primnary: {
             "50": "#f3f8fc",
             "100": "#d0e3f3",
             "200": "#a6cae8",
@@ -21,13 +21,20 @@ export const sciLiveTheme = extendTheme({
     components: {
         ...baseTheme.components,
         Button: {
-            baseStyle: {
-                ...baseTheme.components.Button.baseStyle,
-                _hover: {
-                    ...baseTheme.components.Button.baseStyle._hover,
-                    borderColor: 'brand.500', // Use the brand color you defined for hover states
-                },
+          baseStyle: {
+            ...baseTheme.components.Button.baseStyle,
+            _hover: {
+              borderColor: 'primary.500', // Adjust to match the primary color in your theme
             },
-        }
-    }
-});
+          },
+        },
+        Box: {
+          baseStyle: {
+            ...baseTheme.components.Box.baseStyle,
+            _hover: {
+              borderColor: 'primary.500', // Adjust to match the primary color in your theme
+            },
+          },
+        },
+      }
+    })

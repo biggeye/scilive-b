@@ -1,9 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono&family=Unbounded&family=Fira+Code&display=swap');
 
 :root {
-  --max-width: 1100px;
+  /* Font Family Definitions */
+  --font-heading: 'Kode Mono', monospace;
+  --font-body: 'Unbounded', sans-serif;
+  --font-footer: 'Fira Code', monospace;
+  --font-code: 'Fira Code', monospace;
+}
+
+html, body {
+  font-family: var(--font-body);
 }
 
 *,
@@ -28,12 +37,25 @@ html {
 
 html,
 body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
-    'Helvetica', sans-serif;
+  font-family: var(--font-body);
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   @apply text-zinc-800 bg-white antialiased;
 }
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+footer, .footer-text {
+  font-family: var(--font-footer);
+}
+
+code, pre, .code, .callout {
+  font-family: var(--font-code);
+}
+
 
 body {
   position: relative;
@@ -90,19 +112,6 @@ p a {
   background-color: #555;
 }
 
-/* Custom Code Style */
-.code {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 5px;
-  left: 40%;
-  font-size: xx-small;
-  border-bottom-left-radius: .2rem;
-  border-color: #374151;
-}
 
 .image-card {
   border-width: 1px;
