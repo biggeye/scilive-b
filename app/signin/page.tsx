@@ -3,7 +3,6 @@ import Logo from '@/components/icons/Logo'
 import { GitHubLogo, GoogleLogo } from '@/public/logos'
 import { Card, CardHeader, CardBody } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
-import { GithubIcon, InstagramIcon } from 'lucide-react'
 
 export default function AuthPage() {
   return (
