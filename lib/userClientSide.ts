@@ -2,7 +2,6 @@
 import { createClient } from '@/utils/supabase/client'
 import { useRecoilState } from 'recoil';
 import { userProfileState } from '@/state/user/user_state-atoms';
-import UserProfile
 
 export async function getUserProfile() {
     const supabase = createClient();
