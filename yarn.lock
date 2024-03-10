@@ -1398,6 +1398,16 @@
     "@saas-ui/forms" "2.4.0"
     "@saas-ui/hooks" "2.0.3"
 
+"@saas-ui/auth@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@saas-ui/auth/-/auth-3.0.3.tgz#2f4438cb4d2a2f4699edc24c365d2aefccfd8797"
+  integrity sha512-LvAXEGmiwjp5MkmrEKQr7sT71A6BXa4xkyh/w5DhJAUSSCxaoP7jXDL/G3iH0eVmNF6fqyUDnZ338oM5aljdzQ==
+  dependencies:
+    "@chakra-ui/utils" "^2.0.15"
+    "@saas-ui/core" "2.4.1"
+    "@saas-ui/forms" "2.4.1"
+    "@saas-ui/hooks" "2.0.3"
+
 "@saas-ui/core@2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@saas-ui/core/-/core-2.4.0.tgz"
@@ -1412,6 +1422,23 @@
     "@react-aria/utils" "^3.23.2"
     "@saas-ui/react-utils" "2.0.1"
     "@saas-ui/theme" "2.3.3"
+    "@zag-js/dom-event" "^0.36.3"
+    "@zag-js/dom-utils" "^0.2.4"
+
+"@saas-ui/core@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@saas-ui/core/-/core-2.4.1.tgz#5170acd40013f8dd95547ea38d1a09436b0a3d40"
+  integrity sha512-E3dfjr6ehoscXQir/VXPnXfKfyd+qi4GjREx6GyAKJc/DIdmLO07FWdEapFA9un7FLh/wBHogrCJmFPrhjknrQ==
+  dependencies:
+    "@chakra-ui/react-utils" "^2.0.12"
+    "@chakra-ui/styled-system" "^2.9.2"
+    "@chakra-ui/system" "^2.6.2"
+    "@chakra-ui/theme-tools" "^2.1.2"
+    "@chakra-ui/utils" "^2.0.15"
+    "@react-aria/interactions" "^3.21.1"
+    "@react-aria/utils" "^3.23.2"
+    "@saas-ui/react-utils" "2.0.1"
+    "@saas-ui/theme" "2.3.4"
     "@zag-js/dom-event" "^0.36.3"
     "@zag-js/dom-utils" "^0.2.4"
 
@@ -1445,6 +1472,17 @@
     "@chakra-ui/utils" "^2.0.15"
     "@hookform/resolvers" "^3.3.4"
     "@saas-ui/core" "2.4.0"
+    react-hook-form "^7.50.1"
+
+"@saas-ui/forms@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@saas-ui/forms/-/forms-2.4.1.tgz#ede60eab5e0e3bab201c99a21911441b9ebda2d1"
+  integrity sha512-CwHN3Gs3oH4f7NiR4LSFZazIQWtOc3XKF4WOk9mkBPncLF6mrb6ReaQV+QLP/zaeWjJt7PdThGNVnWitmQFqZw==
+  dependencies:
+    "@chakra-ui/react-utils" "^2.0.12"
+    "@chakra-ui/utils" "^2.0.15"
+    "@hookform/resolvers" "^3.3.4"
+    "@saas-ui/core" "2.4.1"
     react-hook-form "^7.50.1"
 
 "@saas-ui/hooks@2.0.3":
@@ -1527,6 +1565,15 @@
   version "2.3.3"
   resolved "https://registry.npmjs.org/@saas-ui/theme/-/theme-2.3.3.tgz"
   integrity sha512-u9HLNxgueialKloRb1psdqnaM52RulWBpCgUsJ5o38Wv7WUb8xiJ+TIQlKym695BvfXKdAvUW+yHg7bWUMblmw==
+  dependencies:
+    "@chakra-ui/anatomy" "^2.2.2"
+    "@chakra-ui/styled-system" "^2.9.2"
+    "@chakra-ui/theme-tools" "^2.1.2"
+
+"@saas-ui/theme@2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@saas-ui/theme/-/theme-2.3.4.tgz#936fcb89f6dd0e759d26f9c18429319f6cb6cbe7"
+  integrity sha512-SUAEd98SnlEl955owdlXsf1yCSOHHCHvxhMLW/pXSDpJ0aipjBmxb+sIwubRUL1xiPP+CX7UB6gEBuQj63YFtA==
   dependencies:
     "@chakra-ui/anatomy" "^2.2.2"
     "@chakra-ui/styled-system" "^2.9.2"

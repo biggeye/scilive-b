@@ -13,7 +13,7 @@ import { ClientLayoutProps } from '@/types';
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
  
   const supabaseClient = createClient();
-
+  
   return (
     <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>

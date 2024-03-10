@@ -14,6 +14,7 @@ import {
 import { selectedModelIdState } from "@/state/replicate/config-atoms";
 import { buildRequestBody } from './requestBodyBuilder';
 import { fetchPrediction } from './fetchPrediction';
+import { userProfileState } from "@/state/user/user_state-atoms";
 
 export const useImageCreateSubmit = () => {
   const modelId = useRecoilValue<string>(selectedModelIdState);
@@ -23,7 +24,8 @@ export const useImageCreateSubmit = () => {
   const [predictionError, setPredictionError] = useRecoilState<string | null>(predictionErrorState);
   const [finalPrediction, setFinalPrediction] = useRecoilState<string | null>(finalPredictionState);
   const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState(finalPredictionPromptState);
-  const userProfile = getUserProfile();
+  const userProfile = useRecoilValue(userProfileState);
+  const userId = userProfile?.id;
 
   const submitImageCreate = async (userInput: string): Promise<string | null> => {
     setPredictionError(null);

@@ -12,9 +12,8 @@ export async function uploadPrediction(
     prompt: string
 ): Promise<string> {
     console.log("uploadPrediction (content):", content);
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore); // Adjust as needed to match your auth token retrieval
 
+    const supabase = createClient(); // Adjust as needed to match your auth token retrieval
     const response = await fetch(content);
     if (!response.ok) {
         throw new Error('Error fetching the content');

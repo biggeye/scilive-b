@@ -39,41 +39,30 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         console.log(output);
       }
     };
-  
+
     // Subscription for INSERT events
     const insertSubscription = supabase
       .channel('master_content_inserts')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'master_content' }, handleEvent)
       .subscribe();
-  
+
     // Subscription for UPDATE events
     const updateSubscription = supabase
       .channel('master_content_updates')
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'master_content' }, handleEvent)
       .subscribe();
-  
+
     // Cleanup function to unsubscribe from channels
     return () => {
       supabase.removeChannel(insertSubscription);
       supabase.removeChannel(updateSubscription);
     };
   }, [router, toast]);
-  
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (!userProfile?.id) {
-        await getUserProfile();
-      }
-    };
-
-
-    fetchUserProfile();
-  }, []);
 
 
   return (
     <ErrorBoundary>
-       <Box
+      <Box
         position="relative"
         h="100%"
         textAlign="center"
@@ -81,7 +70,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       >
         {children}
       </Box>
-     
+
     </ErrorBoundary>
   )
 };
