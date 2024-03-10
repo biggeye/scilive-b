@@ -6,18 +6,20 @@ import { userProfileState } from '@/state/user/user_state-atoms';
 export async function getUserProfile() {
     const supabase = createClient();
     const [userProfile, setUserProfile] = useRecoilState(userProfileState);
-    const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .single()
-
     try {
-        if (data) {
-            const parsed = JSON.parse(data);
-            setUserProfile(parsed);
+        const { data, error } = await supabase
+            .from('users')
+            .select('*')
+            .single()
+        if (error) {
+            throw error;
         }
+
+        if (data) {
+             setUserProfile(data);
+}
     } catch (error) {
-        throw error;
+        console.error("Error fetching user profile: ", error);
     }
 
     return userProfile

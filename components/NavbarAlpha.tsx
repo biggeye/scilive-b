@@ -23,7 +23,6 @@ import {
     MenuDivider,
 } from '@chakra-ui/react';
 import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent } from '@saas-ui/react';
-import { MdMenu } from "react-icons/md";
 import Logo from '@/components/utils/Logo';
 import SignOut from './ui/AuthForms/SignOut';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
@@ -34,14 +33,12 @@ const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
     const userProfile = useRecoilValue(userProfileState);
     const [error, setError] = useState(null);
-
     return (
         <Navbar  
             minWidth="480px" 
-            bgGradient="linear(to-r, white, gray.300)"
+            bgColor="transparent"
+            backdropFilter={"blur (50px)"}
             position="sticky"
-            borderBottomWidth="1px"
-            shouldHideOnScroll
             top="0"
             zIndex="banner"
         >
@@ -53,17 +50,15 @@ const NavbarAlpha = () => {
                     aria-label="Open Menu"
                 />
             </NavbarBrand>
-            <NavbarContent display={{ base: 'hidden', sm: 'flex' }}>
+            <NavbarContent display={{ base: 'hidden', md: 'flex' }}
+                              flexWrap="nowrap">
                 <NavbarItem>
                     <NavbarLink href="/dashboard">Production</NavbarLink>
                 </NavbarItem>
                 <NavbarItem>
                     <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
                 </NavbarItem>
-                <NavbarItem>
-                    <NavbarLink>Training</NavbarLink>
-                </NavbarItem>
-            </NavbarContent>
+                        </NavbarContent>
 
             <NavbarContent as="div" justifyContent="end">
                 <Menu>
@@ -78,7 +73,7 @@ const NavbarAlpha = () => {
                         />
                     </MenuButton>
                     <MenuList>
-                        {userProfile?.id ? (
+                        {userProfile ? (
                             <MenuGroup>
                                 <MenuItem><div className="code">{userProfile.full_name}</div></MenuItem>
                                 <MenuDivider />
@@ -126,24 +121,22 @@ const NavbarAlpha = () => {
                     <DrawerBody>
                         <Stack as="nav" spacing={4}>
                             <NavGroup title="Content Production">
-                                <NavItem icon={<MdMenu />} href="/dashboard/create-image">Create Images</NavItem>
-                                <NavItem icon={<MdMenu />} href="/dashboard/edit-image">Edit Images</NavItem>
-                                <NavItem icon={<MdMenu />} href="/dashboard/clone-voice">Clone Voice</NavItem>
-                                <NavItem icon={<MdMenu />} href="/dashboard/create-avatar">Create Avatar</NavItem>
-                                <NavItem icon={<MdMenu />} href="/dashboard/write-script">Write Script</NavItem>
+                                <NavItem href="/dashboard/create-image"> - Create Images</NavItem>
+                                <NavItem href="/dashboard/edit-image"> - Edit Images</NavItem>
+                                <NavItem href="/dashboard/clone-voice"> - Clone Voice</NavItem>
+                                <NavItem href="/dashboard/create-avatar"> - Create Avatar</NavItem>
+                                <NavItem href="/dashboard/write-script"> - Write Script</NavItem>
                             </NavGroup>
 
                             <NavGroup title="Model Training">
-                                <NavItem icon={<MdMenu />} href="/train">Train SDXL Model</NavItem>
+                                <NavItem href="/train"> - Train SDXL Model</NavItem>
                             </NavGroup>
 
-                            {userProfile &&
-                                <NavGroup title="Your Account">
-                                    <NavItem icon={<MdMenu />} href="/dashboard/assets">Gallery</NavItem>
-                                    <NavItem icon={<MdMenu />} href="/account">Settings</NavItem>
+                            <NavGroup title="Your Account">
+                                    <NavItem href="/dashboard/assets"> - Gallery</NavItem>
+                                    <NavItem href="/account"> - Settings</NavItem>
                                     <Spacer />
-
-                                </NavGroup>}
+                                </NavGroup>
 
                         </Stack>
                     </DrawerBody>

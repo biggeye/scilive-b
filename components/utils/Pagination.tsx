@@ -1,6 +1,6 @@
 import React from 'react';
 import { Center, Box, Button, Flex, IconButton, Spacer } from '@chakra-ui/react';
-import { ChevronLeftIcon, ChevronRightIcon, MdKeyboardArrowLeft, MdKeyboardArrowRight } from '@react-icons/md';
+
 
 interface PaginationProps {
     totalGroups: number;

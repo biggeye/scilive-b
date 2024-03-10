@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import ClientLayout from './ClientLayout';
-import { Toaster } from '@/components/ui/Toasts/toaster';
 import { PropsWithChildren, Suspense } from 'react';
 import { getURL } from '@/utils/helpers';
 import './main.css';

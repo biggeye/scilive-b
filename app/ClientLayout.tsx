@@ -18,11 +18,11 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
             <AppShell
-            h="100vh" variant="static"
+            h="100vh" w="100vw" variant="static"
               navbar={<NavbarAlpha />}>
-             
+                <main>
                 {children}
-          
+                </main>
             </AppShell>
         </RecoilRoot>
       </AuthProvider>

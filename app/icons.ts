@@ -1,7 +1,15 @@
 import React from "react";
 import { FaPlay, FaPause } from 'react-icons/fa';
 import { LuMic, LuMicOff } from "react-icons/lu";
+import { MenuIcon } from '@/components/icons/Icons';
+import { MdOutlineDeleteForever, MdEditNote } from "react-icons/md";
+import { ChevronLeftIcon, ChevronRightIcon, MdKeyboardArrowLeft, MdKeyboardArrowRight } from '@react-icons/md';
 
+export const MenuIcon = MdMenu;
+export const EditIcon = MdEditNote;
+export const DeleteIcon = MdOutlineDeleteForever;
+export const RightIcon = ChevronRightIcon;
+export const LeftIcon = ChevronLeftIcon;
 export const MicIcon = LuMic;
 export const MicOffIcon = LuMicOff;
 export const PlayIcon = FaPlay;

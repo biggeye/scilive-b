@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Image, HStack, IconButton } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { LeftIcon, RightIcon } from "@/components/icons/Icons";
 import { userContentExamplesState } from "@/state/replicate/config-atoms";
 import { useRecoilValue } from "recoil";
 
@@ -19,7 +19,7 @@ export const ScrollableThumbnails = () => {
     <Box position="relative" w={{base: "95vw", md: "65vw"}} h="200px" overflow="hidden">
       <IconButton
         aria-label="Scroll left"
-        icon={<ChevronLeftIcon />}
+        icon={<LeftIcon />}
         position="absolute"
         left="0"
         top="50%"
@@ -44,7 +44,7 @@ export const ScrollableThumbnails = () => {
       </HStack>
       <IconButton
         aria-label="Scroll right"
-        icon={<ChevronRightIcon />}
+        icon={<RightIcon />}
         position="absolute"
         right="0"
         top="50%"

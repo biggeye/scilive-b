@@ -63,7 +63,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         position="relative"
         h="100%"
         textAlign="center"
-        bgGradient="linear(to-t, gray.200, white)"
+        bgGradient="linear(to-t, white, gray.200, white)"
       >
         {children}
       </Box>

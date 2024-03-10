@@ -5,7 +5,7 @@ export const sciLiveTheme = extendTheme({
     ...baseTheme,
     colors: {
         ...baseTheme.colors,
-        primnary: {
+        primary: {
             "50": "#f3f8fc",
             "100": "#d0e3f3",
             "200": "#a6cae8",
@@ -19,6 +19,15 @@ export const sciLiveTheme = extendTheme({
         },
     },
     components: {
+      Input: {
+        baseStyle: {
+          field: {
+            _focus: {
+              borderColor: 'gray.800'
+            },
+          },
+        },
+      },
         ...baseTheme.components,
         Button: {
           baseStyle: {

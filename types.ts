@@ -21,11 +21,11 @@ export type AuthProvider =
 // User State
 export interface UserProfile {
   id: string | null;
-  full_name: string | "";
-  username: string | "";
-  avatar_url: string | null;
-  website: string | "";
-  email: string | "";
+  full_name: string | "" | null;
+  username: string | "" | null;
+  avatar_url: string | "" | null;
+  website: string | "" | null;
+  email: string | "" | null;
 }
 
 export interface UserState {
