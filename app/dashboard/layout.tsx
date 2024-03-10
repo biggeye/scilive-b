@@ -4,8 +4,10 @@ import React, { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Box, useToast, CircularProgress } from "@chakra-ui/react";
 import { createClient } from "@/utils/supabase/client";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { ErrorBoundary } from "@saas-ui/react";
+import { userProfileState } from "@/state/user/user_state-atoms";
+import { getUserProfile } from '@/lib/userClientSide';
 
 interface DashboardLayoutProps {
   children: any
@@ -15,6 +17,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const router = useRouter();
   const toast = useToast();
   const supabase = createClient();
+  const [userProfile, setUserProfile] = useRecoilState(userProfileState);
 
   useEffect(() => {
     const handleEvent = (payload: any) => {
@@ -56,6 +59,17 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     };
   }, [router, toast]);
   
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!userProfile?.id) {
+        await getUserProfile();
+      }
+    };
+
+
+    fetchUserProfile();
+  }, []);
+
 
   return (
     <ErrorBoundary>

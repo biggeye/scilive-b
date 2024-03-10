@@ -11,7 +11,7 @@ import {
   ModalBody,
   IconButton,
 } from '@chakra-ui/react';
-import { EditIcon, MenuIcon } from '@/components/icons/Icons';
+import { EditIcon, DeleteIcon } from '@/components/icons';
 
 // Define the props the Gallery component expects
 interface GalleryProps {

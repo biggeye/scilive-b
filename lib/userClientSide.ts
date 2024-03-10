@@ -16,7 +16,7 @@ export async function getUserProfile() {
         }
 
         if (data) {
-             setUserProfile(data);
+            setUserProfile(data);
 }
     } catch (error) {
         console.error("Error fetching user profile: ", error);

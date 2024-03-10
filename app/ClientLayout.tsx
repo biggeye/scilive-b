@@ -6,6 +6,7 @@ import { createAuthService } from '@saas-ui/supabase'
 import { RecoilRoot } from "recoil";
 import { createClient } from '@/utils/supabase/client';
 import NavbarAlpha from '@/components/NavbarAlpha';
+import SidebarNav from '@/components/SidebarNav';
 import { sciLiveTheme } from './theme';
 import { ClientLayoutProps } from '@/types';
 
@@ -19,7 +20,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
         <RecoilRoot>
             <AppShell
             h="100vh" w="100vw" variant="static"
-              navbar={<NavbarAlpha />}>
+            sidebar={<SidebarNav />}>
                 <main>
                 {children}
                 </main>

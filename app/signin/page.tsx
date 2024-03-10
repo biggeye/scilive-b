@@ -15,11 +15,9 @@ export default function AuthPage() {
       <Auth
           providers={{
             github: {
-              icon: github,
               name: 'Github',
             },
             google: {
-              icon: google,
               name: 'Google',
             }
           }}

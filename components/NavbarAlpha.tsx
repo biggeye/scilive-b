@@ -1,5 +1,5 @@
 'use client'
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     IconButton,
@@ -34,8 +34,8 @@ const NavbarAlpha = () => {
     const userProfile = useRecoilValue(userProfileState);
     const [error, setError] = useState(null);
     return (
-        <Navbar  
-            minWidth="480px" 
+        <Navbar
+            minWidth="480px"
             bgColor="transparent"
             backdropFilter={"blur (50px)"}
             position="sticky"
@@ -51,14 +51,14 @@ const NavbarAlpha = () => {
                 />
             </NavbarBrand>
             <NavbarContent display={{ base: 'hidden', md: 'flex' }}
-                              flexWrap="nowrap">
+                flexWrap="nowrap">
                 <NavbarItem>
                     <NavbarLink href="/dashboard">Production</NavbarLink>
                 </NavbarItem>
                 <NavbarItem>
                     <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
                 </NavbarItem>
-                        </NavbarContent>
+            </NavbarContent>
 
             <NavbarContent as="div" justifyContent="end">
                 <Menu>
@@ -133,10 +133,10 @@ const NavbarAlpha = () => {
                             </NavGroup>
 
                             <NavGroup title="Your Account">
-                                    <NavItem href="/dashboard/assets"> - Gallery</NavItem>
-                                    <NavItem href="/account"> - Settings</NavItem>
-                                    <Spacer />
-                                </NavGroup>
+                                <NavItem href="/dashboard/assets"> - Gallery</NavItem>
+                                <NavItem href="/account"> - Settings</NavItem>
+                                <Spacer />
+                            </NavGroup>
 
                         </Stack>
                     </DrawerBody>
