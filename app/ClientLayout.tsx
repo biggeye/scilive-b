@@ -11,18 +11,18 @@ import { sciLiveTheme } from './theme';
 import { ClientLayoutProps } from '@/types';
 
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
- 
+
   const supabaseClient = createClient();
-  
+
   return (
     <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
             <AppShell
             h="100vh" w="100vw" variant="static"
-            sidebar={<SidebarNav />}>
+            navbar={<NavbarAlpha />}>
                 <main>
-                {children}
+                  {children}
                 </main>
             </AppShell>
         </RecoilRoot>

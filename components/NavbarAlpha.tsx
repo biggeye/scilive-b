@@ -28,11 +28,15 @@ import SignOut from './ui/AuthForms/SignOut';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
+import { useAuth } from '@saas-ui/auth';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
     const userProfile = useRecoilValue(userProfileState);
-    const [error, setError] = useState(null);
+    const auth = useAuth();
+    const { profileLoading, profileError } = useUserProfile();
+
     return (
         <Navbar
             minWidth="480px"

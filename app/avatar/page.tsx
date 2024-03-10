@@ -1,12 +1,11 @@
-import AvatarCreator from "@/components/dashboard/avatar/AvatarCreator";
-import AvatarTrainer from "@/components/dashboard/avatar/AvatarTrainer";
-import AvatarGenerator from "@/components/dashboard/avatar/AvatarGenerator";
+import AvatarCreator from "@/components/dashboard/AvatarCreator";
+import AvatarTrainer from "@/components/dashboard/AvatarTrainer";
+import AvatarGenerator from "@/components/dashboard/AvatarGenerator";
 
 import { Card, VStack, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 
 const AvatarCreatorPage = () => {
 
-    
     return (
         <VStack mt={10}>
         <Card boxShadow="xl" rounded="md" bg="white" p={5} width={{ base: '80vw', md: '60vw' }}>
@@ -35,7 +34,6 @@ const AvatarCreatorPage = () => {
                         <AvatarGenerator />
                     </VStack>
                 </TabPanel>
-              
             </TabPanels>
         </Tabs>
         </Card>

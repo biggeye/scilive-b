@@ -8,7 +8,7 @@ import { Suspense, useEffect } from 'react';
 import { currentPageState } from '@/state/user/user_state-atoms';
 import { useRecoilState } from 'recoil';
 
-const CreateImages = () => {
+const ImageCreatorPage = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
     useEffect(() => {
@@ -34,4 +34,4 @@ const CreateImages = () => {
     )
 }
 
-export default CreateImages;
+export default ImageCreatorPage;

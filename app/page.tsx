@@ -5,7 +5,7 @@ const HomePage = () =>  {
   return (
     <Card>
       <CardHeader>
-        
+        <FeaturesSection />
       </CardHeader>
       <CardBody>
       <StripeWidget />

@@ -38,13 +38,10 @@ import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 
 export default function SidebarNav() {
-    const [user, setUser] = useState<Boolean>(false);
+
     const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true, })
     const userProfile = useRecoilValue(userProfileState);
     const auth = useAuth();
-    const auth_id = auth.user?.id
-    const profile_id = userProfile?.id;
-
     const { profileLoading, profileError } = useUserProfile();
 
     return (

@@ -7,7 +7,7 @@ import { useEffect } from 'react'; // Make sure 'react' is lowercase
 import { currentPageState } from '@/state/user/user_state-atoms';
 import { useRecoilState } from 'recoil';
 
-const EditImages = () => {
+const ImageEditorPage = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
     useEffect(() => {
@@ -23,4 +23,4 @@ const EditImages = () => {
     );
 }
 
-export default EditImages;
+export default ImageEditorPage;
