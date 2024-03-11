@@ -8,7 +8,7 @@ const ErrorPage: React.FC = () => {
   const router = useRouter();
 
   const handleBackToDashboard = () => {
-    router.push('/dashboard'); // Adjust the path as needed for your dashboard
+    router.push('/'); // Adjust the path as needed for your dashboard
   };
 
   return (

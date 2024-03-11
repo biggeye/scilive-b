@@ -58,23 +58,7 @@ const DashboardPage = () => {
   const renderGrid = () => (
 
     <Grid
-      templateAreas={{
-        lg: `"panel createDisplay editDisplay "
-           "panel createDisplay editDisplay"
-           "voice script avatar`,
-        base: `"display display"
-               "create edit"
-              "avatar voice"
-              "script script"
-              "footer footer"` }}
-      gridTemplateColumns={{ base: '60vw 35vw', lg: '50vw 45vw' }}
-      gridTemplateRows={{ base: '5', lg: '3' }}
-      h='92vh'
-      w='100vw'
-      gap='1'
-      color='blackAlpha.700'
-      fontWeight='bold'
-    >
+     >
       <GridItem area="createDisplay">
         <DisplayResults localPage="createImage" />
         <ImageCreator />
@@ -95,10 +79,7 @@ const DashboardPage = () => {
       <GridItem area="avatar">
         <AvatarCreator />
       </GridItem>
-      <GridItem area="voice">
-        <VoiceCloner />
-      </GridItem>
-      <GridItem area="script">
+       <GridItem area="script">
         <ScriptWriter />
       </GridItem>
       <GridItem area="footer">

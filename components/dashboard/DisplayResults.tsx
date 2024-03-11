@@ -51,7 +51,7 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   );
 
 
-  const displayedImage = finalPrediction || userImagePreview || exampleImage;
+  const displayedImage = finalPrediction || userImagePreview || null;
 
   const imageVariants = {
     hidden: { opacity: 0 },
@@ -107,11 +107,11 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
                   />
                 }
               >
-                <ImageCard
+        {displayedImage &&        <ImageCard
                   imageUrl={displayedImage}
                   prompt={finalPredictionPrompt}
                   modelName={selectedModelFriendlyName}
-                />
+                />}
               </Suspense>
             )}
           </VStack>
