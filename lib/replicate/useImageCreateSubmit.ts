@@ -32,7 +32,7 @@ export const useImageCreateSubmit = () => {
     setModelBootResult(null);
     setFinalPrediction(null);
     setFinalPredictionPrompt(userInput);
-
+  
     if (!userId) {
       console.error("User Login required!");
       setPredictionError("User Login required!");

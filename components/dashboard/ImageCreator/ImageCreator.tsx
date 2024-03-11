@@ -70,25 +70,18 @@ const ImageCreator = () => {
 
   return (
     <Box width="100%">
-      <Form
-        onSubmit={handleSubmit}
-      >
-        <FormLayout>
-          <InputGroup>
-            <Input
+      <Form onSubmit={handleSubmit}>
+            <Field
+            type="input"
               value={userInput}
               onChange={handleInputChange}
               isRequired={true}
             />
-            <InputRightAddon>
-              <Button
-                type="submit">
+       
+              <Button type="submit">
                 Create Image
               </Button>
-            </InputRightAddon>
-          </InputGroup>
-        </FormLayout>
-
+         
       </Form>
     </Box>
   );
