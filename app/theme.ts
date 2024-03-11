@@ -27,7 +27,7 @@ export const sciLiveTheme = extendTheme({
             "900": "#163650",
         },
     },
-  },
+
   components: {
     ...baseTheme.components,
     Button: {
