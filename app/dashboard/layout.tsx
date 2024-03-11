@@ -8,6 +8,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { ErrorBoundary } from "@saas-ui/react";
 import { userProfileState } from "@/state/user/user_state-atoms";
 import { getUserProfile } from '@/lib/userClientSide';
+import GalleryDrawer from '@/components/GalleryDrawer';
 
 interface DashboardLayoutProps {
   children: any
@@ -69,6 +70,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         bgGradient="linear(to-t, white, gray.200, white)"
       >
         {children}
+        <GalleryDrawer
+        items={contentItems.map(item => ({
+          id: item.content_id,
+          url: item.url,
+          title: item.title,
+          prompt: item.prompt,
+        }))}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
       </Box>
 
     </ErrorBoundary>

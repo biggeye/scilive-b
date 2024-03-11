@@ -73,7 +73,6 @@ const DashboardPage = () => {
           h="auto"
           bgColor="silver"
           borderRadius="md">
-
         </Box>
       </GridItem>
       <GridItem area="avatar">
