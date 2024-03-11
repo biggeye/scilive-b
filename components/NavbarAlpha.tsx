@@ -40,8 +40,8 @@ const NavbarAlpha = () => {
     return (
         <Navbar
             minWidth="480px"
-            bgColor="transparent"
-            backdropFilter={"blur (50px)"}
+            bgGradient="linear(to-r, transparent, primary.50, transparent)"
+            backdropFilter="blur(50px)"
             position="sticky"
             top="0"
             zIndex="banner"

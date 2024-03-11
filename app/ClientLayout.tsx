@@ -8,6 +8,9 @@ import { createClient } from '@/utils/supabase/client';
 import NavbarAlpha from '@/components/NavbarAlpha';
 import SidebarNav from '@/components/SidebarNav';
 import { sciLiveTheme } from './theme';
+import '@fontsource-variable/exo-2';
+import '@fontsource-variable/orbitron';
+import '@fontsource/press-start-2p';
 import { ClientLayoutProps } from '@/types';
 
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {

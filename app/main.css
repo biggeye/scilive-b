@@ -1,29 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Kode+Mono&family=Unbounded&family=Fira+Code&display=swap');
-
-:root {
-  /* Font Family Definitions */
-  --font-heading: 'Kode Mono', monospace;
-  --font-body: 'Unbounded', sans-serif;
-  --font-footer: 'Fira Code', monospace;
-  --font-code: 'Fira Code', monospace;
-}
-
-html, body {
-  font-family: var(--font-body);
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-*:focus:not(ol) {
-  @apply outline-none ring-2 ring-pink-500 ring-opacity-50;
-}
 
 html {
   height: 100%;
@@ -37,30 +14,15 @@ html {
 
 html,
 body {
-  font-family: var(--font-body);
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
   @apply text-zinc-800 bg-white antialiased;
-}
-
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-}
-
-footer, .footer-text {
-  font-family: var(--font-footer);
-}
-
-code, pre, .code, .callout {
-  font-family: var(--font-code);
-}
-
-
-body {
+  font-family: 'Orbitron Variable', sans-serif;
   position: relative;
   min-height: 100%;
   margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Press Start 2P', system-ui;
 }
 
 a {

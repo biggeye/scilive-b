@@ -1,7 +1,9 @@
 'use client';
 import React, { useState, ChangeEvent, FormEvent, useCallback, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { getUserProfile } from '@/lib/userClientSide';
+import { userProfileState } from '@/state/user/user_state-atoms';
+import { useAuth } from '@saas-ui/auth';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
 import { handleGalleryEditSelection } from '@/lib/replicate/handleGalleryEditSelection';
 import { convertToDataURI } from '@/utils/convertToDataURI';
@@ -23,7 +25,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { finalPredictionState, userImageDataUriState, userImagePreviewState, userImageUploadState, predictionErrorState, globalLoadingState } from '@/state/replicate/prediction-atoms';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import { currentUserAvatarUrlState } from '@/state/user/user_state-atoms';
-import { userProfileState } from '@/state/user/user_state-atoms';
 import { currentPageState } from '@/state/user/user_state-atoms'
 // import TYPES
 import { GalleryItem } from '@/types';
@@ -31,6 +32,8 @@ import { GalleryItem } from '@/types';
 const ImageEditor = () => {
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
+  const auth = useAuth();
+  const { profileLoading, profileError } = useUserProfile();
 
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   useEffect(() => {

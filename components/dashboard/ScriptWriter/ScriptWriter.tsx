@@ -2,11 +2,17 @@
 import React, { useState } from 'react';
 import { Grid, GridItem, FormLabel, CardHeader, Heading, Card, Button, Textarea, Box, VStack, HStack, Input, useToast } from '@chakra-ui/react';
 import { Form, FormLayout } from '@saas-ui/react';
-import { useRecoilState } from 'recoil';
+import { userProfileState } from '@/state/user/user_state-atoms';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { useAuth } from '@saas-ui/auth';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 import { voiceoverScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/leap/scriptWriter-atoms';
 
 
 const ScriptWriter = () => {
+  const userProfile = useRecoilValue(userProfileState);
+  const auth = useAuth();
+  const { profileLoading, profileError } = useUserProfile();
   // Ensure initial state is an empty string instead of null
   const [hostName, setHostName] = useRecoilState(hostNameState);
   const [podcastName, setPodcastName] = useRecoilState(podcastNameState);

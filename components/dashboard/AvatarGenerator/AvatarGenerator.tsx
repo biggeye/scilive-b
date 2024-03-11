@@ -1,24 +1,26 @@
 
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
 import { Card, CardHeader, Heading, HStack, Box, Button, CircularProgress, Grid, GridItem, Image, useToast } from '@chakra-ui/react';
 import { FileUploadPreview, FormLayout, Form, Field, FileUpload, FileUploadDropzone, FileUploadTrigger } from '@saas-ui/react'; // Added FileUploadTrigger import
 import { modelIdState, dataset } from '@/state/leap/trainedModel-atoms';
 import { createClient } from '@/utils/supabase/client';
-import { useUserContext } from '@/lib/user/UserProvider';
+import { userProfileState } from '@/state/user/user_state-atoms';
+import { useRecoilValue } from 'recoil';
+import { useAuth } from '@saas-ui/auth';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 
 const AvatarGenerator: React.FC = () => {
   const supabase = createClient();
-
+  const userProfile = useRecoilValue(userProfileState);
+  const auth = useAuth();
+  const { profileLoading, profileError } = useUserProfile();
   const modelId = useRecoilValue(modelIdState);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const toast = useToast();
 
-  const { userProfile } = useUserContext();
-  const userId = userProfile.id;
 
   useEffect(() => {
     const subscription = supabase

@@ -4,7 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Grid, GridItem, Card, CardHeader, Heading, HStack, Text, Box, Button, FormControl, FormLabel, Input, Select, useToast, VStack } from '@chakra-ui/react';
 import { modelIdState, modelTrainingDataState, numberOfImagesState, typeOfModelState, trainingModelNameState } from '@/state/leap/trainedModel-atoms';
-import { useUserContext } from '@/lib/user/UserProvider';
+import { userProfileState } from '@/state/user/user_state-atoms';
+import { useRecoilValue } from 'recoil';
+import { useAuth } from '@saas-ui/auth';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 import { createClient } from '@/utils/supabase/client';
 import { FileUploadTrigger, FileUploadPreview, FileUpload, FileUploadDropzone } from '@saas-ui/file-upload';
 import {
@@ -17,7 +20,9 @@ import {
 
 const AvatarTrainer: React.FC = () => {
   const supabase = createClient();
-  const { userProfile } = useUserContext();
+  const userProfile = useRecoilValue(userProfileState);
+  const auth = useAuth();
+  const { profileLoading, profileError } = useUserProfile();
   const userId = userProfile.id;
   const [modelId, setModelId] = useRecoilState(modelIdState);
   const [modelTrainingData, setModelTrainingData] = useRecoilState(modelTrainingDataState);

@@ -1,8 +1,17 @@
 import { extendTheme } from '@chakra-ui/react';
 import { theme as baseTheme } from '@saas-ui/react';
+import '@fontsource-variable/exo-2';
+import '@fontsource-variable/orbitron';
+import '@fontsource/press-start-2p';
 
 export const sciLiveTheme = extendTheme({
-    ...baseTheme,
+  fonts: {
+    heading: `'Press Start 2P', sans-serif`,
+    body: `'Exo 2 Variable', sans-serif`,
+    code: 'Press Start 2P',
+    systemUi: 'Orbitron Variable',
+  },
+  ...baseTheme,
     colors: {
         ...baseTheme.colors,
         primary: {

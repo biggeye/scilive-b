@@ -4,9 +4,7 @@ import FeaturesSection from '@/components/ui/Features/FeaturesSection';
 const HomePage = () =>  {
   return (
     <Card>
-      <CardHeader>
-        <FeaturesSection />
-      </CardHeader>
+       <FeaturesSection />
       <CardBody>
       <StripeWidget />
       </CardBody>

@@ -1,9 +1,10 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useAuth } from '@saas-ui/auth';
 import { CardBody, Heading, CardHeader, Card, Select, Input, Box, Button, FormControl, FormLabel, Textarea, useToast, VStack, Image, Grid, GridItem, CircularProgress, Checkbox } from '@chakra-ui/react';
 import { avatarNameState, avatarDescriptionState, avatarUrlState, frameStyleState, photoStyleState } from '@/state/leap/avatar-atoms';
-import { getUserProfile } from '@/lib/userClientSide';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { createClient } from '@/utils/supabase/client';
 import {
@@ -17,7 +18,9 @@ import {
 const AvatarCreator: React.FC = () => {
 
   const supabase = createClient();
-
+  const userProfile = useRecoilValue(userProfileState);
+  const auth = useAuth();
+  const { profileLoading, profileError } = useUserProfile();
   const [avatarName, setAvatarName] = useRecoilState(avatarNameState);
   const [avatarDescription, setAvatarDescription] = useRecoilState(avatarDescriptionState);
   const [frameStyle, setFrameStyle] = useRecoilState(frameStyleState);
@@ -30,7 +33,7 @@ const AvatarCreator: React.FC = () => {
 
   const toast = useToast();
 
-  const userProfile = useRecoilValue(userProfileState);
+
 
   useEffect(() => {
     const subscription = supabase

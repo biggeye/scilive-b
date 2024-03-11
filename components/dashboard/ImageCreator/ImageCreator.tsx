@@ -9,7 +9,10 @@ import {
   InputRightAddon,
   useToast,
 } from '@chakra-ui/react';
-import { getUserProfile } from '@/lib/userClientSide';
+import { userProfileState } from '@/state/user/user_state-atoms';
+
+import { useAuth } from '@saas-ui/auth';
+import { useUserProfile } from '@/lib/user/useUserProfile';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import {
@@ -18,7 +21,6 @@ import {
   finalPredictionState,
   globalLoadingState,
 } from '@/state/replicate/prediction-atoms';
-import { userProfileState } from '@/state/user/user_state-atoms';
 import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
 import {
   Form,
@@ -31,6 +33,8 @@ import { currentPageState } from '@/state/user/user_state-atoms';
 const ImageCreator = () => {
   const toast = useToast();
   const userProfile = useRecoilValue(userProfileState);
+  const auth = useAuth();
+  const { profileLoading, profileError } = useUserProfile();
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
