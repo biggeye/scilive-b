@@ -1,85 +1,33 @@
-import React from "react";
-import { useCallback } from "react";
-import { useRecoilState } from "recoil";
-import {
-  currentGroupState,
-  currentIndexState,
-  contentItemsState
-} from "@/state/user/gallery-atoms";
-import {
-  userImageUploadState,
-  userImagePreviewState,
-  userImageDataUriState,
-} from "@/state/replicate/prediction-atoms";
+// galleryLogic.ts
+import { parseGalleryImages } from '@/lib/gallery/getGalleryItems';
+import { ContentItem } from '@/types';
+import { useState, useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
 
-import { handleGalleryEditSelection } from "../replicate/handleGalleryEditSelection";
+export const useGalleryLogic = () => {
+  const [contentItems, setContentItems] = useState<ContentItem[]>([]);
+  const supabase = createClient();
 
-// Import necessary atoms and other hooks
-
-const useGalleryLogic = () => {
-  const [currentGroup, setCurrentGroup] = useRecoilState(currentGroupState);
-  const [currentIndex, setCurrentIndex] = useRecoilState(currentIndexState);
-  const [contentItems, setContentItems] = useRecoilState(contentItemsState);
-  const [userImageUpload, setUserImageUpload] =
-    useRecoilState(userImageUploadState);
-
-
-
-
-  const goToNextGroup = () => {
-    if (currentGroup !== null && currentGroup < contentItems.length - 1) {
-      setCurrentGroup(currentGroup + 1);
-    }
-  };
-
-  const goToPreviousGroup = () => {
-    if (currentGroup !== null && currentGroup > 0) {
-      setCurrentGroup(currentGroup - 1);
-    }
-  };
-
-  const onEdit = useCallback(async (imageUrl: string) => {
-    const result = await handleGalleryEditSelection(imageUrl);
-    if (result) {
-      setUserImageUpload(result.file);
-      setUserImagePreview(result.imagePreview);
-      setUserImageDataUri(result.URI);
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await parseGalleryImages();
+      setContentItems(data.flat()); // Assuming parseGalleryImages returns ContentItem[][]
+    };
+    fetchData();
   }, []);
 
-  const onDelete = async (content_id: string) => {
-    openDeleteConfirmModal(content_id);
+  const handleEdit = (id: string) => {
+    console.log('Edit item with id:', id);
+    // Implement edit logic here
   };
 
-  const onSetProfile = async (url: string) => {
-    setCurrentUserAvatarUrl(url);
-    await supabase.from("users").update({ avatar_url: url }).eq({ id: userId });
+  const handleDelete = async (id: string) => {
+    console.log('Delete item with id:', id);
+    // Implement delete logic here
+    // Example: Remove item from contentItems state after deletion
+    const filteredItems = contentItems.filter(item => item.content_id !== id);
+    setContentItems(filteredItems);
   };
 
-  const openDeleteConfirmModal = (content_id: string) => {
-    setDeletingContent_id(content_id);
-    setIsDeleteConfirmOpen(true);
-  };
-
-  const closeDeleteConfirmModal = () => {
-    setIsDeleteConfirmOpen(false);
-    setDeletingContent_id(null);
-  };
-
-  const confirmDeleteItem = async () => { 
-    if (deletingContent_id) {
-      await handleDelete(deletingContent_id);
-      closeDeleteConfirmModal();
-      refresh();
-    }
-  };
+  return { contentItems, handleEdit, handleDelete };
 };
-return {
-  handleDelete: onDelete,
-  handleEdit: onEdit,
-  handleSetProfile: onSetProfile,
-  // Export other handlers and state variables as needed
-};
-}
-
-export default useGalleryLogic;

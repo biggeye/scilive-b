@@ -29,29 +29,25 @@ import { currentPageState } from '@/state/user/user_state-atoms'
 // import TYPES
 import { GalleryItem } from '@/types';
 
+
 const ImageEditor = () => {
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
   const auth = useAuth();
   const { profileLoading, profileError } = useUserProfile();
-
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   useEffect(() => {
     setCurrentPage("editImage");
   }, [currentPage]);
 
   const imageEditSubmit = useImageCreateSubmit();
-
   // read Global State
   const finalPrediction = useRecoilValue(finalPredictionState);
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
   const globalLoading = useRecoilValue(globalLoadingState);
-
   // Gallery State and Fetching
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-
   // User Input State
   const [userInput, setUserInput] = useState<string>('');
   const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
@@ -84,8 +80,6 @@ const ImageEditor = () => {
 
   return (
     <Box>
-     
-
       <Form onSubmit={handleUserImageEditSubmit}>
         <FormLayout>
 

@@ -81,7 +81,7 @@ const ImageCreator = () => {
               isRequired={true}
             />
             <InputRightAddon>
-              <Button
+              <Button                                 
                 type="submit">
                 Create Image
               </Button>

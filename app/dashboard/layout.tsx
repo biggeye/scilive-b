@@ -1,15 +1,16 @@
-// Corrected /app/dashboard/DashboardLayout.tsx
 'use client'
 import React, { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Box, useToast, CircularProgress } from "@chakra-ui/react";
+import { Box, Button, useToast, CircularProgress } from "@chakra-ui/react";
 import { createClient } from "@/utils/supabase/client";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { ErrorBoundary } from "@saas-ui/react";
 import { userProfileState } from "@/state/user/user_state-atoms";
 import { getUserProfile } from '@/lib/userClientSide';
 import GalleryDrawer from '@/components/GalleryDrawer';
-
+import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
+import { useDisclosure } from '@chakra-ui/react';
+import { ViewIcon } from '@saas-ui/react';
 interface DashboardLayoutProps {
   children: any
 }
@@ -19,6 +20,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const toast = useToast();
   const supabase = createClient();
   const [userProfile, setUserProfile] = useRecoilState(userProfileState);
+
 
   useEffect(() => {
     const handleEvent = (payload: any) => {
@@ -60,7 +62,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     };
   }, [router, toast]);
 
-
+  const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <ErrorBoundary>
       <Box
@@ -69,17 +72,23 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         textAlign="center"
         bgGradient="linear(to-t, white, gray.200, white)"
       >
+        <Button onClick={onOpen} leftIcon={<ViewIcon />} colorScheme="teal" size="sm">
+          open gallery
+        </Button>
         {children}
         <GalleryDrawer
-        items={contentItems.map(item => ({
-          id: item.content_id,
-          url: item.url,
-          title: item.title,
-          prompt: item.prompt,
-        }))}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+          isOpen={isOpen}
+          onClose={onClose}
+          items={contentItems.map(item => ({
+            id: item.content_id,
+            url: item.url,
+            title: item.title,
+            prompt: item.prompt,
+          }))}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+
       </Box>
 
     </ErrorBoundary>

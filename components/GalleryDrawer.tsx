@@ -10,13 +10,25 @@ import {
   ModalContent,
   ModalBody,
   IconButton,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+  Grid,
+  GridItem
 } from '@chakra-ui/react';
+import { ContextMenu,
+ContextMenuItem,
+ContextMenuList,
+ContextMenuTrigger } from '@saas-ui/react';
 import { EditIcon, DeleteIcon } from '@/components/icons';
 
 // Define the props the Gallery component expects
 interface GalleryProps {
   items: {
-    id: string;
+    content_id: string;
     url: string;
     title?: string;
     prompt?: string;
@@ -35,6 +47,7 @@ const GalleryDrawer: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   };
 
   return(
+    
 <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
 <DrawerOverlay />
 <DrawerContent>
@@ -46,8 +59,8 @@ const GalleryDrawer: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
         <ContextMenu key={item.content_id}>
           <ContextMenuTrigger>
             <GridItem cursor="pointer">
-              <Image src={item.url} alt={item.name} boxSize="75px" objectFit="cover" />
-              <Text fontSize="sm" mt={2}>{item.name}</Text>
+              <Image src={item.url} alt={item.title} boxSize="75px" objectFit="cover" />
+              <Text fontSize="sm" mt={2}>{item.title}</Text>
             </GridItem>
           </ContextMenuTrigger>
           <ContextMenuList>
@@ -67,4 +80,4 @@ const GalleryDrawer: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
 </Drawer>
   )
       }
-  export default GalleryDrawer;
+export default GalleryDrawer;
