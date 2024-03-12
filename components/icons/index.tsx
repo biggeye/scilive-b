@@ -2,7 +2,7 @@ import React from 'react';
 import { FaPlay, FaPause } from 'react-icons/fa';
 import { LuMic, LuMicOff } from "react-icons/lu";
 import { MdMenu, MdOutlineDeleteForever, MdEditNote } from "react-icons/md";
-import { MdChevronLeft, MdChevronRight, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { MdCameraRoll, MdChevronLeft, MdChevronRight, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 export const MenuIcon = MdMenu;
 export const EditIcon = MdEditNote;

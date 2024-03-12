@@ -11,6 +11,8 @@ import GalleryDrawer from '@/components/GalleryDrawer';
 import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 import { useDisclosure } from '@chakra-ui/react';
 import { ViewIcon } from '@saas-ui/react';
+import { GalleryIcon } from '@/components/icons';
+
 interface DashboardLayoutProps {
   children: any
 }
@@ -20,7 +22,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const toast = useToast();
   const supabase = createClient();
   const [userProfile, setUserProfile] = useRecoilState(userProfileState);
-
 
   useEffect(() => {
     const handleEvent = (payload: any) => {
@@ -72,15 +73,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         textAlign="center"
         bgGradient="linear(to-t, white, gray.200, white)"
       >
-        <Button onClick={onOpen} leftIcon={<ViewIcon />} colorScheme="teal" size="sm">
-          open gallery
-        </Button>
+        <Button zIndex="500" position="fixed" right="5px" top="100px" onClick={onOpen} leftIcon={<GalleryIcon />} colorScheme="teal" size="sm" />
         {children}
         <GalleryDrawer
           isOpen={isOpen}
           onClose={onClose}
           items={contentItems.map(item => ({
-            id: item.content_id,
+            content_id: item.content_id, // changed 'id' to 'content_id'
             url: item.url,
             title: item.title,
             prompt: item.prompt,

@@ -8,8 +8,9 @@ export const sciLiveTheme = extendTheme({
   fonts: {
     heading: `'Press Start 2P', sans-serif`,
     body: `'Exo 2 Variable', sans-serif`,
-    code: 'Press Start 2P',
-    systemUi: 'Orbitron Variable',
+    div: `'Orbitron Variable'`,
+    code: `'Press Start 2P'`,
+    systemUi: `'Orbitron Variable'`,
   },
   ...baseTheme,
     colors: {

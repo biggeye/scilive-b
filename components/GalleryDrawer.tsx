@@ -19,14 +19,18 @@ import {
   Grid,
   GridItem
 } from '@chakra-ui/react';
-import { ContextMenu,
-ContextMenuItem,
-ContextMenuList,
-ContextMenuTrigger } from '@saas-ui/react';
+import {
+  ContextMenu,
+  ContextMenuItem,
+  ContextMenuList,
+  ContextMenuTrigger
+} from '@saas-ui/react';
 import { EditIcon, DeleteIcon } from '@/components/icons';
 
 // Define the props the Gallery component expects
 interface GalleryProps {
+  isOpen: any;
+  onClose: any;
   items: {
     content_id: string;
     url: string;
@@ -37,47 +41,41 @@ interface GalleryProps {
   onDelete: (id: string) => void;
 }
 
-const GalleryDrawer: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const GalleryDrawer: React.FC<GalleryProps> = ({ isOpen, onClose, items, onEdit, onDelete }) => {
   const [selectedItem, setSelectedItem] = React.useState<string | null>(null);
 
-  const handleSelectItem = (id: string) => {
-    setSelectedItem(id);
-    onOpen();
-  };
+  return (
 
-  return(
-    
-<Drawer placement="right" onClose={onClose} isOpen={isOpen}>
-<DrawerOverlay />
-<DrawerContent>
-  <DrawerCloseButton />
-  <DrawerHeader>Your Gallery</DrawerHeader>
-  <DrawerBody>
-    <Grid templateColumns="repeat(3, 1fr)" gap={4}>
-      {items.map((item) => (
-        <ContextMenu key={item.content_id}>
-          <ContextMenuTrigger>
-            <GridItem cursor="pointer">
-              <Image src={item.url} alt={item.title} boxSize="75px" objectFit="cover" />
-              <Text fontSize="sm" mt={2}>{item.title}</Text>
-            </GridItem>
-          </ContextMenuTrigger>
-          <ContextMenuList>
-            <ContextMenuItem onClick={() => onEdit(item.url)}>Edit</ContextMenuItem>
-            <ContextMenuItem onClick={() => onDelete(item.content_id)}>Delete</ContextMenuItem>
+    <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton />
+        <DrawerHeader>Your Gallery</DrawerHeader>
+        <DrawerBody>
+          <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+            {items.map((item) => (
+              <ContextMenu key={item.content_id}>
+                <ContextMenuTrigger>
+                  <GridItem cursor="pointer">
+                    <Image src={item.url} alt={item.title} boxSize="75px" objectFit="cover" />
+                    <Text fontSize="sm" mt={2}>{item.title}</Text>
+                  </GridItem>
+                </ContextMenuTrigger>
+                <ContextMenuList>
+                  <ContextMenuItem onClick={() => onEdit(item.url)}>Edit</ContextMenuItem>
+                  <ContextMenuItem onClick={() => onDelete(item.content_id)}>Delete</ContextMenuItem>
 
-          </ContextMenuList>
-        </ContextMenu>
-      ))}
+                </ContextMenuList>
+              </ContextMenu>
+            ))}
 
 
-    </Grid>
+          </Grid>
 
 
-  </DrawerBody>
-</DrawerContent>
-</Drawer>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   )
-      }
+}
 export default GalleryDrawer;

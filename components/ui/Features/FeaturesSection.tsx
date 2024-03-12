@@ -1,6 +1,5 @@
 'use client'
 import React from 'react';
-import { Parallax } from 'react-scroll-parallax';
 import {
   Box,
   Card,
@@ -40,15 +39,15 @@ const features = [
 ]
 
 const FeaturesSection = () => {
-  return(
-  <Container maxW="container.xl" py={10} className="fade-in-from-top">
-    <VStack spacing={5}>
-      <Heading as="h2" size="xl" textAlign="center">
-    AI for today
-      </Heading>
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
-      {features.map((feature, index) => (
-         
+  return (
+    <Container maxW="container.xl" py={10} className="fade-in-from-top">
+      <VStack spacing={5}>
+        <Heading as="h2" size="xl" textAlign="center">
+          AI for today
+        </Heading>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+          {features.map((feature, index) => (
+
             <FeatureCard
               key={feature.title}
               title={feature.title}
@@ -56,10 +55,10 @@ const FeaturesSection = () => {
               imgSrc={feature.imgSrc}
             />
 
-        ))}
-      </SimpleGrid>
-    </VStack>
-  </Container>
+          ))}
+        </SimpleGrid>
+      </VStack>
+    </Container>
   )
 };
 export default FeaturesSection;

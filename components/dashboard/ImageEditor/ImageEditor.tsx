@@ -53,6 +53,7 @@ const ImageEditor = () => {
   const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
   const [userImageUpload, setUserImageUpload] = useRecoilState(userImageUploadState);
   const [userImageDataUri, setUserImageDataUri] = useRecoilState(userImageDataUriState);
+  
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
@@ -111,10 +112,7 @@ const ImageEditor = () => {
               </FileUploadDropzone>
             )}
           </FileUpload>
-          <Button onClick={onOpen} leftIcon={<ViewIcon />} colorScheme="teal" size="sm">
-            open gallery
-          </Button>
-          <InputGroup>
+              <InputGroup>
             <Input
               value={userInput}
               onChange={handleInputChange}

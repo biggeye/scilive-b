@@ -88,7 +88,8 @@ const ScriptWriter = () => {
   return (
     <Grid templateAreas={`"topCard"
                          "bottomCard"`}
-      templateRows="2">
+      templateRows="2"
+      >
       <GridItem area="topCard">
         <Card
           className="image-card"
@@ -125,7 +126,7 @@ const ScriptWriter = () => {
                 placeholder="Enter the web article URL here"
               />
               <Button
-    
+
                 type="submit"
               >
                 Fetch Script
@@ -146,7 +147,7 @@ const ScriptWriter = () => {
             isDisabled={!isTextareaEnabled}
           />
           <Button
-           
+
             onClick={generateVoiceover}
             isDisabled={!isTextareaEnabled} // Disable the update button until the script is fetched
           >
@@ -155,8 +156,8 @@ const ScriptWriter = () => {
         </Card>
       </GridItem>
 
-</Grid>
-      );
+    </Grid>
+  );
 };
 
-      export default ScriptWriter;
+export default ScriptWriter;

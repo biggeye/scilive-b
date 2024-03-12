@@ -1,11 +1,14 @@
-// galleryLogic.ts
+'use client'
 import { parseGalleryImages } from '@/lib/gallery/getGalleryItems';
 import { ContentItem } from '@/types';
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import { useRecoilState } from 'recoil';
+import { userImagePreviewState } from '@/state/replicate/prediction-atoms'
 
 export const useGalleryLogic = () => {
   const [contentItems, setContentItems] = useState<ContentItem[]>([]);
+  const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
   const supabase = createClient();
 
   useEffect(() => {
@@ -18,7 +21,7 @@ export const useGalleryLogic = () => {
 
   const handleEdit = (id: string) => {
     console.log('Edit item with id:', id);
-    // Implement edit logic here
+    setUserImagePreview(id);
   };
 
   const handleDelete = async (id: string) => {

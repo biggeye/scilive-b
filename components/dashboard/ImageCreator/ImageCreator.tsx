@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -27,6 +26,7 @@ import {
   FormLayout,
   DisplayIf,
   SubmitButton,
+  Field,
 } from '@saas-ui/react';
 import { currentPageState } from '@/state/user/user_state-atoms';
 
@@ -70,19 +70,17 @@ const ImageCreator = () => {
 
   return (
     <Box width="100%">
-      <Form onSubmit={handleSubmit}>
-            <Field
-            type="input"
-              value={userInput}
-              onChange={handleInputChange}
-              isRequired={true}
-            />
-       
-              <Button type="submit">
-                Create Image
-              </Button>
-         
-      </Form>
+      <InputGroup>
+      <Input
+        value={userInput}
+        onChange={handleInputChange}
+      />
+      <InputRightAddon>
+      <Button type="submit">
+        Create Image
+      </Button>
+      </InputRightAddon>
+      </InputGroup>
     </Box>
   );
 };

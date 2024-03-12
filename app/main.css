@@ -15,11 +15,13 @@ html {
 html,
 body {
   @apply text-zinc-800 bg-white antialiased;
-  font-family: 'Orbitron Variable', sans-serif;
   position: relative;
   min-height: 100%;
   margin: 0;
 }
+
+div {
+  font-family:'Exo 2', sans-serif}
 
 h1, h2, h3 {
   font-family: 'Press Start 2P', system-ui;
