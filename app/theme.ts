@@ -24,33 +24,28 @@ export const sciLiveTheme = extendTheme({
             "600": "#2d6da3",
             "700": "#245883",
             "800": "#1f4a6f",
-            "900": "#163650"
+            "900": "#163650",
         },
     },
-    components: {
-      Input: {
-        baseStyle: {
-          field: {
-            _focus: {
-              borderColor: 'gray.800'
-            },
-          },
+
+  components: {
+    ...baseTheme.components,
+    Button: {
+      baseStyle: ({
+        _focus: {
+          boxShadow: `0 0 0 3px black`
+        },
+        _hover: {
+          borderColor: 'gray.800', // Adjust to match the primary color in your theme
+        },
+      })
+    },
+    Box: {
+      baseStyle: {
+        _hover: {
+          borderColor: 'gray.800', // Adjust to match the primary color in your theme
         },
       },
-        ...baseTheme.components,
-        Button: {
-          baseStyle: {
-            _hover: {
-              borderColor: 'primary.500', // Adjust to match the primary color in your theme
-            },
-          },
-        },
-        Box: {
-          baseStyle: {
-            _hover: {
-              borderColor: 'primary.500', // Adjust to match the primary color in your theme
-            },
-          },
-        },
-      }
-    })
+    },
+  }
+})

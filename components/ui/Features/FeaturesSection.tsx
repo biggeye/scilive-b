@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import { Parallax } from 'react-scroll-parallax';
 import {
   Box,
   Card,
@@ -46,13 +47,15 @@ const FeaturesSection = () => {
     AI for today
       </Heading>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
-        {features.map((feature) => (
-          <FeatureCard
-            key={feature.title}
-            title={feature.title}
-            text={feature.text}
-            imgSrc={feature.imgSrc}
-          />
+      {features.map((feature, index) => (
+         
+            <FeatureCard
+              key={feature.title}
+              title={feature.title}
+              text={feature.text}
+              imgSrc={feature.imgSrc}
+            />
+
         ))}
       </SimpleGrid>
     </VStack>
