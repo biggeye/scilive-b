@@ -1,69 +1,45 @@
 import Logo from '@/components/utils/Logo'
-import { Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
+import { Grid, VStack, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
+import { useSnackbar } from '@saas-ui/react'
 import { Auth } from '@saas-ui/auth'
-import { github, google } from '@/components/icons/UI'
-import { Snackbar } from '@saas-ui/react'
-import { useRouter } from 'next/navigation'
-
-export default function AuthPage() {
-  const snackbar = Snackbar;
-  const router = useRouter();
-  
+import { Flex } from '@chakra-ui/react'
 
 const getAbsoluteUrl = (path: string) => {
   if (typeof window === 'undefined') {
-    return path;
+    return path
   }
-  return window.location.origin;
-};
+  return window.location.origin
+}
 
+export default function AuthPage() {
   return (
-    <Grid gridTemplateRows="2">
-      <GridItem>
-        <Box width="100vw" height="30%" />
-              </GridItem>
-      <GridItem>
-    <Box mt={5} maxW="100%" display="flex" flexDirection="row">
-      <Spacer />
-    <Card>
+    <VStack>
+    <Flex display="row">
+    <Spacer />
+    <Card w="350px" flex="1" maxW="400px">
       <CardHeader display="flex" alignItems="center" justifyContent="center">
         <Logo height="200px" width="200px" />
       </CardHeader>
       <CardBody>
-      <Auth
+       
+        <Auth
+          view="signup"
           providers={{
             github: {
-          
-              name: 'Github'
+        
+              name: 'Github',
             },
             google: {
-          
-              name: 'Google'
-            },
-            facebook: {
-       
-              name: 'Facebook'
+              name: 'Google',
             }
           }}
-          onSuccess={(view, error) => {
-            if (view === 'login') {
-         
-              router.push('/dashboard')
-            }
-          }}
-          onError={(view, error) => {
-            if (view === 'login' && error) {
-   
-            }
-          }}
-          redirectUrl={getAbsoluteUrl('/dashboard')}
-        
+          redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/dashboard`}
         />
+       
       </CardBody>
     </Card>
     <Spacer />
-    </Box>
-    </GridItem>
-    </Grid>
+        </Flex>
+</VStack>
   )
 }

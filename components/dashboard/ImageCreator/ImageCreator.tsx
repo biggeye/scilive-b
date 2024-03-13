@@ -69,7 +69,7 @@ const ImageCreator = () => {
   };
 
   return (
-    <Box width="100%" p="7px" bgGradient="Linear(to-tr, transparent, primary.50, transparent, primary.800)">
+    <Box width="98vw" p="7px" bgGradient="linear(to-t, primary.300, transparent">
       <InputGroup>
       <Input
         value={userInput}
