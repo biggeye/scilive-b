@@ -4,14 +4,13 @@ import {
   Box,
   Heading,
 } from '@chakra-ui/react';
-import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
+import { Parallax } from 'react-scroll-parallax';
 
 const placeholderImages = {
   transform: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/transform.png`,
   inspire: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/inspire.png`,
   activate: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/activate2.png`,
 };
-
 const headings = [
   { title: "AI-powered", bg: '' },
   { title: "Creative Suite", bg: placeholderImages.activate },
@@ -19,15 +18,12 @@ const headings = [
   { title: "transform", bg: placeholderImages.transform },
   { title: "inspire", bg: placeholderImages.inspire },
 ];
-
 const FeaturesSection = () => {
   return (
-    <ParallaxProvider>
-      {
-        headings.map((heading, index) => (
+      {headings.map((heading: any, index: any) => (
           <div key={index}>
-   
               <Box
+                ref={parallax as {React.RefObject}}
                 bgImage={`url(${heading.bg})`}
                 bgPosition="center"
                 bgRepeat="no-repeat"
@@ -37,15 +33,11 @@ const FeaturesSection = () => {
                 alignItems="center"
                 position="relative"
               />
-        
-        
               <Heading>
                 {heading.title}
               </Heading>
         </div>
-        ))
-      }
-    </ParallaxProvider>
+        ))}
   );
 };
 
