@@ -2,18 +2,14 @@
 import React from 'react';
 import StripeWidget from '@/components/ui/Pricing/StripeWidget';
 import FeaturesSection from '@/components/ui/Features/FeaturesSection';
-import {Grid, GridItem } from '@chakra-ui/react';
+import {VStack } from '@chakra-ui/react';
 
 const HomePage = () => {
   return (
-    <Grid>
-      <GridItem>
+   <VStack>
         <FeaturesSection />
-      </GridItem>
-      <GridItem>
         <StripeWidget />
-      </GridItem>
-    </Grid>
+    </VStack>
   )
 }
 export default HomePage;

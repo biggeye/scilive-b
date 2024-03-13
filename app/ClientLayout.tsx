@@ -28,6 +28,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
           <AppShell
             h="100vh" variant="static"
             bgGradient="linear(to-t, primary.100, transparent)"
+            overflowX="hidden"
             >
             {children}
           </AppShell>

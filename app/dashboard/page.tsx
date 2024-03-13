@@ -15,7 +15,6 @@ const DashboardPage = () => {
 
   const renderTabs = () => (
     <Tabs
-      zIndex="100"
       fontSize={{ base: "sm", md: "md" }}
       variant="enclosed-colored"
     >
@@ -59,7 +58,6 @@ const DashboardPage = () => {
   const renderGrid = () => (
 
     <Grid
-     zIndex="100"
     >
       <GridItem area="createDisplay">
         <DisplayResults localPage="createImage" />

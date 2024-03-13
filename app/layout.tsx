@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body>
+      <body overflow-x="hidden">
         <ClientLayout>
         {children}
         </ClientLayout>
