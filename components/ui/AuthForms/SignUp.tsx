@@ -4,7 +4,6 @@ import { Card, CardHeader, CardBody } from '@chakra-ui/react';
 import { Auth } from '@saas-ui/auth';
 import { useSnackbar } from '@saas-ui/react';
 import Logo from '@/components/icons/Logo';
-import { facebook, github, google } from '@/components/icons/Icons';
 import { useRouter } from 'next/navigation';
 
 
@@ -27,15 +26,15 @@ const SignUp: React.FC = () => {
         <Auth
           providers={{
             github: {
-              icon: github,
+          
               name: 'Github'
             },
             google: {
-              icon: google,
+          
               name: 'Google'
             },
             facebook: {
-              icon: facebook,
+       
               name: 'Facebook'
             }
           }}
