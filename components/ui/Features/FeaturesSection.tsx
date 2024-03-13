@@ -42,9 +42,9 @@ const FeaturesSection = () => {
   return (
     <Container maxW="container.xl" py={10} className="fade-in-from-top">
       <VStack spacing={5}>
-        <Heading as="h2" size="xl" textAlign="center">
+        <h2>
           AI for today
-        </Heading>
+        </h2>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
           {features.map((feature, index) => (
 
