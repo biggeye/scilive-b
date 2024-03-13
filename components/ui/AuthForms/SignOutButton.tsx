@@ -30,7 +30,9 @@ export default function SignOutButton() {
 
     type="submit"
     onClick={handleSignOut}>
+<h3>
       Sign Out
+</h3>
     </Button>
   )
 }
