@@ -16,6 +16,7 @@
     "@fontsource-variable/exo-2": "^5.0.18",
     "@fontsource-variable/orbitron": "^5.0.18",
     "@fontsource/press-start-2p": "^5.0.19",
+    "@fontsource-variable/antonio': "latest",
     "@leap-ai/workflows": "^1.1.0",
     "@radix-ui/react-toast": "^1.1.5",
     "@saas-ui/auth": "^3.0.3",
@@ -68,7 +69,7 @@
     "typescript": "^5.3.3"
   },
   "name": "scilive-alpha-main",
-  "version": "0.5.0b",
+  "version": "0.5.5b",
   "description": "suite of tools leveraging generative models to maximize creative output",
   "main": "layout.tsx",
   "repository": "https://github.com/biggeye/scilive-beta-pre.git",
