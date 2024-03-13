@@ -113,7 +113,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <ErrorBoundary>
       {!isOpen && (
-        <VStack align="flex-start" position="fixed" left="0" top="20%" spacing={4}>
+        <VStack 
+           bgGradient="linear(to-t, primary.100, transparent)"
+           align="flex-start" position="fixed" left="0" top="20%" spacing={4}>
           <NavLinkButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
           <NavLinkButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
           <NavLinkButton icon={<VoiceoverIcon />} label="Clone Voice" href="/dashboard/clone-voice" />
@@ -122,11 +124,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         </VStack>
       )}
       <Button zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
-      <NavbarAlpha />
-      <Box zIndex="-100" bgGradient="linear(to-t, primary.100, transparent)">
+  
+      
         
       {children}
-      </Box>
+    
       <GalleryDrawer
         isOpen={isOpen}
         onClose={onClose}
