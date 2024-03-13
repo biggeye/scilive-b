@@ -2,9 +2,21 @@ import Logo from '@/components/utils/Logo'
 import { Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
 import { github, google } from '@/components/icons/UI'
-import SignUp from '@/components/ui/AuthForms/SignUp'
+import { Snackbar } from '@saas-ui/react'
+import { useRouter } from 'next/navigation'
 
 export default function AuthPage() {
+  const snackbar = Snackbar;
+  const router = useRouter();
+  
+
+const getAbsoluteUrl = (path: string) => {
+  if (typeof window === 'undefined') {
+    return path;
+  }
+  return window.location.origin;
+};
+
   return (
     <Grid gridTemplateRows="2">
       <GridItem>
@@ -18,7 +30,35 @@ export default function AuthPage() {
         <Logo height="200px" width="200px" />
       </CardHeader>
       <CardBody>
-     <SignUp />
+      <Auth
+          providers={{
+            github: {
+          
+              name: 'Github'
+            },
+            google: {
+          
+              name: 'Google'
+            },
+            facebook: {
+       
+              name: 'Facebook'
+            }
+          }}
+          onSuccess={(view, error) => {
+            if (view === 'login') {
+         
+              router.push('/dashboard')
+            }
+          }}
+          onError={(view, error) => {
+            if (view === 'login' && error) {
+   
+            }
+          }}
+          redirectUrl={getAbsoluteUrl('/dashboard')}
+        
+        />
       </CardBody>
     </Card>
     <Spacer />
