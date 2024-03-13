@@ -24,9 +24,16 @@ div {
   font-family: 'Antonio Variable', sans-serif;
 }
 
-h1, h2, h3 {
+h3 {
+  font-family: 'Press Start 2P', sans-serif;
+
+h1, h2 {
   font-family: 'Press Start 2P', system-ui;
 }
+
+p {
+  font-family: 'Exo 2 
+  }
 
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
