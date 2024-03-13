@@ -12,6 +12,7 @@ import { sciLiveTheme } from './theme';
 import '@fontsource-variable/exo-2';
 import '@fontsource-variable/orbitron';
 import '@fontsource/press-start-2p';
+import '@fontsource-variable/antonio';
 import { ClientLayoutProps } from '@/types';
 
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
