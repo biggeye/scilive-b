@@ -123,6 +123,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           {/* Add additional buttons as needed */}
         </VStack>
       )}
+        <NavbarAlpha />
       <Button zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
   
       
