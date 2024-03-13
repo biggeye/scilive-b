@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const payload = {
       version,
       input: { prompt, image },
-      webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}`
+      webhook: `https://scilive.cloud/api/replicate/webhook/${user_id}`
     };
     // Further code to use the payload
 

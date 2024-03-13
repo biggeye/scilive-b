@@ -8,11 +8,9 @@ import {
   InputRightAddon,
   useToast,
 } from '@chakra-ui/react';
-import { userProfileState } from '@/state/user/user_state-atoms';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
-import { useRecoilValue, useRecoilState } from 'recoil';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import {
   predictionProgressState,
@@ -21,14 +19,7 @@ import {
   globalLoadingState,
 } from '@/state/replicate/prediction-atoms';
 import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
-import {
-  Form,
-  FormLayout,
-  DisplayIf,
-  SubmitButton,
-  Field,
-} from '@saas-ui/react';
-import { currentPageState } from '@/state/user/user_state-atoms';
+import { userProfileState, currentPageState } from '@/state/user/user_state-atoms';
 
 const ImageCreator = () => {
   const toast = useToast();
@@ -37,22 +28,24 @@ const ImageCreator = () => {
   const { profileLoading, profileError } = useUserProfile();
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
-  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
+  const setGlobalLoading = useSetRecoilState(globalLoadingState);
   const [userInput, setUserInput] = useState<string>('');
   const imageCreateSubmit = useImageCreateSubmit();
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+  const setCurrentPage = useSetRecoilState(currentPageState);
 
   useEffect(() => {
     setCurrentPage('createImage');
-  }, [currentPage]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUserInput(e.target.value);
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setGlobalLoading(true);
     if (!modelId || !userProfile?.id) {
       console.error('No model selected or user not found');
+      setGlobalLoading(false);
       return;
     }
     const prediction_id = await imageCreateSubmit(userInput);
@@ -70,17 +63,19 @@ const ImageCreator = () => {
 
   return (
     <Box width="98vw" p="7px" bgGradient="linear(to-t, primary.300, transparent">
-      <InputGroup>
-      <Input
-        value={userInput}
-        onChange={handleInputChange}
-      />
-      <InputRightAddon>
-      <Button type="submit">
-        Create Image
-      </Button>
-      </InputRightAddon>
-      </InputGroup>
+      <form onSubmit={handleSubmit}>
+        <InputGroup>
+          <Input
+            value={userInput}
+            onChange={handleInputChange}
+          />
+          <InputRightAddon>
+            <Button type="submit">
+              Create Image
+            </Button>
+          </InputRightAddon>
+        </InputGroup>
+      </form>
     </Box>
   );
 };

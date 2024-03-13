@@ -30,6 +30,10 @@ export const globalLoadingState = atom<boolean>({
   key: 'globalLoadingState',
   default: false,
 });
+export const predictionPendingState = atom<boolean>({
+  key: 'predictionPendingState',
+  default: false,
+})
 export const cancelRunningPredictionState = atom<string | null>({
   key: 'cancelRuningPredictionState',
   default: null,

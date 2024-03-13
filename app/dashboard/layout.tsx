@@ -115,7 +115,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       {!isOpen && (
         <VStack 
            bgGradient="linear(to-t, primary.100, transparent)"
-           align="flex-start" position="fixed" left="0" top="30%" spacing={4}>
+           align="flex-start" position="fixed" left="0" top="30%" spacing={4} zIndex="sticky">
           <NavLinkButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
           <NavLinkButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
           <NavLinkButton icon={<VoiceoverIcon />} label="Clone Voice" href="/dashboard/clone-voice" />

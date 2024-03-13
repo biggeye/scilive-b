@@ -31,9 +31,12 @@ import { GalleryItem } from '@/types';
 
 
 const ImageEditor = () => {
+  const auth = useAuth();
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
-  const auth = useAuth();
+  
+  const userId = userProfile?.id;
+
   const { profileLoading, profileError } = useUserProfile();
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   useEffect(() => {
