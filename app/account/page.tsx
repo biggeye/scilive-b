@@ -5,7 +5,7 @@ import NameForm from '@/components/ui/AccountForms/NameForm';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import GalleryImageTable from '@/components/ui/ContentTables/GalleryImageTable';
-
+import { Link } from '@chakra-ui/react';
 export default async function Account() {
   const supabase = createClient();
 
@@ -45,10 +45,12 @@ export default async function Account() {
         </div>
       </div>
       <div className="p-4">
+        <Link position="absolute" top="5px" href="/dashboard">Return to Site</Link>
         <CustomerPortalForm subscription={subscription} />
         <NameForm userName={userDetails?.full_name ?? ''} />
         <EmailForm userEmail={user.email} />
         <GalleryImageTable />
+      
       </div>
     </div>
   );

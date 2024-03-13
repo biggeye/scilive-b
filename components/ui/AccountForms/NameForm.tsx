@@ -1,25 +1,44 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
+import { Box, Flex, Text, Input, useToast } from '@chakra-ui/react';
 import Button from '@/components/ui/SaasButton';
 import Card from '@/components/ui/SaasCard';
 import { updateName } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-
-export default function NameForm({ userName }: { userName: string }) {
+export default function NameForm({ userName, userEmail }: { userName: string, userEmail: string }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsSubmitting(true);
     // Check if the new name is the same as the old name
     if (e.currentTarget.fullName.value === userName) {
-      e.preventDefault();
       setIsSubmitting(false);
       return;
     }
-    handleRequest(e, updateName, router);
+    await handleRequest(e, updateName, router);
+    setIsSubmitting(false);
+  };
+
+  const onEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    if (e.currentTarget.newEmail.value === userEmail) {
+      toast({
+        title: "Email update",
+        description: "The new email is the same as the old email",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+    // updateEmail function needs to be defined
+    // await handleRequest(e, updateEmail, router);
     setIsSubmitting(false);
   };
 
@@ -28,31 +47,51 @@ export default function NameForm({ userName }: { userName: string }) {
       title="Your Name"
       description="Please enter your full name, or a display name you are comfortable with."
       footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">64 characters maximum</p>
+        <Flex direction="column" align="start" justify="between" className="sm:flex-row sm:items-center">
+          <Text className="pb-4 sm:pb-0">64 characters maximum</Text>
           <Button
             variant="slim"
             type="submit"
             form="nameForm"
-            loading={isSubmitting}
           >
             Update Name
           </Button>
-        </div>
+        </Flex>
       }
     >
-      <div className="mt-8 mb-4 text-xl font-semibold">
-        <form id="nameForm" onSubmit={(e) => handleSubmit(e)}>
-          <input
+      <Box mt={2} mb={1}>
+        <form id="nameForm" onSubmit={handleSubmit}>
+          <Input
             type="text"
             name="fullName"
-            className="w-1/2 p-3 rounded-md bg-zinc-800"
             defaultValue={userName}
             placeholder="Your name"
             maxLength={64}
           />
         </form>
-      </div>
+        <Flex direction="column" align="start" justify="between" className="sm:flex-row sm:items-center">
+          <Text>Please enter the email address you want to use to login.</Text>
+          <form id="emailForm" onSubmit={onEmailSubmit}>
+            <Input
+              type="email"
+              name="newEmail"
+              defaultValue={userEmail}
+              placeholder="Your email"
+              maxLength={64}
+              mt={8}
+              mb={4}
+            />
+            <Button
+              type="submit"
+              form="emailForm"
+                 mt={4}
+            >
+              Update Email
+            </Button>
+          </form>
+          <Text mt={4}>We will email you to verify the change.</Text>
+        </Flex>
+      </Box>
     </Card>
   );
 }

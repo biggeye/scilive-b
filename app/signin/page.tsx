@@ -18,6 +18,7 @@ export default function AuthPage() {
       </CardHeader>
       <CardBody>
       <Auth
+      redirectUrl="http://localhost:3003/auth/callback"
           providers={{
             github: {
               name: 'Github',

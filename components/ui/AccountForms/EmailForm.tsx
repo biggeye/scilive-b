@@ -1,64 +1,63 @@
-'use client';
-import React from 'react';
-import Button from '@/components/ui/SaasButton';
-import Card from '@/components/ui/SaasCard';
-import { updateEmail } from '@/utils/auth-helpers/server';
-import { handleRequest } from '@/utils/auth-helpers/client';
+'use client'
+import { Button, Card, Flex, Input, Box, Text, useToast } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function EmailForm({
-  userEmail
-}: {
-  userEmail: string | undefined;
-}) {
+export default function EmailForm({ userEmail }: { userEmail: string | undefined; }) {
+  const { register, handleSubmit } = useForm();
   const router = useRouter();
+  const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (data: any) => {
     setIsSubmitting(true);
-    // Check if the new email is the same as the old email
-    if (e.currentTarget.newEmail.value === userEmail) {
-      e.preventDefault();
+    if (data.newEmail === userEmail) {
+      toast({
+        title: "Email update",
+        description: "The new email is the same as the old email",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
       setIsSubmitting(false);
       return;
     }
-    handleRequest(e, updateEmail, router);
+    // updateEmail function needs to be defined
+    // handleRequest(e, updateEmail, router);
     setIsSubmitting(false);
   };
 
   return (
     <Card
-      title="Your Email"
-      description="Please enter the email address you want to use to login."
-      footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">
-            We will email you to verify the change.
-          </p>
-          <Button
-            variant="slim"
-            type="submit"
-            form="emailForm"
-            loading={isSubmitting}
-          >
-            Update Email
-          </Button>
-        </div>
-      }
+    title="Your Name"
+    description="Please enter your full name, or a display name you are comfortable with."
     >
-      <div className="mt-8 mb-4 text-xl font-semibold">
-        <form id="emailForm" onSubmit={(e) => handleSubmit(e)}>
-          <input
-            type="text"
-            name="newEmail"
-            className="w-1/2 p-3 rounded-md bg-zinc-800"
-            defaultValue={userEmail ?? ''}
-            placeholder="Your email"
-            maxLength={64}
-          />
-        </form>
-      </div>
+      <Flex direction="column" align="start" justify="between" className="sm:flex-row sm:items-center">
+      <Text>Please enter the email address you want to use to login.</Text>
+      <form id="emailForm" onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          type="text"
+          name="newEmail"
+          
+          value={userEmail ?? ''}
+          placeholder="Your email"
+          maxLength={64}
+          mt={8}
+          mb={4}
+        />
+        <Button
+          variant="outline"
+          type="submit"
+          form="emailForm"
+          isLoading={isSubmitting}
+          mt={4}
+        >
+          Update Email
+        </Button>
+      </form>
+      <Text mt={4}>We will email you to verify the change.</Text>
+      </Flex>
     </Card>
   );
 }
