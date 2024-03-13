@@ -1,5 +1,5 @@
 import Logo from '@/components/utils/Logo'
-import { Grid, GridItem, Spacer, Box, Card, CardHeader, CardBody } from '@chakra-ui/react'
+import { Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
 import { github, google } from '@/components/icons/UI'
 
@@ -18,8 +18,9 @@ export default function AuthPage() {
       </CardHeader>
       <CardBody>
       <Auth
-      redirectUrl="http://localhost:3003/auth/callback"
-          providers={{
+      redirectUrl="https://scilive.cloud/auth/callback"
+         providers={{
+
             github: {
               name: 'Github',
             },
