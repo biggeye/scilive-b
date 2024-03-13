@@ -22,14 +22,13 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
     <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
-             <AppShell
-            h="100vh" w="100vw" variant="static"
+          <AppShell
+            h="100vh" variant="static"
+            bgGradient="linear(to-t, primary.100, transparent)"
             navbar={<NavbarAlpha />}>
-                <Box as="main" w="100vw">
-                  {children}
-                </Box>
-            </AppShell>
-           </RecoilRoot>
+            {children}
+          </AppShell>
+        </RecoilRoot>
       </AuthProvider>
     </SaasProvider>
   );

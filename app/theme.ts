@@ -13,40 +13,23 @@ export const sciLiveTheme = extendTheme({
     systemUi: `'Orbitron Variable'`,
   },
   ...baseTheme,
-    colors: {
-        ...baseTheme.colors,
-        primary: {
-            "50": "#f3f8fc",
-            "100": "#d0e3f3",
-            "200": "#a6cae8",
-            "300": "#73abda",
-            "400": "#569ad3",
-            "500": "#3581c1",
-            "600": "#2d6da3",
-            "700": "#245883",
-            "800": "#1f4a6f",
-            "900": "#163650",
-        },
+  colors: {
+    ...baseTheme.colors,
+    primary: {
+      "50": "#f2f2f2", // Lightest gray
+      "100": "#d9d9d9", // Lighter gray
+      "200": "#bfbfbf", // Light gray
+      "300": "#a6a6a6", // Gray
+      "400": "#8c8c8c", // Medium gray
+      "500": "#737373", // Default gray
+      "600": "#595959", // Dark gray
+      "700": "#404040", // Darker gray
+      "800": "#262626", // Very dark gray
+      "900": "#0d0d0d", // Darkest gray (almost black)
     },
-
-  components: {
-    ...baseTheme.components,
-    Button: {
-      baseStyle: ({
-        _focus: {
-          boxShadow: `0 0 0 3px black`
-        },
-        _hover: {
-          borderColor: 'gray.800', // Adjust to match the primary color in your theme
-        },
-      })
+    accent: {
+      blue: "#245883", // Deep blue, could be used for highlights
+      orange: "#d35400", // Deep orange, could be used for call-to-action or important elements
     },
-    Box: {
-      baseStyle: {
-        _hover: {
-          borderColor: 'gray.800', // Adjust to match the primary color in your theme
-        },
-      },
-    },
-  }
-})
+  },
+});

@@ -17,8 +17,12 @@ const AvatarCreatorPage = () => {
             <Skeleton height="400px"
                 width="400px"
                 className="element-pulse" />}>
-                    <AvatarCreator />
-        </Suspense>
+                    <Grid>
+                        <GridItem>
+                            <AvatarCreator />
+                        </GridItem>
+                    </Grid>
+                          </Suspense>
     )
 }
 

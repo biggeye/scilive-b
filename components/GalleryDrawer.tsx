@@ -25,7 +25,7 @@ import {
   ContextMenuList,
   ContextMenuTrigger
 } from '@saas-ui/react';
-import { EditIcon, DeleteIcon } from '@/components/icons';
+import { EditIcon, DeleteIcon } from '@/components/icons/UI';
 
 // Define the props the Gallery component expects
 interface GalleryProps {

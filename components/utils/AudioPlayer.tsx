@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { PlayIcon, PauseIcon } from '@/components/icons'; // Adjust the path as necessary
+import { PlayIcon, PauseIcon } from '@/components/icons/UI'; // Adjust the path as necessary
 
 interface AudioPlayerProps {
   src: string;

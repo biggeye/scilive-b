@@ -5,8 +5,8 @@ import { GalleryImage, GalleryScript } from '@/types';
 const supabase = createClient();
 
 export async function fetchGalleryImages(): Promise<GalleryImage[]> {
-   try {
-        const { data, error } = await supabase.from('master_content').select('content_id, url, prompt');
+    try {
+        const { data, error } = await supabase.from('master_content').select('content_id, url, prompt, created_at');
         if (error) throw error;
         return data;
     } catch (error) {

@@ -167,7 +167,7 @@ const AvatarTrainer: React.FC = () => {
                 </Select>
               </FormControl>
 
-              <Button type="submit" colorScheme="blue" size="lg" width="full" isLoading={isLoading}>
+              <Button type="submit" size="lg" width="full" isLoading={isLoading}>
                 Train Model
               </Button>
             </VStack>

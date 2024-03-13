@@ -22,9 +22,18 @@ import {
     MenuGroup,
     MenuDivider,
 } from '@chakra-ui/react';
+import {
+    ImageIcon,
+    EditIcon,
+    VoiceoverIcon,
+    AddIcon,
+    PhotosIcon,
+    SettingsIcon,
+    // Assuming MdScript and MdTraining are imported and exported correctly elsewhere in your code
+} from '@/components/icons/UI';
 import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent } from '@saas-ui/react';
 import Logo from '@/components/utils/Logo';
-import SignOut from './ui/AuthForms/SignOut';
+import SignOutButton from './ui/AuthForms/SignOutButton';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
@@ -34,13 +43,15 @@ import { useUserProfile } from '@/lib/user/useUserProfile';
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
     const userProfile = useRecoilValue(userProfileState);
-    const auth = useAuth();
     const { profileLoading, profileError } = useUserProfile();
+    const auth = useAuth();
+
+
 
     return (
         <Navbar
             minWidth="480px"
-            bgGradient="linear(to-r, transparent, primary.50, transparent)"
+            bgGradient="linear(to-t, transparent, primary.50)"
             backdropFilter="blur(50px)"
             position="sticky"
             top="0"
@@ -54,16 +65,19 @@ const NavbarAlpha = () => {
                     aria-label="Open Menu"
                 />
             </NavbarBrand>
-            <NavbarContent display={{ base: 'hidden', md: 'flex' }}
-                flexWrap="nowrap">
-                <NavbarItem>
-                    <NavbarLink href="/dashboard">Production</NavbarLink>
-                </NavbarItem>
-                <NavbarItem>
-                    <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
-                </NavbarItem>
-            </NavbarContent>
+            {auth.isAuthenticated &&
+                <NavbarContent display={{ base: 'hidden', md: 'flex' }}
+                    flexWrap="nowrap">
 
+                    <NavbarItem>
+                        <NavbarLink href="/dashboard">Production</NavbarLink>
+                    </NavbarItem>
+                    <NavbarItem>
+                        <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
+                    </NavbarItem>
+
+                </NavbarContent>
+            }
             <NavbarContent as="div" justifyContent="end">
                 <Menu>
                     <MenuButton>
@@ -73,23 +87,23 @@ const NavbarAlpha = () => {
                             borderRadius="full"
                             size="xs"
                             aria-label="User menu"
-                            presence="online"
+                            presence={auth.isAuthenticated ? ("online") : ("offline")}
                         />
                     </MenuButton>
                     <MenuList>
-                        {userProfile ? (
+                        {auth.isAuthenticated ? (
                             <MenuGroup>
-                                <MenuItem><div className="code">{userProfile.full_name}</div></MenuItem>
+                                <MenuItem><div className="code">{userProfile?.full_name}</div></MenuItem>
                                 <MenuDivider />
                                 <MenuItem><NavbarLink href="/gallery">Gallery</NavbarLink></MenuItem>
                                 <MenuItem><NavbarLink href="/account">Account</NavbarLink></MenuItem>
                                 <MenuDivider />
-                                <SignOut />
+                                <SignOutButton />
                             </MenuGroup>
                         ) : (
                             <MenuGroup>
                                 <MenuDivider />
-                                <MenuItem><NavbarLink href="/signin">Login / Signup</NavbarLink></MenuItem>
+                                <MenuItem><NavbarLink as="h3" href="/signin">Login / Signup</NavbarLink></MenuItem>
                             </MenuGroup>
                         )}
                     </MenuList>
@@ -107,7 +121,7 @@ const NavbarAlpha = () => {
                             borderRadius="md"
                             size="lg"
                             aria-label="User menu"
-                            presence="online"
+                            presence={auth.isAuthenticated ? ("online") : ("offline")}
                         />
                         <DrawerCloseButton />
                     </DrawerHeader>
@@ -123,30 +137,30 @@ const NavbarAlpha = () => {
                         </Stack>
                     </Box>
                     <DrawerBody>
-                        <Stack as="nav" spacing={4}>
-                            <NavGroup title="Content Production">
-                                <NavItem href="/dashboard/create-image"> - Create Images</NavItem>
-                                <NavItem href="/dashboard/edit-image"> - Edit Images</NavItem>
-                                <NavItem href="/dashboard/clone-voice"> - Clone Voice</NavItem>
-                                <NavItem href="/dashboard/create-avatar"> - Create Avatar</NavItem>
-                                <NavItem href="/dashboard/write-script"> - Write Script</NavItem>
-                            </NavGroup>
+                        {auth.isAuthenticated &&
+                            <Stack as="nav" spacing={4}>
+                                <NavGroup title="Content Production">
+                                    <NavItem icon={<ImageIcon />} href="/dashboard/create-image">Create Images</NavItem>
+                                    <NavItem icon={<EditIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
+                                    <NavItem icon={<VoiceoverIcon />} href="/dashboard/clone-voice">Clone Voice</NavItem>
+                                    <NavItem icon={<AddIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
+                                    <NavItem href="/dashboard/write-script">Write Script</NavItem>
+                                </NavGroup>
 
-                            <NavGroup title="Model Training">
-                                <NavItem href="/train"> - Train SDXL Model</NavItem>
-                            </NavGroup>
+                                <NavGroup title="Model Training">
+                                    <NavItem href="/train"> - Train SDXL Model</NavItem>
+                                </NavGroup>
 
-                            <NavGroup title="Your Account">
-                                <NavItem href="/dashboard/assets"> - Gallery</NavItem>
-                                <NavItem href="/account"> - Settings</NavItem>
-                                <Spacer />
-                            </NavGroup>
-
-                        </Stack>
+                                <NavGroup title="Your Account">
+                                    <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
+                                    <NavItem icon={<SettingsIcon />} href="/account">Settings</NavItem>
+                                </NavGroup>
+                            </Stack>
+                        }
                     </DrawerBody>
                     <DrawerFooter>
-                        {userProfile ? (
-                            <SignOut />) : (
+                        {auth.isAuthenticated ? (
+                            <SignOutButton />) : (
                             <Link as="h3" href="/signin">Login / Signup</Link>
                         )}
                     </DrawerFooter>

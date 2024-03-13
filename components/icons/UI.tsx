@@ -2,10 +2,24 @@ import React from 'react';
 import { FaPlay, FaPause } from 'react-icons/fa';
 import { LuMic, LuMicOff } from "react-icons/lu";
 import { MdMenu, MdOutlineDeleteForever, MdEditNote } from "react-icons/md";
-import { MdCameraRoll, MdChevronLeft, MdChevronRight, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import {   MdImage,
+  MdEdit,
+  MdVoiceOverOff,
+  MdPersonAdd,
+  MdPhotoLibrary,
+  MdSettings,
+  MdLogin,
+  MdCameraRoll, MdChevronLeft, MdChevronRight, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
+export const ImageIcon = MdImage;
 export const MenuIcon = MdMenu;
-export const EditIcon = MdEditNote;
+export const EditIcon = MdEdit;
+export const VoiceoverIcon = MdVoiceOverOff;
+export const AddIcon = MdPersonAdd;
+export const PhotosIcon = MdPhotoLibrary;
+export const SettingsIcon = MdSettings;
+export const LoginIcon = MdLogin;
+export const CameraRollIcon = MdCameraRoll;
 export const DeleteIcon = MdOutlineDeleteForever;
 export const RightIcon = MdChevronRight;
 export const LeftIcon = MdChevronLeft;

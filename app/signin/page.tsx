@@ -1,11 +1,16 @@
 import Logo from '@/components/utils/Logo'
-import { Spacer, Box, Card, CardHeader, CardBody } from '@chakra-ui/react'
+import { Grid, GridItem, Spacer, Box, Card, CardHeader, CardBody } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
-import { github, google } from '@/components/icons'
+import { github, google } from '@/components/icons/UI'
 
 export default function AuthPage() {
   return (
-    <Box maxW="400px" display="flex" flexDirection="row">
+    <Grid gridTemplateRows="2">
+      <GridItem>
+        <Box width="100vw" height="30%" />
+              </GridItem>
+      <GridItem>
+    <Box mt={5} maxW="100%" display="flex" flexDirection="row">
       <Spacer />
     <Card>
       <CardHeader display="flex" alignItems="center" justifyContent="center">
@@ -26,5 +31,7 @@ export default function AuthPage() {
     </Card>
     <Spacer />
     </Box>
+    </GridItem>
+    </Grid>
   )
 }

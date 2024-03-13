@@ -80,7 +80,7 @@ export type ContentItem = {
   title?: string;
   url: string;
   created_by?: string;
-  created_at?: Date;
+  created_at: Date;
   content?: string;
   model_id?: string;
   prediction_id?: string;
@@ -88,7 +88,7 @@ export type ContentItem = {
   is_public?: boolean;
 };
 
-export type GalleryImage = Pick<ContentItem, 'content_id' | 'url' | 'prompt'>;
+export type GalleryImage = Pick<ContentItem, 'content_id' | 'created_at' | 'url' | 'prompt'>;
 
 export type ImageCardProps = {
   imageUrl: string,

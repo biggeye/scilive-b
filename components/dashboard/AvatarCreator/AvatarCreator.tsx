@@ -19,7 +19,7 @@ const AvatarCreator: React.FC = () => {
 
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
-  const auth = useAuth();
+  const userId = userProfile.id;
   const { profileLoading, profileError } = useUserProfile();
   const [avatarName, setAvatarName] = useRecoilState(avatarNameState);
   const [avatarDescription, setAvatarDescription] = useRecoilState(avatarDescriptionState);
@@ -117,15 +117,15 @@ const AvatarCreator: React.FC = () => {
           p={{ base: "1", md: "2", lg: "4" }}
           maxW="lg">
           <CardHeader
-             align="center" 
-             justify="space-between">
-              <Heading>
-                Avatar Creator
-              </Heading>
-            </CardHeader>
+            align="center"
+            justify="space-between">
+            <Heading>
+              Avatar Creator
+            </Heading>
+          </CardHeader>
           <CardBody>
             <Form
-               onSubmit={handleSubmit}>
+              onSubmit={handleSubmit}>
               <FormLayout spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
                 Avatar Name
                 <Input value={avatarName || ''} onChange={(e) => setAvatarName(e.target.value)} placeholder="Name your avatar" />
@@ -177,7 +177,7 @@ const AvatarCreator: React.FC = () => {
           )}
           <Button
             mt={4}
-       
+
             isDisabled={selectedImageIndex === null}
             onClick={() => {
               if (selectedImageIndex !== null) {
