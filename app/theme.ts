@@ -5,13 +5,6 @@ import '@fontsource-variable/orbitron';
 import '@fontsource/press-start-2p';
 
 export const sciLiveTheme = extendTheme({
-  fonts: {
-    heading: `'Press Start 2P', sans-serif`,
-    body: `'Exo 2 Variable', sans-serif`,
-    div: `'Orbitron Variable'`,
-    code: `'Press Start 2P'`,
-    systemUi: `'Orbitron Variable'`,
-  },
   ...baseTheme,
   colors: {
     ...baseTheme.colors,
