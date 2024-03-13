@@ -2,11 +2,11 @@ import Logo from '@/components/utils/Logo'
 import { Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
 import { github, google } from '@/components/icons/UI'
-import { Snackbar } from '@saas-ui/react'
+import { useSnackbar } from '@saas-ui/react'
 import { useRouter } from 'next/navigation'
 
 export default function AuthPage() {
-  const snackbar = Snackbar;
+const snackbar = useSnackbar();
   const router = useRouter();
   
 
@@ -47,13 +47,13 @@ const getAbsoluteUrl = (path: string) => {
           }}
           onSuccess={(view, error) => {
             if (view === 'login') {
-         
+              snackbar.success('Welcome back!')
               router.push('/dashboard')
             }
           }}
           onError={(view, error) => {
             if (view === 'login' && error) {
-   
+              snackbar.error(error.message)
             }
           }}
           redirectUrl={getAbsoluteUrl('/dashboard')}
