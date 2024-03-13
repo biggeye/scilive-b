@@ -2,63 +2,51 @@
 import React from 'react';
 import {
   Box,
-  Card,
-  VStack,
   Heading,
-  Text,
-  Image,
-  SimpleGrid,
-  Container,
-  useStyleConfig,
-  Tooltip
 } from '@chakra-ui/react';
-import FeatureCard from './FeatureCard';
+import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 
 const placeholderImages = {
-  imageCreation: 'https://scilive.cloud/IMG_2636.jpeg',
-  videoCreation: 'https://scilive.cloud/IMG_2637.jpeg',
-  avatarTraining: 'https://scilive.cloud/IMG_2635.jpeg',
+  transform: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/transform.png`,
+  inspire: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/inspire.png`,
+  activate: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/activate2.png`,
 };
 
-const features = [
-  {
-    title: "Image Creation",
-    text: "Our Image Creation module offers a user-friendly interface with drag-and-drop functionality, enabling swift editing and customization of images.",
-    imgSrc: placeholderImages.imageCreation,
-  },
-  {
-    title: "Avatar Training",
-    text: "Create a personalized model with just four pictures using our SDXL technology.",
-    imgSrc: placeholderImages.avatarTraining,
-  },
-  {
-    title: "Video Creation",
-    text: "The Video Creation tool simplifies the production of talking head videos through advanced technologies:",
-    imgSrc: placeholderImages.videoCreation,
-  }
-]
+const headings = [
+  { title: "AI-powered", bg: '' },
+  { title: "Creative Suite", bg: placeholderImages.activate },
+  { title: "activate", bg: placeholderImages.transform },
+  { title: "transform", bg: placeholderImages.transform },
+  { title: "inspire", bg: placeholderImages.inspire },
+];
 
 const FeaturesSection = () => {
   return (
-    <Container maxW="container.xl" py={10} className="fade-in-from-top">
-      <VStack spacing={5}>
-        <h2>
-          AI for today
-        </h2>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
-          {features.map((feature, index) => (
-
-            <FeatureCard
-              key={feature.title}
-              title={feature.title}
-              text={feature.text}
-              imgSrc={feature.imgSrc}
-            />
-
-          ))}
-        </SimpleGrid>
-      </VStack>
-    </Container>
-  )
+    <ParallaxProvider>
+      {
+        headings.map((heading, index) => (
+          <div key={index}>
+   
+              <Box
+                bgImage={`url(${heading.bg})`}
+                bgPosition="center"
+                bgRepeat="no-repeat"
+                bgSize="cover"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                position="relative"
+              />
+        
+        
+              <Heading>
+                {heading.title}
+              </Heading>
+        </div>
+        ))
+      }
+    </ParallaxProvider>
+  );
 };
+
 export default FeaturesSection;

@@ -14,6 +14,7 @@ import '@fontsource-variable/orbitron';
 import '@fontsource/press-start-2p';
 import '@fontsource-variable/antonio';
 import { ClientLayoutProps } from '@/types';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
 
@@ -23,12 +24,14 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
     <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
+          <ParallaxProvider>
           <AppShell
             h="100vh" variant="static"
             bgGradient="linear(to-t, primary.100, transparent)"
-            navbar={<NavbarAlpha />}>
+            >
             {children}
           </AppShell>
+          </ParallaxProvider>
         </RecoilRoot>
       </AuthProvider>
     </SaasProvider>

@@ -12,6 +12,15 @@ html {
     'calt' 0;
 }
 
+
+html {
+  scroll-snap-type: y mandatory;
+}
+
+Box {
+  scroll-snap-align: start;
+}
+
 html,
 body {
   @apply text-zinc-800 bg-white antialiased;
@@ -27,13 +36,14 @@ div {
 h3 {
   font-family: 'Press Start 2P', sans-serif;
   font-weight: '100';
+}
 
 h1, h2 {
   font-family: 'Press Start 2P', system-ui;
 }
 
 p {
-  font-family: 'Exo 2 
+  font-family: 'Exo 2', sans-serif;
   }
 
 a {

@@ -16,6 +16,8 @@ import { AddIcon, EditIcon, ImageIcon, VoiceoverIcon } from '@/components/icons/
 import { GalleryIcon } from '@/components/icons/UI';
 import { useAuth } from "@saas-ui/auth";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
+import NavbarAlpha from "@/components/NavbarAlpha";
+
 
 interface DashboardLayoutProps {
   children: any
@@ -120,7 +122,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         </VStack>
       )}
       <Button zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
+      <NavbarAlpha />
       <Box zIndex="-100" bgGradient="linear(to-t, primary.100, transparent)">
+        
       {children}
       </Box>
       <GalleryDrawer
