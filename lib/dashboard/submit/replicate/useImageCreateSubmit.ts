@@ -1,8 +1,14 @@
+'use client'
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+
+//import utilities
 import { getUserProfile } from '@/lib/userClientSide';
-import { uploadPrediction } from "./uploadPrediction"; // Ensure this is correctly typed in its own file
+import { buildRequestBody } from './requestBodyBuilder';
+import { fetchPrediction } from './fetchPrediction';
 import { convertToDataURI } from "../../utils/convertToDataURI";
+import { uploadPrediction } from "./uploadPrediction"; // Ensure this is correctly typed in its own file
+//import state
 import {
   predictionErrorState,
   finalPredictionState,
@@ -12,20 +18,23 @@ import {
   userImageUploadState,
 } from "@/state/replicate/prediction-atoms";
 import { selectedModelIdState } from "@/state/replicate/config-atoms";
-import { buildRequestBody } from './requestBodyBuilder';
-import { fetchPrediction } from './fetchPrediction';
 import { userProfileState } from "@/state/user/user_state-atoms";
 
 export const useImageCreateSubmit = () => {
+  // user account state
+  const userProfile = useRecoilValue(userProfileState);
+  const userId = userProfile?.id;
+  // model information state
   const modelId = useRecoilValue<string>(selectedModelIdState);
+  // user input state
   const userImageUpload = useRecoilValue<File | null>(userImageUploadState);
   const userImageUri = useRecoilValue<string | null>(userImageDataUriState);
+  const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState(finalPredictionPromptState);
+  // prediction progress state
   const [modelBootResult, setModelBootResult] = useRecoilState<string | null>(modelBootResultState);
   const [predictionError, setPredictionError] = useRecoilState<string | null>(predictionErrorState);
   const [finalPrediction, setFinalPrediction] = useRecoilState<string | null>(finalPredictionState);
-  const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState(finalPredictionPromptState);
-  const userProfile = useRecoilValue(userProfileState);
-  const userId = userProfile?.id;
+ 
 
   const submitImageCreate = async (userInput: string): Promise<string | null> => {
     setPredictionError(null);
@@ -38,7 +47,6 @@ export const useImageCreateSubmit = () => {
       setPredictionError("User Login required!");
       return null;
     }
-
     if (userImageUpload) {
       try {
         const imageUpload: string = await convertToDataURI(userImageUpload);
@@ -49,9 +57,12 @@ export const useImageCreateSubmit = () => {
       }
     }
 
+    // create payload
     const requestBody = buildRequestBody(userId, modelId, userImageUri, userInput);
     
     console.log("useImageCreateSubmit, requestBody: ", requestBody);
+    
+    // deliver payload (replicate)
     try {
       const predictionId = await fetchPrediction(requestBody);
       return predictionId;

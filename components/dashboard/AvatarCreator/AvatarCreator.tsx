@@ -163,7 +163,6 @@ const AvatarCreator: React.FC = () => {
         <Card
           className="featured-image-card">
           {isLoading ? (
-
             <CircularProgress isIndeterminate color="blue.300" />
           ) : (
             <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>

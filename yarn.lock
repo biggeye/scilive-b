@@ -4480,7 +4480,7 @@ klona@2.0.6:
   resolved "https://registry.npmjs.org/klona/-/klona-2.0.6.tgz"
   integrity sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==
 
-"konva@^8.0.1 || ^7.2.5 || ^9.0.0":
+"konva@^8.0.1 || ^7.2.5 || ^9.0.0", konva@^9.3.6:
   version "9.3.6"
   resolved "https://registry.npmjs.org/konva/-/konva-9.3.6.tgz"
   integrity sha512-dqR8EbcM0hjuilZCBP6xauQ5V3kH3m9kBcsDkqPypQuRgsXbcXUrxqYxhNbdvKZpYNW8Amq94jAD/C0NY3qfBQ==

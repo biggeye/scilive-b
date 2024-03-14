@@ -18,7 +18,7 @@ import {
   finalPredictionState,
   globalLoadingState,
 } from '@/state/replicate/prediction-atoms';
-import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
+import { useImageCreateSubmit } from '@/lib/dashboard/submit/replicate/useImageCreateSubmit';
 import { userProfileState, currentPageState } from '@/state/user/user_state-atoms';
 
 const ImageCreator = () => {
