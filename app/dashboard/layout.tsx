@@ -17,7 +17,7 @@ import { GalleryIcon } from '@/components/icons/UI';
 import { useAuth } from "@saas-ui/auth";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
-
+import { ContentItem } from "@/types";
 
 interface DashboardLayoutProps {
   children: any
@@ -114,7 +114,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     <ErrorBoundary>
       {!isOpen && (
         <VStack 
-           bgGradient="linear(to-t, primary.100, transparent)"
+           bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
            align="flex-start" position="fixed" left="0" top="30%" spacing={4} zIndex="sticky">
           <NavLinkButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
           <NavLinkButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
@@ -124,24 +124,25 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         </VStack>
       )}
         <NavbarAlpha />
-      <Button zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
+      <Button display={{base: "none", md: "flex"}} zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
   
       
         
       {children}
     
       <GalleryDrawer
-        isOpen={isOpen}
-        onClose={onClose}
-        items={contentItems.map(item => ({
-          content_id: item.content_id,
-          url: item.url,
-          title: item.title,
-          prompt: item.prompt,
-        }))}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+  isOpen={isOpen}
+  onClose={onClose}
+  items={contentItems.filter(item => item.url).map(item => ({
+    content_id: item.content_id,
+    url: item.url!, // The exclamation mark asserts that url is not undefined
+    title: item.title,
+    prompt: item.prompt,
+  }))}
+  onEdit={handleEdit}
+  onDelete={handleDelete}
+/>
+
     </ErrorBoundary>
   );
 };

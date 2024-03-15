@@ -113,7 +113,38 @@ const NavbarAlpha = () => {
                     </MenuList>
                 </Menu>
             </NavbarContent>
-
+        </Navbar >
+            ) : (
+                <Box
+                    display="flex"
+                    justifyContent="space-around"
+                    position="fixed"
+                    bottom="0"
+                    width="100%"
+                    bg="primary.50"
+                    p={2}
+                    zIndex="banner"
+                >
+                    <IconButton
+                        icon={<ImageIcon />}
+                        aria-label="Dashboard"
+                        onClick={() => router.push('/dashboard')}
+                    />
+                    <Spacer />
+                    <IconButton
+                        icon={<PhotosIcon />}
+                        aria-label="Gallery"
+                        onClick={() => router.push('/dashboard/assets')}
+                    />
+                    <Spacer />
+                    <IconButton
+                    display="inline-flex"
+                    icon={<Logo width="20px" height="20px" />}
+                    onClick={onDrawerOpen}
+                    aria-label="Open Menu"
+                />
+                </Box>
+            )}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
                 <DrawerOverlay />
                 <DrawerContent>
@@ -170,33 +201,6 @@ const NavbarAlpha = () => {
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
-
-        </Navbar >
-            ) : (
-                <Box
-                    display="flex"
-                    justifyContent="space-around"
-                    position="fixed"
-                    bottom="0"
-                    width="100%"
-                    bg="primary.50"
-                    p={2}
-                    zIndex="banner"
-                >
-                    <IconButton
-                        icon={<ImageIcon />}
-                        aria-label="Dashboard"
-                        onClick={() => router.push('/dashboard')}
-                    />
-                    <IconButton
-                        icon={<PhotosIcon />}
-                        aria-label="Gallery"
-                        onClick={() => router.push('/dashboard/assets')}
-                    />
-                    {/* Add more icon buttons as needed for mobile navbar */}
-                </Box>
-            )}
-            {/* Drawer and other components remain unchanged */}
         </>
 
     );

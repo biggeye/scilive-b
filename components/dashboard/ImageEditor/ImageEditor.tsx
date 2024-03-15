@@ -89,7 +89,7 @@ const ImageEditor = () => {
   };
 
   return (
-    <Box width="98vw" p="7px" bgGradient="linear(to-t, primary.300, transparent)">
+    <Box width="98vw" p="7px" bgColor="primary.50" borderRadius="md">
       <Form onSubmit={handleUserImageEditSubmit}>
         <FormLayout>
 

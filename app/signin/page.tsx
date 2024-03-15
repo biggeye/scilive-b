@@ -1,6 +1,6 @@
 'use client'
 import Logo from '@/components/utils/Logo'
-import { Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
+import { VStack, Flex, Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
 import { github, google } from '@/components/icons/UI'
 import { Snackbar } from '@saas-ui/react'

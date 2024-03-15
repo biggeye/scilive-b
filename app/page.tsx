@@ -9,12 +9,8 @@ import OpeningSequence from '@/components/ui/Features/OpeningSequence';
 const HomePage = () => {
   return (
    <VStack>
-
-       
         <OpeningSequence />
-        <Box className="element-fade-in-long">
-        <FeaturesSection />
-        </Box>
+     
         <SignUpButton />
     </VStack>
   )
