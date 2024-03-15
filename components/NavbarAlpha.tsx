@@ -95,7 +95,7 @@ const NavbarAlpha = () => {
                             <MenuGroup>
                                 <MenuItem><div className="code">{userProfile?.full_name}</div></MenuItem>
                                 <MenuDivider />
-                                <MenuItem><NavbarLink href="/gallery">Gallery</NavbarLink></MenuItem>
+                                <MenuItem><NavbarLink href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
                                 <MenuItem><NavbarLink href="/account">Account</NavbarLink></MenuItem>
                                 <MenuDivider />
                                 <SignOutButton />
@@ -131,7 +131,7 @@ const NavbarAlpha = () => {
                         bgGradient="linear(to-r, teal.500, green.500)" // Example of a cool background gradient
                     // Rounded corners
                     ><Stack direction="row" display="flex" justifyContent="space-between">
-                            <Text color="white" fontSize="sm" textAlign="center">View Mode</Text>
+                            <Text as="h3" color="white" fontSize="sm" textAlign="center">View Mode</Text>
                             <Spacer />
                             <ViewModeSwitch />
                         </Stack>
@@ -139,7 +139,7 @@ const NavbarAlpha = () => {
                     <DrawerBody>
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
-                                <NavGroup title="Content Production">
+                                <NavGroup><Text color="teal.500" as="h3">pr0duc3</Text>
                                     <NavItem icon={<ImageIcon />} href="/dashboard/create-image">Create Images</NavItem>
                                     <NavItem icon={<EditIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
                                     <NavItem icon={<VoiceoverIcon />} href="/dashboard/clone-voice">Clone Voice</NavItem>
@@ -147,11 +147,11 @@ const NavbarAlpha = () => {
                                     <NavItem href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
 
-                                <NavGroup title="Model Training">
+                                <NavGroup><Text color="teal.500" as="h3">tr@ining</Text>
                                     <NavItem href="/train"> - Train SDXL Model</NavItem>
                                 </NavGroup>
 
-                                <NavGroup title="Your Account">
+                                <NavGroup><Text as="h3" color="teal.500">acc0unt</Text>
                                     <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
                                     <NavItem icon={<SettingsIcon />} href="/account">Settings</NavItem>
                                 </NavGroup>

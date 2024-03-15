@@ -25,7 +25,7 @@ const ImageCreatorPage = () => {
                 <GridItem>
                     {/* Add Suspense with a fallback */}
                     <DisplayResults localPage="createImage" />
-                </GridItem>
+                    </GridItem>
                 <GridItem position="fixed" bottom="0">
                     <ImageCreator />
                 </GridItem>

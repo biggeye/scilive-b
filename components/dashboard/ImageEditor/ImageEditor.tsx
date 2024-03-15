@@ -2,12 +2,12 @@
 import React, { useState, ChangeEvent, FormEvent, useCallback, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { userProfileState } from '@/state/user/user_state-atoms';
+// import utility
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
-import { useImageCreateSubmit } from '@/lib/replicate/useImageCreateSubmit';
-import { handleGalleryEditSelection } from '@/lib/replicate/handleGalleryEditSelection';
+import { useImageCreateSubmit } from '@/lib/dashboard/submit/replicate/useImageCreateSubmit';
+import { handleGalleryEditSelection } from '@/lib/gallery/handleGalleryEditSelection';
 import { convertToDataURI } from '@/utils/convertToDataURI';
-
 // import UI
 import {
   Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
@@ -18,22 +18,31 @@ import {
   FileUploadTrigger,
   FileUploadDropzone,
 } from '@saas-ui/file-upload';
-import { Form, FormLayout, ViewIcon, ContextMenuList, ContextMenuItem, ContextMenu, ContextMenuTrigger } from '@saas-ui/react';
-
+import { 
+  Form, 
+  FormLayout, 
+  ViewIcon, 
+  ContextMenuList, 
+  ContextMenuItem, 
+  ContextMenu, 
+  ContextMenuTrigger 
+} from '@saas-ui/react';
 // import STATE
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { finalPredictionState, userImageDataUriState, userImagePreviewState, userImageUploadState, predictionErrorState, globalLoadingState } from '@/state/replicate/prediction-atoms';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
-import { currentUserAvatarUrlState } from '@/state/user/user_state-atoms';
 import { currentPageState } from '@/state/user/user_state-atoms'
 // import TYPES
 import { GalleryItem } from '@/types';
 
 
 const ImageEditor = () => {
+  const auth = useAuth();
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
-  const auth = useAuth();
+  
+  const userId = userProfile?.id;
+
   const { profileLoading, profileError } = useUserProfile();
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   useEffect(() => {
@@ -80,7 +89,7 @@ const ImageEditor = () => {
   };
 
   return (
-    <Box>
+    <Box width="98vw" p="7px" bgGradient="linear(to-t, primary.300, transparent">
       <Form onSubmit={handleUserImageEditSubmit}>
         <FormLayout>
 

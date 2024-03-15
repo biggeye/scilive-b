@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '@/components/utils/Logo';
-import { CircularProgress, Grid, GridItem, Box, Spacer, Card, CardHeader, CardBody, VStack } from '@chakra-ui/react';
+import { CircularProgress, Text, Grid, GridItem, Box, Spacer, Card, CardHeader, CardBody, VStack } from '@chakra-ui/react';
 
 const LoadingCircle = () => {
     return(
@@ -17,6 +17,7 @@ const LoadingCircle = () => {
         </CardHeader>
         <CardBody>
           <VStack>
+            <Text>sciLive is Loading...</Text>
         <CircularProgress isIndeterminate />
         </VStack>
         </CardBody>

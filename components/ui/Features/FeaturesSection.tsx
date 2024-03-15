@@ -62,7 +62,6 @@ const FeaturesSection = () => {
           </Box>
         </>
       ))}
-      <SignUpButton />
     </Box>
   );
 };
