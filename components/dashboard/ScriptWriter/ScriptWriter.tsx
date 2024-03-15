@@ -32,7 +32,7 @@ const ScriptWriter = () => {
 
   const handleScriptFetch = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log("hostName: ", hostName, "podcastName: ", podcastName, "webpageUrl: ", webpageUrl, "userId: ", userId);
-     
+     if (hostName && podcastName && webpageUrl && userId) {
     try {
        const data = await fetchVoiceoverScript(
         hostName, 
@@ -41,7 +41,8 @@ const ScriptWriter = () => {
         userId
         ); // Make sure userId is defined
       if (data) {
-        setIsScriptFetched(true);
+             console.log(data);
+      //  setIsScriptFetched(true);
         toast({
           title: "Processing",
           description: `Script is generating, Prediction ID: ${data.prediction_id}`,
@@ -59,6 +60,8 @@ const ScriptWriter = () => {
         duration: 5000,
         isClosable: true,
       });
+    } } else {
+      return error ("missing required inputs")
     }
   };
 

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
   Box,
@@ -12,7 +13,6 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@/components/icons/UI';
-
 // Define the props the Gallery component expects
 interface GalleryProps {
   items: {
@@ -26,10 +26,11 @@ interface GalleryProps {
   onDelete: (id: string) => void;
 }
 
-
 const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = React.useState<string | null>(null);
+
+
 
   const handleSelectItem = (id: string) => {
     setSelectedItem(id);

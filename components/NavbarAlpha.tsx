@@ -39,17 +39,21 @@ import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
+import { useBreakpointValue } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
+    const isMobile = useBreakpointValue({ base: true, md: false });
     const userProfile = useRecoilValue(userProfileState);
     const { profileLoading, profileError } = useUserProfile();
     const auth = useAuth();
-
-
-
+    const router = useRouter();
     return (
-        <Navbar
+        <>
+            {!isMobile ? (
+                // Non-mobile navbar rendering goes here...
+                <Navbar
             minWidth="480px"
             bgGradient="linear(to-t, transparent, primary.50)"
             backdropFilter="blur(50px)"
@@ -168,6 +172,32 @@ const NavbarAlpha = () => {
             </Drawer>
 
         </Navbar >
+            ) : (
+                <Box
+                    display="flex"
+                    justifyContent="space-around"
+                    position="fixed"
+                    bottom="0"
+                    width="100%"
+                    bg="primary.50"
+                    p={2}
+                    zIndex="banner"
+                >
+                    <IconButton
+                        icon={<ImageIcon />}
+                        aria-label="Dashboard"
+                        onClick={() => router.push('/dashboard')}
+                    />
+                    <IconButton
+                        icon={<PhotosIcon />}
+                        aria-label="Gallery"
+                        onClick={() => router.push('/dashboard/assets')}
+                    />
+                    {/* Add more icon buttons as needed for mobile navbar */}
+                </Box>
+            )}
+            {/* Drawer and other components remain unchanged */}
+        </>
 
     );
 };
