@@ -1,18 +1,16 @@
 import React from 'react';
 import { Avatar, AvatarBadge } from '@chakra-ui/react'
+import { useRecoilValue } from 'recoil';
 import {
   PersonaContainer,
   PersonaDetails,
   PersonaLabel,
   PersonaSecondaryLabel,
 } from '@saas-ui/react'
-import { getUserProfile } from '@/lib/userClientSide';
-import { userProfileState } from '@/state/user/user_state-atoms';
-
+import { useAuth } from '@saas-ui/auth';
 
 const CustomPersona = () => {
-
-  const userProfile = useRecoilValue(userProfileState);
+const auth = useAuth();
 
   return (
     <PersonaContainer size="lg">
@@ -21,7 +19,6 @@ const CustomPersona = () => {
         </AvatarBadge>
       </Avatar>
       <PersonaDetails>
-        <PersonaLabel>{userProfile.full_name}</PersonaLabel>
         <PersonaSecondaryLabel>Account Status</PersonaSecondaryLabel>
       </PersonaDetails>
     </PersonaContainer>

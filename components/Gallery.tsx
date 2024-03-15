@@ -17,13 +17,15 @@ import { EditIcon, DeleteIcon } from '@/components/icons/UI';
 interface GalleryProps {
   items: {
     id: string;
-    url: string;
+    url?: string;
     title?: string;
     prompt?: string;
+    content?: string; // Add the content property
   }[];
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 }
+
 
 const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,11 +38,14 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
 
   return (
     <Box padding="4" bgGradient="linear(to-b, gray.300, primary.50)">
-      <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
-        {items.map((item) => (
-          <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
+    <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
+      {items.map((item) => (
+        <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
+          {item.content ? (
+            <Text>{item.content}</Text> // Render Text component if content exists
+          ) : (
             <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.id)} />
-            <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
+          )}<Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
               <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.id)} mr="2" />
               <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.id)} />
             </Box>

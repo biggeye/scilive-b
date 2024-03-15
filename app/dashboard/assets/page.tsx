@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Gallery from '@/components/Gallery';
 import { Card, Box } from '@chakra-ui/react';
-import { parseGalleryImages } from '@/lib/gallery/getGalleryItems';
+import { fetchGalleryImages, fetchGalleryScripts } from '@/lib/galleryServer';
+
 import { ContentItem } from '@/types';
 
 const GalleryPage: React.FC = () => {
@@ -12,9 +13,16 @@ const GalleryPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await parseGalleryImages();
-      setContentItems(data.flat()); // Assuming parseGalleryImages returns ContentItem[][]
+      const [imagesData, scriptsData] = await Promise.all([
+        fetchGalleryImages(),
+        fetchGalleryScripts(),
+      ]);
+
+      // Combine images and scripts data into a single array
+      const combinedData = [...imagesData, ...scriptsData];
+      setContentItems(combinedData);
     };
+
     fetchData();
   }, []);
 
@@ -35,16 +43,17 @@ const GalleryPage: React.FC = () => {
 
   return (
     
-      <Gallery
-        items={contentItems.map(item => ({
-          id: item.content_id,
-          url: item.url,
-          title: item.title,
-          prompt: item.prompt,
-        }))}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+    <Gallery
+    items={contentItems.map(item => ({
+      id: item.content_id,
+      url: item.url,
+      title: item.title,
+      prompt: item.prompt,
+      content: item.content, // Include content here
+    }))}
+    onEdit={handleEdit}
+    onDelete={handleDelete}
+  />
     
   );
 };

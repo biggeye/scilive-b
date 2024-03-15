@@ -1,8 +1,6 @@
-'use server';
-
-import { createClient } from "@/utils/supabase/server";
+'use client'
+import { createClient } from "@/utils/supabase/client";
 const supabase = createClient();
-
 
 export async function fetchTxt2ImgModels() {
     try {

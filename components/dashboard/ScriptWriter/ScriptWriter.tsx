@@ -1,73 +1,60 @@
 'use client'
 import React, { useState } from 'react';
-import { Grid, GridItem, FormLabel, CardHeader, Heading, Card, Button, Textarea, Box, VStack, HStack, Input, useToast } from '@chakra-ui/react';
-import { Form, FormLayout } from '@saas-ui/react';
-import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
+// import UI
+import { useToast, Grid, GridItem, FormLabel, CardHeader, Heading, Card, Button, Textarea, Box, VStack, HStack, Input } from '@chakra-ui/react';
+import { Form, FormLayout } from '@saas-ui/react';
+// import state
 import { voiceoverScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/leap/scriptWriter-atoms';
-
+import { userProfileState } from '@/state/user/user_state-atoms';
+import { fetchVoiceoverScript } from '@/lib/dashboard/submit/leap/fetchVoiceoverScript';
 
 const ScriptWriter = () => {
-  const userProfile = useRecoilValue(userProfileState);
+  const toast = useToast();
   const auth = useAuth();
+  const userProfile = useRecoilValue(userProfileState);
+  const userId = userProfile.id;
   const { profileLoading, profileError } = useUserProfile();
-  // Ensure initial state is an empty string instead of null
+
+// global state
   const [hostName, setHostName] = useRecoilState(hostNameState);
   const [podcastName, setPodcastName] = useRecoilState(podcastNameState);
   const [webpageUrl, setWebpageUrl] = useRecoilState(webpageUrlState);
   const [voiceoverScript, setVoiceoverScript] = useRecoilState(voiceoverScriptState);
-  const [isTextareaEnabled, setTextareaEnabled] = useState(false);
-  const toast = useToast();
 
-  const handlePageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWebpageUrl(event.target.value || ''); // Ensure value is never null
-  };
+// local state
+  const inputsDisabled = voiceoverScript.trim().length > 0;
+  const [isScriptFetched, setIsScriptFetched] = useState(false);
 
-  const handleScriptChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setVoiceoverScript(event.target.value || ''); // Ensure value is never null
-  };
+  const handleScriptChange = (event) => setVoiceoverScript(event.target.value || '');
 
-  const fetchvoiceoverScript = async () => {
-    if (!webpageUrl) {
+  const handleScriptFetch = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log("hostName: ", hostName, "podcastName: ", podcastName, "webpageUrl: ", webpageUrl, "userId: ", userId);
+     
+    try {
+       const data = await fetchVoiceoverScript(
+        hostName, 
+        podcastName, 
+        webpageUrl, 
+        userId
+        ); // Make sure userId is defined
+      if (data) {
+        setIsScriptFetched(true);
+        toast({
+          title: "Processing",
+          description: `Script is generating, Prediction ID: ${data.prediction_id}`,
+          status: "sucess",
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+
+    } catch (error) {
       toast({
         title: "Error",
         description: "Please enter a webpage URL.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_DEFAULT_URL}/api/leap/websummary`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${process.env.NEXT_PUBLIC_LEAP_API_KEY || ''}`, // Ensures the value is a string
-        },
-
-        body: JSON.stringify({
-          webpage_url: webpageUrl,
-          host: hostName,
-          podcast: podcastName
-        }
-        ),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setVoiceoverScript(data.website_summary);
-      setTextareaEnabled(true); // Enable Textarea after successful API call
-    } catch (error) {
-      console.error('Error fetching script:', error);
-      toast({
-        title: "Error",
-        description: "Failed to fetch script. Please try again.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -89,7 +76,7 @@ const ScriptWriter = () => {
     <Grid templateAreas={`"topCard"
                          "bottomCard"`}
       templateRows="2"
-      >
+    >
       <GridItem area="topCard">
         <Card
           className="image-card"
@@ -97,7 +84,7 @@ const ScriptWriter = () => {
           borderWidth="0.5px"
           p={{ base: "1", md: "2", lg: "4" }}
           maxW="lg">
-          <Form onSubmit={fetchvoiceoverScript} display="flex" flexDirection="column" alignItems="center" mb={4}>
+          <Form onSubmit={handleScriptFetch} display="flex" flexDirection="column" alignItems="center" mb={4}>
             <CardHeader alignItems="center" justifyContent="space-between">
               <Heading>
                 Voiceover Generator
@@ -109,24 +96,24 @@ const ScriptWriter = () => {
                 mb={4}
                 value={hostName}
                 onChange={(e) => setHostName(e.target.value)}
+                disabled={inputsDisabled} // Disable based on voiceoverScript
                 placeholder="Host of the show"
               />
-              <FormLabel>Podcast Name</FormLabel>
               <Input
                 mb={4}
                 value={podcastName}
                 onChange={(e) => setPodcastName(e.target.value)}
+                disabled={inputsDisabled} // Disable based on voiceoverScript
                 placeholder="Name of the podcast"
               />
-              <FormLabel>Link to web page</FormLabel>
               <Input
                 mb={4}
                 value={webpageUrl}
-                onChange={handlePageChange}
+                onChange={(e) => setWebpageUrl(e.target.value)}
+                disabled={inputsDisabled} // Disable based on voiceoverScript
                 placeholder="Enter the web article URL here"
               />
               <Button
-
                 type="submit"
               >
                 Fetch Script
@@ -137,22 +124,20 @@ const ScriptWriter = () => {
       </GridItem>
 
       <GridItem area="bottomCard">
-        <Card
-          className="featured-image-card">
+        <Card className="featured-image-card">
           <Textarea
             mb={4}
             value={voiceoverScript}
             onChange={handleScriptChange}
             placeholder="The script will appear here"
-            isDisabled={!isTextareaEnabled}
+            isDisabled={!inputsDisabled} // Enable when voiceoverScript is received
           />
-          <Button
-
-            onClick={generateVoiceover}
-            isDisabled={!isTextareaEnabled} // Disable the update button until the script is fetched
-          >
-            Generate Voiceover
-          </Button>
+       <Button
+  onClick={generateVoiceover}
+  isDisabled={!isScriptFetched} // Enable the button only after the script is fetched
+>
+  Generate Voiceover
+</Button>
         </Card>
       </GridItem>
 

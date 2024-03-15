@@ -52,7 +52,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       const newRow = payload.new;
       const predictionId = newRow.id;
       toast({
-        title: `${predictionId} complete!`,
+        title: `${predictionId} update!`,
         status: 'info',
         duration: 5000,
         isClosable: true,

@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 //import utilities
-import { getUserProfile } from '@/lib/userClientSide';
+import { useUserProfile } from "@/lib/user/useUserProfile";
 import { buildRequestBody } from './requestBodyBuilder';
 import { fetchPrediction } from './fetchPrediction';
-import { convertToDataURI } from "../../utils/convertToDataURI";
-import { uploadPrediction } from "./uploadPrediction"; // Ensure this is correctly typed in its own file
+import { convertToDataURI } from "@/utils/convertToDataURI";
+import { uploadPrediction } from "../../receive/replicate/uploadPrediction"; // Ensure this is correctly typed in its own file
 //import state
 import {
   predictionErrorState,
@@ -21,21 +21,25 @@ import { selectedModelIdState } from "@/state/replicate/config-atoms";
 import { userProfileState } from "@/state/user/user_state-atoms";
 
 export const useImageCreateSubmit = () => {
+ 
   // user account state
   const userProfile = useRecoilValue(userProfileState);
+  const { profileLoading, profileError } = useUserProfile();
   const userId = userProfile?.id;
+ 
   // model information state
   const modelId = useRecoilValue<string>(selectedModelIdState);
+ 
   // user input state
   const userImageUpload = useRecoilValue<File | null>(userImageUploadState);
   const userImageUri = useRecoilValue<string | null>(userImageDataUriState);
   const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState(finalPredictionPromptState);
+ 
   // prediction progress state
   const [modelBootResult, setModelBootResult] = useRecoilState<string | null>(modelBootResultState);
   const [predictionError, setPredictionError] = useRecoilState<string | null>(predictionErrorState);
   const [finalPrediction, setFinalPrediction] = useRecoilState<string | null>(finalPredictionState);
  
-
   const submitImageCreate = async (userInput: string): Promise<string | null> => {
     setPredictionError(null);
     setModelBootResult(null);
@@ -50,6 +54,7 @@ export const useImageCreateSubmit = () => {
     if (userImageUpload) {
       try {
         const imageUpload: string = await convertToDataURI(userImageUpload);
+        
       } catch (error) {
         console.error("Error converting image to Data URI:", error);
         setPredictionError("Failed to process image");
@@ -69,8 +74,8 @@ export const useImageCreateSubmit = () => {
     } catch (err) {
       console.error("An unexpected error occurred");
       setPredictionError("An unexpected error occurred");
+      return null;
     }
-    return null;
   };
 
   return submitImageCreate;

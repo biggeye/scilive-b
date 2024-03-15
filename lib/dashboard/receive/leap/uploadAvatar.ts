@@ -1,6 +1,5 @@
 // Assuming you're using this utility function outside of a React component directly
 import { createClient } from "@/utils/supabase/service";
-import { cookies } from "next/headers";
 import { UploadAvatarProps } from '@/types';
 
 export const uploadAvatar = async (
@@ -11,8 +10,7 @@ export const uploadAvatar = async (
     predictionId: string,
     prompt: string
 ): Promise<string> => {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createClient();
     const avatar_name = name;
     let url = image;
     const user_id = userId;
