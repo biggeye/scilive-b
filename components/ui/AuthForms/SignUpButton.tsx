@@ -23,7 +23,7 @@ export default function SignUpButton() {
     <Flex direction="row">
       <Spacer />
     <Button
-    width="75%"
+    width="100%"
     padding={".5px"}
     mt={2}
 

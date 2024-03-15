@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, Card } from '@chakra-ui/react';
+import { Text, Box, Card, Image } from '@chakra-ui/react';
 import { useParallax } from 'react-scroll-parallax';
 import SignUpButton from '../AuthForms/SignUpButton';
 const featureImages = {
@@ -17,52 +17,23 @@ const welcome = [
 ];
 
 const FeaturesSection = () => {
-  const featureBgParallax = useParallax({
-    scale: [0.1, 1.5],
-  });
+
 
   return (
-    <Box
-      w="100vw"
-      h="100vh"
-      backgroundPosition="center"
-      backgroundRepeat="no-repeat"
-      backgroundSize="cover"
-      justifyContent="center"
-      backgroundImage={featureImages}
-      ref={featureBgParallax.ref as React.RefObject<HTMLDivElement>}>
-
-      {welcome.map((feature) => (
-        <>
-        <Card
-            borderRadius="xl"
-            key={feature.welcomeKey}
-            w="100vw"
-            h="10%"
-            backdropFilter="blur(50px)"
-            backgroundSize="cover"
-            left={feature.position}
-            top={feature.position}
-
-            alignItems="center"
-            position="absolute"
-          />
-          <Box
-            position="relative"
-            left={feature.position}
-            top={feature.position}
-          >
-            <Text
-              as="h1"
-              fontSize="40px"
-              color="primary.900"
-            >
-              {feature.title}
-            </Text>
-          </Box>
-        </>
-      ))}
-    </Box>
+    <Card>
+       <Box 
+       className="element-fade-in-long"
+       width="300px"
+       height="300px"
+       borderRadius="lg">
+       <Image 
+       borderRadius="xl"
+       fit="cover"
+       className="animated-shadow"
+       src={featureImages.transform} />
+       </Box>
+       
+          </Card>
   );
 };
 

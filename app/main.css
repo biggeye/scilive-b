@@ -194,6 +194,11 @@ p a {
   animation: fadeIn .2s ease-in;
 }
 
+.element-fade-in-long {
+  animation: fadeIn 20s ease-in;
+}
+
+
 .element-fade-out {
   animation: fadeOut 2s linear;
 }
@@ -212,4 +217,21 @@ p a {
 
 .Logo {
   transition: fill 0.5s ease-in-out;
+}
+
+.animation-container {
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  display: inline-block;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.blinking-cursor {
+  animation: blink 1s step-start 0s infinite;
 }

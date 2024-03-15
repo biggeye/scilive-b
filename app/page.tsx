@@ -2,15 +2,20 @@
 import React from 'react';
 import StripeWidget from '@/components/ui/Pricing/StripeWidget';
 import FeaturesSection from '@/components/ui/Features/FeaturesSection';
-import {VStack } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import SignUpButton from '@/components/ui/AuthForms/SignUpButton';
+import OpeningSequence from '@/components/ui/Features/OpeningSequence';
 
 const HomePage = () => {
   return (
    <VStack>
-        <SignUpButton />
+
+       
+        <OpeningSequence />
+        <Box className="element-fade-in-long">
         <FeaturesSection />
-        <StripeWidget />
+        </Box>
+        <SignUpButton />
     </VStack>
   )
 }

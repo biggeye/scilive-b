@@ -6,9 +6,9 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { getUserProfile } from '@/lib/userClientSide';
 import { buildRequestBody } from './requestBodyBuilder';
 import { fetchPrediction } from './fetchPrediction';
-import { convertToDataURI } from "../../utils/convertToDataURI";
-import { uploadPrediction } from "./uploadPrediction"; // Ensure this is correctly typed in its own file
-//import state
+import { convertToDataURI } from "@/utils/convertToDataURI";
+import { uploadPrediction } from "../../receive/replicate/uploadPrediction";
+
 import {
   predictionErrorState,
   finalPredictionState,
