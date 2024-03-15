@@ -1,7 +1,7 @@
 'use client'
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Box, Button, useToast, CircularProgress, VStack, Tooltip } from "@chakra-ui/react";
+import { Box, Button, useToast, CircularProgress, VStack, Tooltip, useBreakpointValue } from '@chakra-ui/react';
 import { createClient } from "@/utils/supabase/client";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { ErrorBoundary } from "@saas-ui/react";
@@ -12,7 +12,6 @@ import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 import { useDisclosure } from '@chakra-ui/react';
 import { ViewIcon } from '@saas-ui/react';
 import { AddIcon, EditIcon, ImageIcon, VoiceoverIcon } from '@/components/icons/UI';
-// Import your custom GalleryIcon if it's different from the one provided by Chakra UI
 import { GalleryIcon } from '@/components/icons/UI';
 import { useAuth } from "@saas-ui/auth";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
@@ -24,7 +23,7 @@ interface DashboardLayoutProps {
 }
 
 interface NavLinkButtonProps {
-  icon: React.ReactElement; // Adjusted for JSX element
+  icon: React.ReactElement;
   label: string;
   href: string;
 }
@@ -32,14 +31,16 @@ interface NavLinkButtonProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const auth = useAuth();
   const router = useRouter();
-  const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false); // New state
+  const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (!auth.isLoading) {
       if (!auth.isAuthenticated) {
         router.push('/signin');
       } else {
-        setIsAuthCheckComplete(true); // Set true only if authenticated
+        setIsAuthCheckComplete(true);
       }
     }
   }, [auth.isAuthenticated, auth.isLoading, router]);
@@ -84,9 +85,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   }, [router, toast]);
 
   const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const shouldSidePanel = () => !isOpen && !isMobile;
 
-  const NavLinkButton: React.FC<NavLinkButtonProps> = ({ icon, label, href }) => (
+   
+  const SidePanelButton: React.FC<NavLinkButtonProps> = ({ icon, label, href }) => (
     <Tooltip label={label} placement="right">
       <Button
         onClick={() => router.push(href)}
@@ -103,46 +105,39 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   );
 
   if (!isAuthCheckComplete) {
-    return (
-    <VStack>
-    <LoadingCircle />
-    </VStack>
-    )
+    return <VStack><LoadingCircle /></VStack>;
   }
 
   return (
     <ErrorBoundary>
-      {!isOpen && (
+      {(!isOpen && !isMobile) && (
         <VStack 
            bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
            align="flex-start" position="fixed" left="0" top="30%" spacing={4} zIndex="sticky">
-          <NavLinkButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
-          <NavLinkButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
-          <NavLinkButton icon={<VoiceoverIcon />} label="Clone Voice" href="/dashboard/clone-voice" />
-          <NavLinkButton icon={<AddIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
-          {/* Add additional buttons as needed */}
+          <SidePanelButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
+          <SidePanelButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
+          <SidePanelButton icon={<VoiceoverIcon />} label="Clone Voice" href="/dashboard/clone-voice" />
+          <SidePanelButton icon={<AddIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
+          {/* Additional buttons */}
         </VStack>
       )}
-        <NavbarAlpha />
-      <Button display={{base: "none", md: "flex"}} zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
-  
+      <NavbarAlpha />
+      <Button display={{ base: "none", md: "flex" }} zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
       
-        
       {children}
-    
+      
       <GalleryDrawer
-  isOpen={isOpen}
-  onClose={onClose}
-  items={contentItems.filter(item => item.url).map(item => ({
-    content_id: item.content_id,
-    url: item.url!, // The exclamation mark asserts that url is not undefined
-    title: item.title,
-    prompt: item.prompt,
-  }))}
-  onEdit={handleEdit}
-  onDelete={handleDelete}
-/>
-
+        isOpen={isOpen}
+        onClose={onClose}
+        items={contentItems.filter(item => item.url).map(item => ({
+          content_id: item.content_id,
+          url: item.url!, // Asserting url is not undefined
+          title: item.title,
+          prompt: item.prompt,
+        }))}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </ErrorBoundary>
   );
 };
