@@ -1,4 +1,4 @@
-import { uploadAvatar } from "@/lib/leap/uploadAvatar";
+import { uploadAvatar } from "@/lib/dashboard/receive/leap/uploadAvatar";
 import { WorkflowStatus, WorkflowOutput, WorkflowWebhookRequestBody } from '@/types';
 
 

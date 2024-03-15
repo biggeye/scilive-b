@@ -5,16 +5,22 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { useRecoilState } from 'recoil';
 import { userImagePreviewState } from '@/state/replicate/prediction-atoms'
+import { fetchGalleryImages, fetchGalleryScripts } from '@/lib/galleryServer';
+import { contentItemsState } from '@/state/user/gallery-atoms';
 
 export const useGalleryLogic = () => {
-  const [contentItems, setContentItems] = useState<ContentItem[]>([]);
+  const [contentItems, setContentItems] = useRecoilState(contentItemsState);
   const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
   const supabase = createClient();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await parseGalleryImages();
-      setContentItems(data.flat()); // Assuming parseGalleryImages returns ContentItem[][]
+      const [imagesData, scriptsData] = await Promise.all([
+        fetchGalleryImages(),
+        fetchGalleryScripts(),
+      ]);
+      const combinedData = [...imagesData, ...scriptsData];
+      setContentItems(combinedData);
     };
     fetchData();
   }, []);
@@ -28,9 +34,9 @@ export const useGalleryLogic = () => {
     console.log('Delete item with id:', id);
     // Implement delete logic here
     // Example: Remove item from contentItems state after deletion
-    const filteredItems = contentItems.filter(item => item.content_id !== id);
-    setContentItems(filteredItems);
+   // const filteredItems = contentItems.filter(item => item.content_id !== id);
+   // setContentItems(filteredItems);
   };
 
-  return { contentItems, handleEdit, handleDelete };
+  return { contentItems, setContentItems, handleEdit, handleDelete };
 };

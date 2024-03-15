@@ -1,10 +1,9 @@
 'use server'
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from 'next/headers';
 
 export default async function uploadTrainedModel(model_id: string, model_name: string, user_id: string, model_type: string, number_of_images: number, images: File[]) {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+
+    const supabase = createClient();
     const modelId = model_id;
     const modelName = model_name;
     const modelType = model_type;

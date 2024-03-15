@@ -1,51 +1,37 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import Gallery from '@/components/Gallery';
+
+// import UI
 import { Card, Box } from '@chakra-ui/react';
-import { parseGalleryImages } from '@/lib/gallery/getGalleryItems';
-import { ContentItem } from '@/types';
+// import utility
+import { createClient } from '@/utils/supabase/client';
+import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+// import state
+
+import Gallery from '@/components/Gallery';
+
 
 const GalleryPage: React.FC = () => {
-  const [contentItems, setContentItems] = useState<ContentItem[]>([]);
-  const supabase = createClient();
+  const { contentItems, setContentItems, handleEdit, handleDelete } = useGalleryLogic();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await parseGalleryImages();
-      setContentItems(data.flat()); // Assuming parseGalleryImages returns ContentItem[][]
-    };
-    fetchData();
-  }, []);
 
-  // Handler for edit action - stub for now
-  const handleEdit = (id: string) => {
-    console.log('Edit item with id:', id);
-    // Implement edit logic here
-  };
-
-  // Handler for delete action - stub for now
-  const handleDelete = async (id: string) => {
-    console.log('Delete item with id:', id);
-    // Implement delete logic here
-    // Example: Remove item from contentItems state after deletion
-    const filteredItems = contentItems.filter(item => item.content_id !== id);
-    setContentItems(filteredItems);
-  };
 
   return (
-    
-      <Gallery
-        items={contentItems.map(item => ({
-          id: item.content_id,
-          url: item.url,
-          title: item.title,
-          prompt: item.prompt,
-        }))}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
-    
+
+    <Gallery
+      items={contentItems.map(item => ({
+        id: item.content_id,
+        url: item.url,
+        title: item.title,
+        prompt: item.prompt,
+        content: item.content, // Include content here
+      }))}
+      onEdit={handleEdit}
+      onDelete={handleDelete}
+    />
+
   );
 };
 

@@ -3,9 +3,9 @@
 import { atom } from "recoil";
 import { ContentItem } from '@/types';
 
-export const contentItemsState = atom<ContentItem[] | null>({
+export const contentItemsState = atom<ContentItem[]>({
   key: 'contentItemsState',
-  default: null,
+  default: [],
 });
 
 export const currentIndexState = atom<number | null>({

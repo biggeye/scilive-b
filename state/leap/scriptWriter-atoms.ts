@@ -1,21 +1,21 @@
 import { atom } from "recoil";
 
-export const voiceoverScriptState = atom<string[][] | null>({
+export const voiceoverScriptState = atom<{}>({
     key: 'voiceOverScriptState',
-    default: null,
+    default: "",
 })
 
-export const webpageUrlState = atom<string | null>({
+export const webpageUrlState = atom<string>({
     key: 'webpageUrlState',
-    default: null,
+    default: "",
 })
 
-export const hostNameState = atom<string | null>({
+export const hostNameState = atom<string>({
     key: 'hostNameState',
-    default: null,
+    default: "",
 })
 
-export const podcastNameState = atom<string | null>({
+export const podcastNameState = atom<string>({
     key: 'podcastNameState',
-    default: null,
+    default: "",
 })

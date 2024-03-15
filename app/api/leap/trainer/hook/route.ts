@@ -1,4 +1,4 @@
-import { uploadTrainedModel } from "@/lib/leap/uploadTrainedModel";
+import uploadTrainedModel from "@/lib/dashboard/receive/leap/uploadTrainedModel";
 import { createClient } from "@/utils/supabase/route";
 import { WorkflowStatus, WorkflowOutput, WorkflowWebhookRequestBody } from "@/types";
 

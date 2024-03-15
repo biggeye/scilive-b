@@ -1,4 +1,5 @@
-import { uploadPrediction } from "@/lib/replicate/uploadPrediction";
+import { uploadPrediction } from "@/lib/dashboard/receive/replicate/uploadPrediction";
+import { uploadMultiplePredictions } from "@/lib/dashboard/receive/replicate/uploadMultiplePredictions";
 import { createClient } from "@/utils/supabase/server";
 
 interface PredictionResponsePostBody {
@@ -53,11 +54,11 @@ export async function POST(req: Request) {
     const status = body.status;
 
     if (body.status === 'starting') {
-
+       console.log("predictionId: ", predictionId, "userId: ", userId, "prompt: ", prompt, "status: ", body.status);
       const { data, error } = await supabase
         .from('master_content')
         .insert([
-          { predction_id: predictionId, created_by: userId, prompt: prompt, status: body.status }
+          { prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status }
         ]);
 
       if (error) {
@@ -87,44 +88,38 @@ export async function POST(req: Request) {
 
     if (body.status === 'succeeded' && body.output) {
       const { output } = body;
-
+  
       // Handle output as an array of strings
       if (Array.isArray(output) && output.every(item => typeof item === 'string')) {
-        const uploadPromises = output.map((image, index) =>
-          uploadPrediction(image, userId, modelId, `${predictionId}-${index}`, prompt)
-        );
-
-        try {
-          const urls = await Promise.all(uploadPromises);
-          // Here, urls is an array of strings, each being a URL returned from uploadPrediction
-
-          // Return these URLs in your response
-          return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          });
-        } catch (error) {
-          console.error('Error uploading predictions:', error);
-          // Handle error case here
-        }
+          try {
+              const urls = await uploadMultiplePredictions(output, userId, modelId, predictionId, prompt);
+              // Return these URLs in your response
+              return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+              });
+          } catch (error) {
+              console.error('Error uploading predictions:', error);
+              // Handle error case here
+          }
       } else if (typeof output === 'string') {
-        // Handle single string output
-        try {
-          const url = await uploadPrediction(output, userId, modelId, `${predictionId}-0`, prompt);
-          // Return this URL in your response
-          return new Response(JSON.stringify({ message: 'Webhook processed successfully', url }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          });
-        } catch (error) {
-          console.error('Error uploading prediction:', error);
-          // Handle error case here
-        }
+          // Handle single string output
+          try {
+              const url = await uploadPrediction(output, userId, modelId, `${predictionId}-0`, prompt);
+              // Return this URL in your response
+              return new Response(JSON.stringify({ message: 'Webhook processed successfully', url }), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+              });
+          } catch (error) {
+              console.error('Error uploading prediction:', error);
+              // Handle error case here
+          }
       } else {
-        console.error('output is neither an array of strings nor a string');
-        // Handle invalid output type here
+          console.error('output is neither an array of strings nor a string');
+          // Handle invalid output type here
       }
-    }
+  }
 
   } catch (error) {
      console.error('Error handling webhook:')

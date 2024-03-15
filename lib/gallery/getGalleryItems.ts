@@ -11,7 +11,6 @@ export async function parseGalleryImages(): Promise<GalleryImage[][]> {
       return []; 
     }
     const chunkedData = chunkArray(data, 10);
-    console.log("Chunked data:", chunkedData);
     return chunkedData;
   } catch (error) {
     console.error("Error fetching gallery images:", error);

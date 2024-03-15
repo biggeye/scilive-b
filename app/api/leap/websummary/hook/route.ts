@@ -1,9 +1,9 @@
-import { uploadWebsiteSummary } from '@/lib/leap/uploadWebsiteSummary';
+import { uploadWebsiteSummary } from '@/lib/dashboard/receive/leap/uploadWebsiteSummary';
 
-type WorkflowStatus = 'completed' | 'running' | 'failed';
+type WorkflowStatus = 'queued' | 'completed' | 'running' | 'failed';
 
 interface WorkflowOutput {
-  website_summary: string;
+  script: string;
   user_id: string;
   url: string;
 }
@@ -35,12 +35,21 @@ export async function POST(req: Request) {
   try {
     const body: WorkflowWebhookRequestBody = await req.json();
     console.log('Received webhook for workflow:', body.id);
-
+    if (body.status === 'queued' || body.status === 'running') {
+      console.log('New Script Writer content received: ', body.id);
+      // Ensure userId is defined. Example:
+      const userId = body.input.user_id; // Assuming user_id comes from the webhook body's input
+      const predictionId = body.id;
+      await uploadWebsiteSummary(predictionId, userId); // Assuming this is the correct usage
+    }
+    
     if (body.status === 'completed' && body.output) {
-        const { website_summary, user_id: userId, url: prompt } = body.output;
+      console.log('Script Writer content complete: ', body.id)
+        const { script: content, user_id: userId, url: prompt } = body.output;
+
         const predictionId = body.id;
       
-      await uploadWebsiteSummary(website_summary, userId, "leapWebsiteSummary", predictionId, prompt);
+      await uploadWebsiteSummary(userId, predictionId, content, "leapWebsiteSummary", prompt);
   }
   
 

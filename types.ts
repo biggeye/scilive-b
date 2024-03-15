@@ -58,13 +58,6 @@ export interface ModalProps {
 }
 
 
-
-export type GalleryScript = {
-  content_id: string,
-  content: string,
-  prompt: string,
-}
-
 export interface GalleryProps {
   contentItems: ContentItem[][];
   currentIndex: number | null;
@@ -78,7 +71,7 @@ export type ContentItem = {
   content_id: string;
   name?: string;
   title?: string;
-  url: string;
+  url?: string;
   created_by?: string;
   created_at: Date;
   content?: string;
@@ -89,7 +82,7 @@ export type ContentItem = {
 };
 
 export type GalleryImage = Pick<ContentItem, 'content_id' | 'created_at' | 'url' | 'prompt'>;
-
+export type GalleryScript = Pick<ContentItem, 'content_id' | 'created_at' | 'content' | 'prompt'>;
 export type ImageCardProps = {
   imageUrl: string,
   prompt: string,
