@@ -1,5 +1,5 @@
 import { Leap } from "@leap-ai/workflows";
-import uploadTrainedModel from "@/lib/leap/uploadTrainedModel";
+import uploadTrainedModel from "@/lib/dashboard/receive/leap/uploadTrainedModel";
 
 interface bodyData {
   model_name: string,
