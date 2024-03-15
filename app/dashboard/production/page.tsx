@@ -45,13 +45,13 @@ const VideoProduction = () => {
   const renderGrid = () => (
     <Grid
       templateAreas={{
-        lg: `"voice avatar script"
-                          "footer footer footer"`,
+        lg: `"avatar script"
+                          "footer footer "`,
         base: `"avatar"
-                              "voice"
+                          
                               "script"
                               "footer"` }}
-      gridTemplateColumns={{ base: '90vw', lg: '25vw 25vw 25vw' }}
+      gridTemplateColumns={{ base: '90vw', lg: '35vw 35vw' }}
       gridTemplateRows={{ base: '4', lg: '2' }}
       h='92vh'
       gap='1'
@@ -59,12 +59,7 @@ const VideoProduction = () => {
       fontWeight='bold'
       maxW="100vw"
     >
-      <GridItem pl='2' area={'voice'}>
-        <Box w="100%">
-          <VoiceCloner />
-        </Box>
-      </GridItem>
-      <GridItem pl='2' area={'avatar'}>
+       <GridItem pl='2' area={'avatar'}>
         <Box w="100%">
           <AvatarCreator />
         </Box>

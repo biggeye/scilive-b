@@ -21,6 +21,7 @@ import {
     MenuList,
     MenuGroup,
     MenuDivider,
+    Tooltip,
 } from '@chakra-ui/react';
 import {
     ImageIcon,
@@ -31,7 +32,7 @@ import {
     SettingsIcon,
     // Assuming MdScript and MdTraining are imported and exported correctly elsewhere in your code
 } from '@/components/icons/UI';
-import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent } from '@saas-ui/react';
+import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent, PlusIcon } from '@saas-ui/react';
 import Logo from '@/components/utils/Logo';
 import SignOutButton from './ui/AuthForms/SignOutButton';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
@@ -115,36 +116,55 @@ const NavbarAlpha = () => {
             </NavbarContent>
         </Navbar >
             ) : (
+                <>
+                <Tooltip label="Dashboard">
+                <IconButton
+                bgColor="primary.100"
+                borderWidth="0.5px"
+                zIndex="5000"
+                    position="fixed"
+                    bottom="15px"
+                    right="45%"
+                    left="45%"
+                    icon={<PlusIcon />}
+                    aria-label="Dashboard"
+                    onClick={() => router.push('/dashboard')}
+                />
+                </Tooltip>
                 <Box
+                zIndex="2500"
                     display="flex"
-                    justifyContent="space-around"
+                    justifyContent="space-between"
                     position="fixed"
                     bottom="0"
                     width="100%"
                     bg="primary.50"
-                    p={2}
-                    zIndex="banner"
+                    p={1}
+             
                 >
-                    <IconButton
-                        icon={<ImageIcon />}
-                        aria-label="Dashboard"
-                        onClick={() => router.push('/dashboard')}
-                    />
+                       <PersonaAvatar
+                            src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
+                            name={userProfile?.full_name || ""}
+                            borderRadius="full"
+                            size="xs"
+                            aria-label="User menu"
+                            onClick={onDrawerOpen}
+                            presence={auth.isAuthenticated ? ("online") : ("offline")}
+                            bottom="0px"
+                        />
                     <Spacer />
+                    <Tooltip label="gallery">
                     <IconButton
-                        icon={<PhotosIcon />}
+                    bottom="2px"
+                        
+                       icon={<PhotosIcon />}
                         aria-label="Gallery"
                         onClick={() => router.push('/dashboard/assets')}
                     />
-                    <Spacer />
-                    <IconButton
-                    display="inline-flex"
-                    icon={<Logo width="20px" height="20px" />}
-                    onClick={onDrawerOpen}
-                    aria-label="Open Menu"
-                />
+                    </Tooltip>
+                              
                 </Box>
-            )}
+            </>)}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
                 <DrawerOverlay />
                 <DrawerContent>
