@@ -43,7 +43,7 @@ import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { PencilIcon, WeightIcon } from 'lucide-react';
+import { MessageSquareIcon, PencilIcon, PersonStandingIcon, WeightIcon } from 'lucide-react';
 
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
@@ -197,10 +197,10 @@ const NavbarAlpha = () => {
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
                                 <NavGroup><Text color="teal.500" as="h3">pr0duc3</Text>
-                                    <NavItem icon={<ImageIcon />} href="/dashboard/create-image">Create Images</NavItem>
-                                    <NavItem icon={<EditIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
-                                    <NavItem icon={<AddIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
-                                    <NavItem icon={<PencilIcon />} href="/dashboard/write-script">Write Script</NavItem>
+                                    <NavItem icon={<PlusIcon />} href="/dashboard/create-image">Create Images</NavItem>
+                                    <NavItem icon={<PencilIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
+                                    <NavItem icon={<MessageSquareIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
+                                    <NavItem icon={<PersonStandingIcon />} href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
 
                                 <NavGroup><Text color="teal.500" as="h3">tr@ining</Text>

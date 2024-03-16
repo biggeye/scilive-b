@@ -17,7 +17,7 @@ import { useAuth } from "@saas-ui/auth";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
 import { ContentItem } from "@/types";
-import { PencilIcon } from "lucide-react";
+import { MessageSquareIcon, PencilIcon, PersonStandingIcon, PlusIcon } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: any
@@ -115,10 +115,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         <VStack 
            bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
            align="flex-start" position="fixed" left="0" top="180px" spacing={4} zIndex="sticky">
-          <SidePanelButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
-          <SidePanelButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
-          <SidePanelButton icon={<PencilIcon />} label="Write Script" href="/dashboard/write-script" />
-          <SidePanelButton icon={<AddIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
+          <SidePanelButton icon={<PlusIcon />} label="Create Images" href="/dashboard/create-image" />
+          <SidePanelButton icon={<PencilIcon />} label="Edit Images" href="/dashboard/edit-image" />
+          <SidePanelButton icon={<MessageSquareIcon />} label="Write Script" href="/dashboard/write-script" />
+          <SidePanelButton icon={<PersonStandingIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
           {/* Additional buttons */}
         </VStack>
       )}
