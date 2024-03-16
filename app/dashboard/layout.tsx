@@ -17,6 +17,7 @@ import { useAuth } from "@saas-ui/auth";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
 import { ContentItem } from "@/types";
+import { PencilIcon } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: any
@@ -113,17 +114,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       {(!isOpen && !isMobile) && (
         <VStack 
            bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
-           align="flex-start" position="fixed" left="0" top="30%" spacing={4} zIndex="sticky">
+           align="flex-start" position="fixed" left="0" top="180px" spacing={4} zIndex="sticky">
           <SidePanelButton icon={<ImageIcon />} label="Create Images" href="/dashboard/create-image" />
           <SidePanelButton icon={<EditIcon />} label="Edit Images" href="/dashboard/edit-image" />
-          <SidePanelButton icon={<VoiceoverIcon />} label="Clone Voice" href="/dashboard/clone-voice" />
+          <SidePanelButton icon={<PencilIcon />} label="Write Script" href="/dashboard/write-script" />
           <SidePanelButton icon={<AddIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
           {/* Additional buttons */}
         </VStack>
       )}
       <NavbarAlpha />
-      <Button display={{ base: "none", md: "flex" }} zIndex="sticky" position="fixed" right="5px" top="20%" onClick={onOpen} leftIcon={<GalleryIcon />} size="sm" />
-      
+      <Tooltip label="Gallery">
+      <Button display={{ base: "none", md: "flex" }} zIndex="sticky" position="fixed" left="5px" top="120px" onClick={onOpen} leftIcon={<GalleryIcon />} size="xs" />
+      </Tooltip>
       {children}
       
       <GalleryDrawer

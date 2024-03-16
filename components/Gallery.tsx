@@ -38,7 +38,7 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   };
 
   return (
-    <Box width="100%" padding="10px">
+    <Box width="100%" padding="10px" paddingLeft={{base: "2px", md: "55px"}} paddingRight={{base: "2px", md: "5px"}}>
     <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
       {items.map((item) => (
         <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">

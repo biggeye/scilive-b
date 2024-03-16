@@ -22,6 +22,7 @@ import {
     MenuGroup,
     MenuDivider,
     Tooltip,
+    Image
 } from '@chakra-ui/react';
 import {
     ImageIcon,
@@ -42,6 +43,7 @@ import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
+import { PencilIcon, WeightIcon } from 'lucide-react';
 
 const NavbarAlpha = () => {
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
@@ -55,94 +57,94 @@ const NavbarAlpha = () => {
             {!isMobile ? (
                 // Non-mobile navbar rendering goes here...
                 <Navbar
-            minWidth="480px"
-            bgGradient="linear(to-t, transparent, primary.50)"
-            backdropFilter="blur(50px)"
-            position="sticky"
-            top="0"
-            zIndex="banner"
-        >
-            <NavbarBrand>
-                <IconButton
-                    display="inline-flex"
-                    icon={<Logo width="50px" height="50px" />}
-                    onClick={onDrawerOpen}
-                    aria-label="Open Menu"
-                />
-            </NavbarBrand>
-            {auth.isAuthenticated &&
-                <NavbarContent display={{ base: 'hidden', md: 'flex' }}
-                    flexWrap="nowrap">
-
-                    <NavbarItem>
-                        <NavbarLink href="/dashboard">Production</NavbarLink>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
-                    </NavbarItem>
-
-                </NavbarContent>
-            }
-            <NavbarContent as="div" justifyContent="end">
-                <Menu>
-                    <MenuButton>
-                        <PersonaAvatar
-                            src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
-                            name={userProfile?.full_name || ""}
-                            borderRadius="full"
-                            size="xs"
-                            aria-label="User menu"
-                            presence={auth.isAuthenticated ? ("online") : ("offline")}
+                    minWidth="480px"
+                    bgGradient="linear(to-t, transparent, primary.50)"
+                    backdropFilter="blur(50px)"
+                    position="sticky"
+                    top="0"
+                    zIndex="banner"
+                >
+                    <NavbarBrand>
+                        <IconButton
+                            display="inline-flex"
+                            icon={<Image src={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/scilive3.png`} width="50px" height="50px" />}
+                            onClick={onDrawerOpen}
+                            aria-label="Open Menu"
                         />
-                    </MenuButton>
-                    <MenuList>
-                        {auth.isAuthenticated ? (
-                            <MenuGroup>
-                                <MenuItem><div className="code">{userProfile?.full_name}</div></MenuItem>
-                                <MenuDivider />
-                                <MenuItem><NavbarLink href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
-                                <MenuItem><NavbarLink href="/account">Account</NavbarLink></MenuItem>
-                                <MenuDivider />
-                                <SignOutButton />
-                            </MenuGroup>
-                        ) : (
-                            <MenuGroup>
-                                <MenuDivider />
-                                <MenuItem><NavbarLink as="h3" href="/signin">Login / Signup</NavbarLink></MenuItem>
-                            </MenuGroup>
-                        )}
-                    </MenuList>
-                </Menu>
-            </NavbarContent>
-        </Navbar >
+                    </NavbarBrand>
+                    {auth.isAuthenticated &&
+                        <NavbarContent display={{ base: 'hidden', md: 'flex' }}
+                            flexWrap="nowrap">
+
+                            <NavbarItem>
+                                <NavbarLink href="/dashboard">Production</NavbarLink>
+                            </NavbarItem>
+                            <NavbarItem>
+                                <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
+                            </NavbarItem>
+
+                        </NavbarContent>
+                    }
+                    <NavbarContent as="div" justifyContent="end">
+                        <Menu>
+                            <MenuButton>
+                                <PersonaAvatar
+                                    src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
+                                    name={userProfile?.full_name || ""}
+                                    borderRadius="full"
+                                    size="xs"
+                                    aria-label="User menu"
+                                    presence={auth.isAuthenticated ? ("online") : ("offline")}
+                                />
+                            </MenuButton>
+                            <MenuList>
+                                {auth.isAuthenticated ? (
+                                    <MenuGroup>
+                                        <MenuItem><div className="code">{userProfile?.full_name}</div></MenuItem>
+                                        <MenuDivider />
+                                        <MenuItem><NavbarLink href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
+                                        <MenuItem><NavbarLink href="/account">Account</NavbarLink></MenuItem>
+                                        <MenuDivider />
+                                        <SignOutButton />
+                                    </MenuGroup>
+                                ) : (
+                                    <MenuGroup>
+                                        <MenuDivider />
+                                        <MenuItem><NavbarLink as="h3" href="/signin">Login / Signup</NavbarLink></MenuItem>
+                                    </MenuGroup>
+                                )}
+                            </MenuList>
+                        </Menu>
+                    </NavbarContent>
+                </Navbar >
             ) : (
                 <>
-                <Tooltip label="Dashboard">
-                <IconButton
-                bgColor="primary.100"
-                borderWidth="0.5px"
-                zIndex="5000"
-                    position="fixed"
-                    bottom="15px"
-                    right="45%"
-                    left="45%"
-                    icon={<PlusIcon />}
-                    aria-label="Dashboard"
-                    onClick={() => router.push('/dashboard')}
-                />
-                </Tooltip>
-                <Box
-                zIndex="2500"
-                    display="flex"
-                    justifyContent="space-between"
-                    position="fixed"
-                    bottom="0"
-                    width="100%"
-                    bg="primary.50"
-                    p={1}
-             
-                >
-                       <PersonaAvatar
+                    <Tooltip label="Dashboard">
+                        <IconButton
+                            bgColor="primary.100"
+                            borderWidth="0.5px"
+                            zIndex="500"
+                            position="fixed"
+                            bottom="15px"
+                            right="45%"
+                            left="45%"
+                            icon={<PlusIcon />}
+                            aria-label="Dashboard"
+                            onClick={() => router.push('/dashboard')}
+                        />
+                    </Tooltip>
+                    <Box
+                        zIndex="250"
+                        display="flex"
+                        justifyContent="space-between"
+                        position="fixed"
+                        bottom="0"
+                        width="100%"
+                        bg="primary.50"
+                        p={1}
+
+                    >
+                        <PersonaAvatar
                             src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
                             name={userProfile?.full_name || ""}
                             borderRadius="full"
@@ -152,21 +154,21 @@ const NavbarAlpha = () => {
                             presence={auth.isAuthenticated ? ("online") : ("offline")}
                             bottom="0px"
                         />
-                    <Spacer />
-                    <Tooltip label="gallery">
-                    <IconButton
-                    bottom="2px"
-                        
-                       icon={<PhotosIcon />}
-                        aria-label="Gallery"
-                        onClick={() => router.push('/dashboard/assets')}
-                    />
-                    </Tooltip>
-                              
-                </Box>
-            </>)}
+                        <Spacer />
+                        <Tooltip label="gallery">
+                            <IconButton
+                                bottom="2px"
+
+                                icon={<PhotosIcon />}
+                                aria-label="Gallery"
+                                onClick={() => router.push('/dashboard/assets')}
+                            />
+                        </Tooltip>
+
+                    </Box>
+                </>)}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
-                <DrawerOverlay />
+                <DrawerOverlay zIndex="banner" />
                 <DrawerContent>
 
                     <DrawerHeader>
@@ -197,13 +199,12 @@ const NavbarAlpha = () => {
                                 <NavGroup><Text color="teal.500" as="h3">pr0duc3</Text>
                                     <NavItem icon={<ImageIcon />} href="/dashboard/create-image">Create Images</NavItem>
                                     <NavItem icon={<EditIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
-                                    <NavItem icon={<VoiceoverIcon />} href="/dashboard/clone-voice">Clone Voice</NavItem>
                                     <NavItem icon={<AddIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
-                                    <NavItem href="/dashboard/write-script">Write Script</NavItem>
+                                    <NavItem icon={<PencilIcon />} href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
 
                                 <NavGroup><Text color="teal.500" as="h3">tr@ining</Text>
-                                    <NavItem href="/train"> - Train SDXL Model</NavItem>
+                                    <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
                                 </NavGroup>
 
                                 <NavGroup><Text as="h3" color="teal.500">acc0unt</Text>
