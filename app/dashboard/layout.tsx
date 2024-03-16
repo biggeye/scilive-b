@@ -114,7 +114,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       {(!isOpen && !isMobile) && (
         <VStack 
            bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
-           align="flex-start" position="fixed" left="0" top="180px" spacing={4} zIndex="sticky">
+           align="flex-start" position="fixed" left="0" top="200px" spacing={4} zIndex="sticky">
           <SidePanelButton icon={<PlusIcon />} label="Create Images" href="/dashboard/create-image" />
           <SidePanelButton icon={<PencilIcon />} label="Edit Images" href="/dashboard/edit-image" />
           <SidePanelButton icon={<MessageSquareIcon />} label="Write Script" href="/dashboard/write-script" />
@@ -124,7 +124,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       )}
       <NavbarAlpha />
       <Tooltip label="Gallery">
-      <Button display={{ base: "none", md: "flex" }} zIndex="sticky" position="fixed" left="5px" top="120px" onClick={onOpen} leftIcon={<GalleryIcon />} size="xs" />
+      <Button display={{ base: "none", md: "flex" }} zIndex="sticky" position="fixed" left="5px" top="150px" onClick={onOpen} leftIcon={<GalleryIcon />} size="xs" />
       </Tooltip>
       {children}
       
