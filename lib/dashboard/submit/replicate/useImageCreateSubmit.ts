@@ -40,7 +40,7 @@ export const useImageCreateSubmit = () => {
   const [predictionError, setPredictionError] = useRecoilState<string | null>(predictionErrorState);
   const [finalPrediction, setFinalPrediction] = useRecoilState<string | null>(finalPredictionState);
  
-  const submitImageCreate = async (userInput: string): Promise<string | null> => {
+  const submitImageCreate = async (userInput: string, userImageDataUri?: string): Promise<string | null> => {
     setPredictionError(null);
     setModelBootResult(null);
     setFinalPrediction(null);

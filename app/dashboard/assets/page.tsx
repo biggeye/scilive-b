@@ -1,15 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-
-// import UI
-import { Card, Box } from '@chakra-ui/react';
-// import utility
-import { createClient } from '@/utils/supabase/client';
 import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
-import { useRecoilState, useRecoilValue } from 'recoil';
-
-// import state
-
 import Gallery from '@/components/Gallery';
 
 

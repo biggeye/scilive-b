@@ -45,6 +45,7 @@ const ImageEditor = () => {
 
   const { profileLoading, profileError } = useUserProfile();
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+
   useEffect(() => {
     setCurrentPage("editImage");
   }, [currentPage]);
@@ -81,7 +82,7 @@ const ImageEditor = () => {
       console.error("No model selected or user not found");
       return;
     }
-    await imageEditSubmit(userInput);
+    await imageEditSubmit(userInput, userImageDataUri);
     if (finalPrediction) {
       setUserImageUpload(null);
       setUserImagePreview(null);

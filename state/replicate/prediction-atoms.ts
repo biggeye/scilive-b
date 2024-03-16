@@ -18,9 +18,9 @@ export const userImageUploadState = atom<File | null>({
   default: null,
 });
 
-export const userImageDataUriState = atom<string | null>({
+export const userImageDataUriState = atom<string>({
   key: 'userImageDataUriState',
-  default: null,
+  default: "",
 });
 
 

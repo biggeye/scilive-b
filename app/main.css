@@ -34,12 +34,18 @@ div {
 }
 
 h3 {
-  font-family: 'Press Start 2P', sans-serif;
-  font-weight: '100';
+  font-family: 'Exo 2', sans-serif;
+  font-weight: '300';
 }
 
-h1, h2 {
+h1 {
   font-family: 'Press Start 2P', system-ui;
+  font-weight: '500';
+}
+
+h2 {
+  font-family: 'Press Start 2P', system-ui;
+  font-weight: '100';
 }
 
 p {
@@ -179,16 +185,55 @@ p a {
 }
 
 @keyframes pulse {
-  0%, 100% {
-      transform: scale(1);
+  0% {
+      rotate: 14000deg;
+      transform: scale(0.0001);
       opacity: 1;
   }
-  50% {
-      transform: scale(0.97);
-      opacity: .7;
+  10% {
+      transform: scale(0.25);
+      opacity: .95;
   }
+  20% {
+    transform: scale(0.05);
+    opacity: .9;
 }
-
+  30% {
+    transform: scale(0.75);
+    opacity: .85;
+}
+40% {
+    transform: scale(0.95);
+    opacity: .2;
+}
+50% {
+  transform: scale(0.65);
+  opacity: .9;
+}
+60% {
+  transform: scale(1.5);
+  opacity: .7;
+}
+70% {
+  transform: scale(1.25);
+  opacity: .95;
+}
+80% {
+  rotate: 400deg;
+  transform: scale (1.11);
+  opacity: .97;
+}
+95% {
+  rotate: 375deg;
+  transform: scale (1.07);
+  opacity: .25;
+}
+100%{
+  rotate: 0deg;
+  transform: scale (1);
+  opacity: 1
+}
+}
 
 .element-fade-in {
   animation: fadeIn .2s ease-in;
@@ -204,7 +249,7 @@ p a {
 }
 
 .element-pulse {
-  animation: pulse .5s linear infinite;
+  animation: pulse 15s ease-in;
 }
 
 .animated-shadow {

@@ -8,55 +8,55 @@ import { useRouter } from 'next/navigation'
 export default function AuthPage() {
   const snackbar = useSnackbar();
   const router = useRouter();
-  
 
-const getAbsoluteUrl = (path: string) => {
-  if (typeof window === 'undefined') {
-    return path
+
+  const getAbsoluteUrl = (path: string) => {
+    if (typeof window === 'undefined') {
+      return path
+    }
+    return window.location.origin
   }
-  return window.location.origin
-}
 
   return (
     <VStack>
-    <Flex display="row">
-    <Spacer />
-    <Card w="350px" flex="1" maxW="400px">
-      <CardHeader display="flex" alignItems="center" justifyContent="center">
-        <Image src={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/scilive3.png`} height="200px" width="200px" />
-      </CardHeader>
-      <CardBody>
-       
-        <Auth
-          view="signup"
-          providers={{
-            github: {
-        
-              name: 'Github',
-            },
-            google: {
-              name: 'Google',
-            }
-          }}
-          onSuccess={(view, error) => {
-            if (view === 'login') {
-              snackbar.success('Welcome back!')
-              router.push('/dashboard')
-            }
-          }}
-          onError={(view, error) => {
-            if (view === 'login' && error) {
-              snackbar.error(error.message)
-            }
-          }}
-          redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/dashboard`}
-        
-        />
-       
-      </CardBody>
-    </Card>
-    <Spacer />
-        </Flex>
-</VStack>
+      <Flex display="row">
+        <Spacer />
+        <Card w="350px" flex="1" maxW="400px">
+          <CardHeader display="flex" alignItems="center" justifyContent="center">
+            <Image src={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/scilive4.png`} height="200px" width="200px" />
+          </CardHeader>
+          <CardBody>
+
+            <Auth
+              view="signup"
+              providers={{
+                github: {
+
+                  name: 'Github',
+                },
+                google: {
+                  name: 'Google',
+                }
+              }}
+              onSuccess={(view, error) => {
+                if (view === 'login') {
+                  snackbar.success('Welcome back!')
+                  router.push('/dashboard')
+                }
+              }}
+              onError={(view, error) => {
+                if (view === 'login' && error) {
+                  snackbar.error(error.message)
+                }
+              }}
+              redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/dashboard`}
+
+            />
+
+          </CardBody>
+        </Card>
+        <Spacer />
+      </Flex>
+    </VStack>
   )
 }

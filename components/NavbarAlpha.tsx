@@ -77,10 +77,10 @@ const NavbarAlpha = () => {
                             flexWrap="nowrap">
 
                             <NavbarItem>
-                                <NavbarLink href="/dashboard">Production</NavbarLink>
+                                <NavbarLink ml="10px" mr="10px" as="h3" href="/dashboard">Production</NavbarLink>
                             </NavbarItem>
                             <NavbarItem>
-                                <NavbarLink href="/dashboard/assets">Assets</NavbarLink>
+                                <NavbarLink as="h3" href="/dashboard/assets">Assets</NavbarLink>
                             </NavbarItem>
 
                         </NavbarContent>
@@ -100,17 +100,17 @@ const NavbarAlpha = () => {
                             <MenuList>
                                 {auth.isAuthenticated ? (
                                     <MenuGroup>
-                                        <MenuItem><div className="code">{userProfile?.full_name}</div></MenuItem>
+                                        <MenuItem><h1 className="code">{userProfile?.full_name}</h1></MenuItem>
                                         <MenuDivider />
-                                        <MenuItem><NavbarLink href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
-                                        <MenuItem><NavbarLink href="/account">Account</NavbarLink></MenuItem>
+                                        <MenuItem><NavbarLink as="h3" href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
+                                        <MenuItem><NavbarLink as="h3" href="/account">Account</NavbarLink></MenuItem>
                                         <MenuDivider />
                                         <SignOutButton />
                                     </MenuGroup>
                                 ) : (
                                     <MenuGroup>
                                         <MenuDivider />
-                                        <MenuItem><NavbarLink as="h3" href="/signin">Login / Signup</NavbarLink></MenuItem>
+                                        <MenuItem><NavbarLink as="h2" href="/signin">Login / Signup</NavbarLink></MenuItem>
                                     </MenuGroup>
                                 )}
                             </MenuList>
@@ -196,18 +196,18 @@ const NavbarAlpha = () => {
                     <DrawerBody>
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
-                                <NavGroup><Text color="teal.500" as="h3">pr0duc3</Text>
+                                <NavGroup><Text color="teal.500" as="h1">pr0duc3</Text>
                                     <NavItem icon={<PlusIcon />} href="/dashboard/create-image">Create Images</NavItem>
                                     <NavItem icon={<PencilIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
                                     <NavItem icon={<MessageSquareIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
                                     <NavItem icon={<PersonStandingIcon />} href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
 
-                                <NavGroup><Text color="teal.500" as="h3">tr@ining</Text>
+                                <NavGroup><Text color="teal.500" as="h1">tr@ining</Text>
                                     <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
                                 </NavGroup>
 
-                                <NavGroup><Text as="h3" color="teal.500">acc0unt</Text>
+                                <NavGroup><Text as="h1" color="teal.500">acc0unt</Text>
                                     <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
                                     <NavItem icon={<SettingsIcon />} href="/account">Settings</NavItem>
                                 </NavGroup>
@@ -217,7 +217,7 @@ const NavbarAlpha = () => {
                     <DrawerFooter>
                         {auth.isAuthenticated ? (
                             <SignOutButton />) : (
-                            <Link as="h3" href="/signin">Login / Signup</Link>
+                            <Link as="h2" href="/signin">Login / Signup</Link>
                         )}
                     </DrawerFooter>
                 </DrawerContent>
