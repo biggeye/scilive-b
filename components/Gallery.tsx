@@ -1,36 +1,46 @@
-'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Image,
   SimpleGrid,
   Text,
+  Button,
   useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalBody,
   IconButton,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@/components/icons/UI';
-// Define the props the Gallery component expects
+
 interface GalleryProps {
+  isOpen: any;
+  onClose: any;
   items: {
     id: string;
     url?: string;
     title?: string;
     prompt?: string;
-    content?: string; // Add the content property
+    content?: string;
   }[];
-  onEdit: (id: string) => void;
+  onEdit: (url: string) => void;
   onDelete: (id: string) => void;
 }
 
 const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedItem, setSelectedItem] = React.useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  // Dynamically set items per page based on the current breakpoint
+  const itemsPerPage = useBreakpointValue({ base: 4, md: 6, lg: 8 }) ?? 8;
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const handleSelectItem = (id: string) => {
     setSelectedItem(id);
@@ -38,16 +48,17 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   };
 
   return (
-    <Box width="100%" padding="10px" paddingLeft={{base: "2px", md: "55px"}} paddingRight={{base: "2px", md: "5px"}}>
-    <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
-      {items.map((item) => (
-        <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
-          {item.content ? (
-            <Text>{item.content}</Text> // Render Text component if content exists
-          ) : (
-            <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.id)} />
-          )}<Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
-              <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.id)} mr="2" />
+    <Box width="100%" padding="10px" paddingLeft={{ base: "2px", md: "55px" }} paddingRight={{ base: "2px", md: "5px" }}>
+      <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
+        {currentItems.map((item) => (
+          <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
+            {item.content ? (
+              <Text>{item.content}</Text>
+            ) : (
+              <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.id)} />
+            )}
+            <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
+            <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.url)} mr="2" />
               <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.id)} />
             </Box>
             {item.title && (
@@ -58,6 +69,17 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
           </Box>
         ))}
       </SimpleGrid>
+      <Box display="flex" justifyContent="center" marginTop="4" marginBottom="10">
+        <Button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage <= 1}>
+          Previous
+        </Button>
+        <Text marginLeft="2" marginRight="2">
+          Page {currentPage} of {Math.ceil(items.length / itemsPerPage)}
+        </Text>
+        <Button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage >= totalPages}>
+          Next
+        </Button>
+      </Box>
       {selectedItem && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />

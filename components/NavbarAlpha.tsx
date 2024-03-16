@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import {
+    Button,
     Box,
     IconButton,
     Drawer,
@@ -34,8 +35,6 @@ import {
     // Assuming MdScript and MdTraining are imported and exported correctly elsewhere in your code
 } from '@/components/icons/UI';
 import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent, PlusIcon } from '@saas-ui/react';
-import Logo from '@/components/utils/Logo';
-import SignOutButton from './ui/AuthForms/SignOutButton';
 import ViewModeSwitch from './dashboard/ViewModeSwitch';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
@@ -45,7 +44,12 @@ import { useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { MessageSquareIcon, PencilIcon, PersonStandingIcon, WeightIcon } from 'lucide-react';
 
-const NavbarAlpha = () => {
+interface NavbarAlphaProps {
+    handleSignOut: () => void; // Assuming SignOut is a function that does not return anything
+}
+
+const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
+
     const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
     const isMobile = useBreakpointValue({ base: true, md: false });
     const userProfile = useRecoilValue(userProfileState);
@@ -105,7 +109,7 @@ const NavbarAlpha = () => {
                                         <MenuItem><NavbarLink as="h3" href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
                                         <MenuItem><NavbarLink as="h3" href="/account">Account</NavbarLink></MenuItem>
                                         <MenuDivider />
-                                        <SignOutButton />
+                                        <Button onClick={handleSignOut}>Sign-Out</Button>
                                     </MenuGroup>
                                 ) : (
                                     <MenuGroup>
@@ -168,7 +172,7 @@ const NavbarAlpha = () => {
                     </Box>
                 </>)}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
-                <DrawerOverlay zIndex="banner" />
+                <DrawerOverlay />
                 <DrawerContent>
 
                     <DrawerHeader>
@@ -216,7 +220,7 @@ const NavbarAlpha = () => {
                     </DrawerBody>
                     <DrawerFooter>
                         {auth.isAuthenticated ? (
-                            <SignOutButton />) : (
+                            <Button onClick={handleSignOut}>Sign-Out</Button>) : (
                             <Link as="h2" href="/signin">Login / Signup</Link>
                         )}
                     </DrawerFooter>

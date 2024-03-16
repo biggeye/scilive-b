@@ -58,17 +58,8 @@ export interface ModalProps {
 }
 
 
-export interface GalleryProps {
-  contentItems: ContentItem[][];
-  currentIndex: number | null;
-  setCurrentIndex: (index: number | null) => void;
-  currentGroup: number | null;
-  setCurrentGroup: (group: number | null) => void;
-  handleDelete: (content_id: string) => void;
-}
-
 export type ContentItem = {
-  content_id: string;
+  id: string;
   name?: string;
   title?: string;
   url?: string;
@@ -81,8 +72,8 @@ export type ContentItem = {
   is_public?: boolean;
 };
 
-export type GalleryImage = Pick<ContentItem, 'content_id' | 'created_at' | 'url' | 'prompt'>;
-export type GalleryScript = Pick<ContentItem, 'content_id' | 'created_at' | 'content' | 'prompt'>;
+export type GalleryImage = Pick<ContentItem, 'id' | 'created_at' | 'url' | 'prompt'>;
+export type GalleryScript = Pick<ContentItem, 'id' | 'created_at' | 'content' | 'prompt'>;
 export type ImageCardProps = {
   imageUrl: string,
   prompt: string,

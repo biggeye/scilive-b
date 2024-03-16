@@ -6,7 +6,6 @@ import { useSnackbar } from '@saas-ui/react';
 import Logo from '@/components/icons/Logo';
 import { useRouter } from 'next/navigation';
 
-
 const getAbsoluteUrl = (path: string) => {
   if (typeof window === 'undefined') {
     return path;

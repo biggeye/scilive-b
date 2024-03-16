@@ -3,10 +3,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Box, Button, useToast, CircularProgress, VStack, Tooltip, useBreakpointValue } from '@chakra-ui/react';
 import { createClient } from "@/utils/supabase/client";
-import { useRecoilValue, useRecoilState } from "recoil";
 import { ErrorBoundary } from "@saas-ui/react";
-import { userProfileState } from "@/state/user/user_state-atoms";
-import { useUserProfile } from "@/lib/user/useUserProfile";
 import GalleryDrawer from '@/components/GalleryDrawer';
 import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 import { useDisclosure } from '@chakra-ui/react';
@@ -18,7 +15,7 @@ import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
 import { ContentItem } from "@/types";
 import { MessageSquareIcon, PencilIcon, PersonStandingIcon, PlusIcon } from "lucide-react";
-
+import { SignOut } from "@/utils/auth-helpers/server";
 interface DashboardLayoutProps {
   children: any
 }
@@ -36,6 +33,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleSignOut = async () => {
+    const formData = new FormData();
+    formData.append('path', '/signin'); // Append the path or other data as needed
+
+    await SignOut(formData);
+  }
+
   useEffect(() => {
     if (!auth.isLoading) {
       if (!auth.isAuthenticated) {
@@ -48,6 +52,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   const toast = useToast();
   const supabase = createClient();
+
   useEffect(() => {
     const handleEvent = (payload: any) => {
       console.log("webhook payload: ", payload);
@@ -88,13 +93,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
   const shouldSidePanel = () => !isOpen && !isMobile;
 
-   
   const SidePanelButton: React.FC<NavLinkButtonProps> = ({ icon, label, href }) => (
     <Tooltip label={label} placement="right">
       <Button
         onClick={() => router.push(href)}
         variant="ghost"
-        zIndex="5000"
+        zIndex="banner"
         position="relative"
         left="5px"
         size="sm"
@@ -114,7 +118,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       {(!isOpen && !isMobile) && (
         <VStack 
            bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
-           align="flex-start" position="fixed" left="0" top="200px" spacing={4} zIndex="sticky">
+           align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
           <SidePanelButton icon={<PlusIcon />} label="Create Images" href="/dashboard/create-image" />
           <SidePanelButton icon={<PencilIcon />} label="Edit Images" href="/dashboard/edit-image" />
           <SidePanelButton icon={<MessageSquareIcon />} label="Write Script" href="/dashboard/write-script" />
@@ -122,9 +126,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           {/* Additional buttons */}
         </VStack>
       )}
-      <NavbarAlpha />
+      <NavbarAlpha handleSignOut={handleSignOut}/>
       <Tooltip label="Gallery">
-      <Button display={{ base: "none", md: "flex" }} zIndex="sticky" position="fixed" left="5px" top="150px" onClick={onOpen} leftIcon={<GalleryIcon />} size="xs" />
+         <Button display={{ base: "none", md: "flex" }} zIndex="banner" position="fixed" left="5px" top="150px" onClick={onOpen} leftIcon={<GalleryIcon />} size="xs" />
       </Tooltip>
       {children}
       

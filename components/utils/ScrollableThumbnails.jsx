@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { Box, Image, HStack, IconButton } from "@chakra-ui/react";
 import { LeftIcon, RightIcon } from "@/components/icons/Icons";

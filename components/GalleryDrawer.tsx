@@ -32,12 +32,12 @@ interface GalleryProps {
   isOpen: any;
   onClose: any;
   items: {
-    content_id: string;
+    id: string;
     url: string;
     title?: string;
     prompt?: string;
   }[];
-  onEdit: (id: string) => void;
+  onEdit: (url: string) => void;
   onDelete: (id: string) => void;
 }
 
@@ -54,7 +54,7 @@ const GalleryDrawer: React.FC<GalleryProps> = ({ isOpen, onClose, items, onEdit,
         <DrawerBody>
           <Grid templateColumns="repeat(3, 1fr)" gap={4}>
             {items.map((item) => (
-              <ContextMenu key={item.content_id}>
+              <ContextMenu key={item.id}>
                 <ContextMenuTrigger>
                   <GridItem cursor="pointer">
                     <Image src={item.url} alt={item.title} boxSize="75px" objectFit="cover" />
@@ -63,7 +63,7 @@ const GalleryDrawer: React.FC<GalleryProps> = ({ isOpen, onClose, items, onEdit,
                 </ContextMenuTrigger>
                 <ContextMenuList>
                   <ContextMenuItem onClick={() => onEdit(item.url)}>Edit</ContextMenuItem>
-                  <ContextMenuItem onClick={() => onDelete(item.content_id)}>Delete</ContextMenuItem>
+                  <ContextMenuItem onClick={() => onDelete(item.id)}>Delete</ContextMenuItem>
 
                 </ContextMenuList>
               </ContextMenu>

@@ -115,7 +115,7 @@ export default function SidebarNav() {
                     <Spacer />
                 </NavGroup>
             </SidebarSection>
-            <SidebarOverlay zIndex="1" />
+            <SidebarOverlay />
         </Sidebar>
     )
 }
