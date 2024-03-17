@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+import { CacheProvider } from '@chakra-ui/next-js';
 import { SaasProvider, AppShell } from '@saas-ui/react'
 import { AuthProvider } from '@saas-ui/auth'
 import { createAuthService } from '@saas-ui/supabase'
@@ -21,6 +22,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   const supabaseClient = createClient();
 
   return (
+    <CacheProvider>
     <SaasProvider theme={sciLiveTheme}>
       <AuthProvider {...createAuthService(supabaseClient)}>
         <RecoilRoot>
@@ -36,6 +38,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
         </RecoilRoot>
       </AuthProvider>
     </SaasProvider>
+    </CacheProvider>
   );
 };
 
