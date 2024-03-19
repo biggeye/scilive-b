@@ -62,7 +62,7 @@ export type ContentItem = {
   id: string;
   name?: string;
   title?: string;
-  url?: string;
+  url: string | "";
   created_by?: string;
   created_at: Date;
   content?: string;

@@ -16,11 +16,9 @@ import {
 import { EditIcon, DeleteIcon } from '@/components/icons/UI';
 
 interface GalleryProps {
-  isOpen: any;
-  onClose: any;
   items: {
     id: string;
-    url?: string;
+    url: string;
     title?: string;
     prompt?: string;
     content?: string;

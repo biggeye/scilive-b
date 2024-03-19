@@ -31,10 +31,11 @@ body {
 
 div {
   font-family: 'Antonio Variable', sans-serif;
+  font-weight: '200';
 }
 
 h3 {
-  font-family: 'Exo 2', sans-serif;
+  font-family: 'Antonio Variable', sans-serif;
   font-weight: '300';
 }
 
@@ -45,11 +46,12 @@ h1 {
 
 h2 {
   font-family: 'Press Start 2P', system-ui;
-  font-weight: '100';
+  font-weight: '300';
 }
 
 p {
-  font-family: 'Exo 2', sans-serif;
+  font-family: 'Antonio Variable', sans-serif;
+  font-weight: '100';
 }
 
 a {

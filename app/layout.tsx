@@ -2,6 +2,10 @@ import { Metadata } from 'next';
 import ClientLayout from './ClientLayout';
 import { PropsWithChildren, Suspense } from 'react';
 import { getURL } from '@/utils/helpers';
+import '@fontsource-variable/exo-2';
+import '@fontsource-variable/orbitron';
+import '@fontsource/press-start-2p';
+import '@fontsource-variable/antonio';
 import './main.css';
 
 const meta = {

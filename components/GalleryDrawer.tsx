@@ -28,7 +28,7 @@ import {
 import { EditIcon, DeleteIcon } from '@/components/icons/UI';
 
 // Define the props the Gallery component expects
-interface GalleryProps {
+interface GalleryDrawerProps {
   isOpen: any;
   onClose: any;
   items: {
@@ -41,7 +41,7 @@ interface GalleryProps {
   onDelete: (id: string) => void;
 }
 
-const GalleryDrawer: React.FC<GalleryProps> = ({ isOpen, onClose, items, onEdit, onDelete }) => {
+const GalleryDrawer: React.FC<GalleryDrawerProps> = ({ isOpen, onClose, items, onEdit, onDelete }) => {
   const [selectedItem, setSelectedItem] = React.useState<string | null>(null);
 
   return (

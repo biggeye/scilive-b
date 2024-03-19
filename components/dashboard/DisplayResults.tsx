@@ -63,9 +63,7 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
       <Flex direction="column">
         <Center>
           <VStack>
-
             <ToolOptions localPage={localPage} />
-            {globalLoading ? (
               <Card
                 className="image-card"
                 borderColor="onyx"
@@ -97,23 +95,12 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
                   </Text>
                 </Flex>
               </Card>
-            ) : (
-              <Suspense
-                fallback={
-                  <Skeleton
-                    height="400px"
-                    width="400px"
-                    className="element-pulse"
-                  />
-                }
-              >
         {displayedImage &&        <ImageCard
                   imageUrl={displayedImage}
                   prompt={finalPredictionPrompt}
                   modelName={selectedModelFriendlyName}
                 />}
-              </Suspense>
-            )}
+            
           </VStack>
         </Center>
       </Flex>

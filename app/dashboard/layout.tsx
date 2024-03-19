@@ -1,29 +1,35 @@
 'use client'
+// import utility
 import React, { Suspense, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Box, Button, useToast, CircularProgress, VStack, Tooltip, useBreakpointValue } from '@chakra-ui/react';
-import { createClient } from "@/utils/supabase/client";
 import { ErrorBoundary } from "@saas-ui/react";
-import GalleryDrawer from '@/components/GalleryDrawer';
+import { useRouter } from "next/navigation";
 import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 import { useDisclosure } from '@chakra-ui/react';
-import { ViewIcon } from '@saas-ui/react';
-import { AddIcon, EditIcon, ImageIcon, VoiceoverIcon } from '@/components/icons/UI';
-import { GalleryIcon } from '@/components/icons/UI';
+import { ContentItem } from "@/types";
+import { useRecoilState } from "recoil";
+
+//import auth
+import { createClient } from "@/utils/supabase/client";
 import { useAuth } from "@saas-ui/auth";
+import { SignOut } from "@/utils/auth-helpers/server";
+
+//import components
+import GalleryDrawer from '@/components/GalleryDrawer';
+import SidePanelButton from "@/components/SidePanelButton";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
-import { ContentItem } from "@/types";
-import { MessageSquareIcon, PencilIcon, PersonStandingIcon, PlusIcon } from "lucide-react";
-import { SignOut } from "@/utils/auth-helpers/server";
-interface DashboardLayoutProps {
-  children: any
-}
+import Canvas from "@/components/ui/Canvas";
 
-interface NavLinkButtonProps {
-  icon: React.ReactElement;
-  label: string;
-  href: string;
+//import UI
+import { ViewIcon } from '@saas-ui/react';
+import { Box, Button, useToast, CircularProgress, VStack, Tooltip, useBreakpointValue } from '@chakra-ui/react';
+import { MessageSquareIcon, PencilIcon, PersonStandingIcon, PlusIcon } from "lucide-react";
+import { GalleryIcon, AddIcon, EditIcon, ImageIcon, VoiceoverIcon } from '@/components/icons/UI';
+
+//import state
+import { globalLoadingState, predictionStatusState, predictionProgressState } from "@/state/replicate/prediction-atoms";
+interface DashboardLayoutProps {
+  children: React.ReactNode
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
@@ -32,6 +38,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
+  const [predictionProgress, setPredictionProgress] = useRecoilState(predictionProgressState);
+  const [predictionStatus, setPredictionStatus] = useRecoilState(predictionStatusState);
 
   const handleSignOut = async () => {
     const formData = new FormData();
@@ -58,19 +67,34 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       console.log("webhook payload: ", payload);
       const newRow = payload.new;
       const predictionId = newRow.id;
-      toast({
-        title: `${predictionId} update!`,
-        status: 'info',
-        duration: 5000,
-        isClosable: true,
-      });
-      // Corrected access to payload data
-      if (newRow.url) {
-        const output = newRow.url;
-        console.log(output); // Correct path to the data
-      } else if (newRow.content) {
-        const output = newRow.content;
-        console.log(output);
+      const predictionStatus = newRow.status;
+      const progressStatus = newRow.progress_status;
+      setPredictionProgress(progressStatus);
+      if (predictionStatus === 'succeeded') {
+        toast({
+          title: `${predictionId} is complete!`,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        setPredictionStatus("Succeeded");
+        setGlobalLoading(false);
+
+        if (newRow.url) {
+          const output = newRow.url;
+          console.log(output); // Correct path to the data
+        } else if (newRow.content) {
+          const output = newRow.content;
+          console.log(output);
+        }
+      } else {
+        if (predictionStatus==="starting")
+        toast({
+          title: `${predictionId}'s generator is booting up`,
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+        })
       }
     };
 
@@ -93,22 +117,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
   const shouldSidePanel = () => !isOpen && !isMobile;
 
-  const SidePanelButton: React.FC<NavLinkButtonProps> = ({ icon, label, href }) => (
-    <Tooltip label={label} placement="right">
-      <Button
-        onClick={() => router.push(href)}
-        variant="ghost"
-        zIndex="banner"
-        position="relative"
-        left="5px"
-        size="sm"
-        aria-label={label} // Accessibility improvement
-      >
-        {icon}
-      </Button>
-    </Tooltip>
-  );
-
   if (!isAuthCheckComplete) {
     return <VStack><LoadingCircle /></VStack>;
   }
@@ -116,27 +124,25 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <ErrorBoundary>
       {(!isOpen && !isMobile) && (
-        <VStack 
-           bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
-           align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
+        <VStack
+          bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
+          align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
+          <SidePanelButton icon={<GalleryIcon />} label="Gallery" href="/dashboard/assets" />
           <SidePanelButton icon={<PlusIcon />} label="Create Images" href="/dashboard/create-image" />
           <SidePanelButton icon={<PencilIcon />} label="Edit Images" href="/dashboard/edit-image" />
           <SidePanelButton icon={<MessageSquareIcon />} label="Write Script" href="/dashboard/write-script" />
           <SidePanelButton icon={<PersonStandingIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
-          {/* Additional buttons */}
         </VStack>
       )}
-      <NavbarAlpha handleSignOut={handleSignOut}/>
-      <Tooltip label="Gallery">
-         <Button display={{ base: "none", md: "flex" }} zIndex="banner" position="fixed" left="5px" top="150px" onClick={onOpen} leftIcon={<GalleryIcon />} size="xs" />
-      </Tooltip>
+      <NavbarAlpha handleSignOut={handleSignOut} />
+
       {children}
-      
+
       <GalleryDrawer
         isOpen={isOpen}
         onClose={onClose}
         items={contentItems.filter(item => item.url).map(item => ({
-          content_id: item.content_id,
+          id: item.id,
           url: item.url!, // Asserting url is not undefined
           title: item.title,
           prompt: item.prompt,
