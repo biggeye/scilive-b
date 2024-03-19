@@ -27,7 +27,7 @@ import { MessageSquareIcon, PencilIcon, PersonStandingIcon, PlusIcon } from "luc
 import { GalleryIcon, AddIcon, EditIcon, ImageIcon, VoiceoverIcon } from '@/components/icons/UI';
 
 //import state
-import { globalLoadingState, predictionStatusState, predictionProgressState } from "@/state/replicate/prediction-atoms";
+import { globalLoadingState, predictionStatusState, predictionProgressState, finalPredictionState } from "@/state/replicate/prediction-atoms";
 interface DashboardLayoutProps {
   children: React.ReactNode
 }
@@ -41,6 +41,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
   const [predictionProgress, setPredictionProgress] = useRecoilState(predictionProgressState);
   const [predictionStatus, setPredictionStatus] = useRecoilState(predictionStatusState);
+  const [finalPrediction, setFinalPrediction] = useRecoilState(finalPredictionState);
 
   const handleSignOut = async () => {
     const formData = new FormData();
@@ -77,8 +78,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           duration: 5000,
           isClosable: true,
         });
-        setPredictionStatus("Succeeded");
         setGlobalLoading(false);
+        setPredictionStatus("Succeeded");
+        setFinalPrediction(newRow.url);
+
 
         if (newRow.url) {
           const output = newRow.url;
@@ -88,13 +91,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           console.log(output);
         }
       } else {
-        if (predictionStatus==="starting")
-        toast({
-          title: `${predictionId}'s generator is booting up`,
-          status: 'info',
-          duration: 5000,
-          isClosable: true,
-        })
+        if (predictionStatus === "starting")
+          toast({
+            title: `${predictionId}'s generator is booting up`,
+            status: 'info',
+            duration: 5000,
+            isClosable: true,
+          })
       }
     };
 
@@ -125,7 +128,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     <ErrorBoundary>
       {(!isOpen && !isMobile) && (
         <VStack
-          bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
           align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
           <SidePanelButton icon={<GalleryIcon />} label="Gallery" href="/dashboard/assets" />
           <SidePanelButton icon={<PlusIcon />} label="Create Images" href="/dashboard/create-image" />

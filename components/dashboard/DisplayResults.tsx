@@ -27,7 +27,7 @@ import {
 } from "@/state/replicate/prediction-atoms";
 import {
   exampleImageState,
-  selectedModelFriendlyNameState,
+  selectedModelNameState,
 } from "@/state/replicate/config-atoms";
 import ToolOptions from "./ToolOptions";
 import { ImageCard } from '../utils/Cards';
@@ -46,12 +46,12 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   const finalPredictionPrompt = useRecoilValue(finalPredictionPromptState);
   const userImagePreview = useRecoilValue(userImagePreviewState);
   const exampleImage = useRecoilValue(exampleImageState);
-  const selectedModelFriendlyName = useRecoilValue(
-    selectedModelFriendlyNameState
+  const modelName = useRecoilValue(
+    selectedModelNameState
   );
 
 
-  const displayedImage = finalPrediction || userImagePreview || null;
+  const displayedImage = finalPrediction || userImagePreview;
 
   const imageVariants = {
     hidden: { opacity: 0 },
@@ -59,11 +59,12 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   };
 
   return (
-    <Box height="100%" m={{base: "5px", md: "15px"}}>
+    <Box height="100%" m={{ base: "5px", md: "15px" }}>
       <Flex direction="column">
         <Center>
           <VStack>
-            <ToolOptions localPage={localPage} />
+            <ToolOptions localPage={localPage}/>
+            {globalLoading ? (
               <Card
                 className="image-card"
                 borderColor="onyx"
@@ -95,12 +96,14 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
                   </Text>
                 </Flex>
               </Card>
-        {displayedImage &&        <ImageCard
-                  imageUrl={displayedImage}
-                  prompt={finalPredictionPrompt}
-                  modelName={selectedModelFriendlyName}
-                />}
-            
+            ) : (
+              <ImageCard
+                imageUrl={displayedImage}
+                prompt={finalPredictionPrompt}
+                modelName={modelName}
+              />
+            )}
+
           </VStack>
         </Center>
       </Flex>

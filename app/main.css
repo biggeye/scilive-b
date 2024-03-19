@@ -42,6 +42,8 @@ h3 {
 h1 {
   font-family: 'Press Start 2P', system-ui;
   font-weight: '500';
+  font-size: 'xx-large';
+
 }
 
 h2 {
@@ -60,6 +62,15 @@ a {
 
 p a {
   @apply hover:underline;
+}
+
+.doogieVibe {
+  background-color: blue;
+  color: white;
+  padding: '3px';
+  border-radius: '3px';
+  border-width: '1px';
+  border-color:antiquewhite;
 }
 
 .animated {

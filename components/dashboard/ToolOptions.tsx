@@ -8,7 +8,10 @@ import { finalPredictionState } from "@/state/replicate/prediction-atoms";
 import { fetchTxt2ImgModels, fetchImg2ImgModels } from "@/lib/modelServer";
 import { currentPageState } from '@/state/user/user_state-atoms';
 
-const ToolOptions = ({ localPage }) => {
+type ToolOptionsProps = {
+  localPage: string | null
+}
+const ToolOptions = ({ localPage }: ToolOptionsProps) => {
   const currentPage = useRecoilValue(currentPageState);
   const [selectedModelId, setSelectedModelId] = useRecoilState(selectedModelIdState);
   const [selectedModelFriendlyName, setSelectedModelFriendlyName] = useRecoilState(selectedModelFriendlyNameState);
@@ -51,7 +54,7 @@ const ToolOptions = ({ localPage }) => {
     setSelectedModelShortDesc(model.shortdesc || "");
   };
 
-  const fetchModels = async (page) => {
+  const fetchModels = async (page: any) => {
     setModelsLoading(true);
     try {
       let modelsData;
@@ -83,8 +86,8 @@ const handleSelectionChange = async (event: React.ChangeEvent<HTMLSelectElement>
     }
   };
   
-  const fetchModelData = async (localPage?) => {
-    switch (tool | localPage) {
+  const fetchModelData = async (localPage?: any) => {
+    switch (localPage) {
 
       case "createImage":
         const txt2imgResponse = await fetchTxt2ImgModels();

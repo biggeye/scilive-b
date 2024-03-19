@@ -75,7 +75,7 @@ export type ContentItem = {
 export type GalleryImage = Pick<ContentItem, 'id' | 'created_at' | 'url' | 'prompt'>;
 export type GalleryScript = Pick<ContentItem, 'id' | 'created_at' | 'content' | 'prompt'>;
 export type ImageCardProps = {
-  imageUrl: string,
+  imageUrl: string | null,
   prompt: string,
   modelName: string,
 };
@@ -122,6 +122,29 @@ export interface SelectedModel {
   shortdesc: string,
   inputtype: string,
 }
+
+// Interface for prediction preparation inputs
+export interface PredictionPreparationState {
+  imageNarrativeUploadState: File | null;
+  userImagePreviewState: string | null;
+  userImageUploadState: File | null;
+  userImageDataUriState: string;
+  predictionId: string; // Assuming predictionId is needed for prediction preparation
+}
+
+// Interface for prediction instance state
+export interface PredictionInstanceState {
+  globalLoadingState: boolean;
+  cancelRunningPredictionState: string | null;
+  modelBootResultState: string | null;
+  predictionErrorState: string | null;
+  predictionProgressState: number;
+  predictionStatusState: string;
+  finalPredictionState: string | null;
+  finalPredictionPromptState: string;
+  // Add other properties as needed
+}
+
 
 // Leap AI
 export type WorkflowStatus = 'completed' | 'running' | 'failed';

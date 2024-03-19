@@ -58,7 +58,6 @@ const ImageCreator = () => {
         isClosable: true,
       });
     }
-    setGlobalLoading(false);
   };
 
   return (

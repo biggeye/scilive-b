@@ -1,5 +1,5 @@
 'use server'
-import createClient from '@/utils/supabase/server'
+import { createClient } from '@/utils/supabase/server'
 
 const createContentRecord = async (userId: string, predictionId: string) => {
     const supabase = createClient();

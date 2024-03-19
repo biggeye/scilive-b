@@ -23,7 +23,8 @@ import {
     MenuGroup,
     MenuDivider,
     Tooltip,
-    Image
+    Image,
+    VStack
 } from '@chakra-ui/react';
 import {
     ImageIcon,
@@ -104,12 +105,14 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                             <MenuList>
                                 {auth.isAuthenticated ? (
                                     <MenuGroup>
-                                        <MenuItem><h1 className="code">{userProfile?.full_name}</h1></MenuItem>
+                                        <MenuItem><h1 className="blinking-cursor">{userProfile?.full_name}</h1></MenuItem>
                                         <MenuDivider />
                                         <MenuItem><NavbarLink as="h3" href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
                                         <MenuItem><NavbarLink as="h3" href="/account">Account</NavbarLink></MenuItem>
                                         <MenuDivider />
+                                        <VStack>
                                         <Button onClick={handleSignOut}>Sign-Out</Button>
+                                        </VStack>
                                     </MenuGroup>
                                 ) : (
                                     <MenuGroup>
@@ -189,7 +192,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     <Box
                         my={4} // Margin for spacing above and below the box
                         p={2} // Padding inside the box for any content
-                        bgGradient="linear(to-r, teal.500, green.500)" // Example of a cool background gradient
+                        bgGradient="linear(to-r, teal.700, teal.200)" // Example of a cool background gradient
                     // Rounded corners
                     ><Stack direction="row" display="flex" justifyContent="space-between">
                             <Text as="h3" color="white" fontSize="sm" textAlign="center">View Mode</Text>
@@ -200,14 +203,14 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     <DrawerBody>
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
-                                <NavGroup><Text color="teal.500" as="h1">pr0duc3</Text>
+                                <NavGroup><Text color="teal.700" as="h1">pr0duc3</Text>
                                     <NavItem icon={<PlusIcon />} href="/dashboard/create-image">Create Images</NavItem>
                                     <NavItem icon={<PencilIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
                                     <NavItem icon={<MessageSquareIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
                                     <NavItem icon={<PersonStandingIcon />} href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
 
-                                <NavGroup><Text color="teal.500" as="h1">tr@ining</Text>
+                                <NavGroup><Text color="teal.700" as="h1">tr@ining</Text>
                                     <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
                                 </NavGroup>
 

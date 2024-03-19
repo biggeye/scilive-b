@@ -48,7 +48,6 @@ export default async function Account() {
         <Link position="absolute" top="5px" href="/dashboard">Return to Site</Link>
         <CustomerPortalForm subscription={subscription} />
         <NameForm userName={userDetails?.full_name ?? ''} userEmail={''} />
-        <EmailForm userEmail={user.email} />
         <GalleryImageTable />
       
       </div>

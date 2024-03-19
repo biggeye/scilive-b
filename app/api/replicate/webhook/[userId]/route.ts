@@ -50,8 +50,8 @@ export async function POST(req: Request) {
     const cancelUrl = body.urls.cancel;
     const predictionId = body.id;
     const prompt = body.input.prompt;
-    const status = body.status;+
-    console.log("Received workflow:");
+    const status = body.status; +
+      console.log("Received workflow:");
     console.log("Prediction ID:", body.id);
     console.log("User ID:", userId);
     console.log("Model ID:", body.version);
@@ -78,11 +78,8 @@ export async function POST(req: Request) {
     */ if (body.status === 'processing') {
       const { data, error } = await supabase
         .from('master_content')
-        .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
+        .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status, cancel_url: cancelUrl })
         .match({ prediction_id: predictionId });
-
-
-      
 
       if (error) {
         console.error('Error updating Supabase:', error);
@@ -123,18 +120,18 @@ export async function POST(req: Request) {
             headers: { 'Content-Type': 'application/json' }
           });
         }
-        
+
       } else if (typeof output === 'string') {
         // Handle single string output
         try {
-          const { data, error } = await supabase
-            .from('master_content')
-            .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
-            .match({ prediction_id: predictionId });
-
           const url = await uploadPrediction(output, userId, modelId, `${predictionId}-0`, prompt);
-          // Return this URL in your response
-          return new Response(JSON.stringify({ message: 'Webhook processed successfully', url }), {
+          const finalPrediction = await url;
+          await supabase
+          .from('master_content')
+          .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status, url: finalPrediction })
+          .match({ prediction_id: predictionId });
+          console.log("finalPredictoin:", finalPrediction);
+          return new Response(JSON.stringify({ message: 'Webhook processed successfully', finalPrediction }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
           })
