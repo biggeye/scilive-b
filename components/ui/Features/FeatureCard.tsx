@@ -25,9 +25,9 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, text, imgSrc }) => {
           className="element-fade-in"
         >
           {imgSrc ? (
-            <Image display={{ base: "none", md: "flex" }} borderRadius="md" src={imgSrc} alt={title} objectFit="cover" className="featured-image-card" />
+            <Image display={{ base: "none", md: "flex" }} borderRadius="md" src={imgSrc} alt={title} objectFit="cover" className="doogieVibe" />
           ) : (
-            <hr />
+            <Box bgImage="/scilive.svg" opacity="50%"/>
           )}
           <Heading size="md">{title}</Heading>
           <Text>{text}</Text>

@@ -48,7 +48,6 @@ export const useImageCreateSubmit = () => {
 
     // create payload
     const requestBody = buildRequestBody(userId, modelId, userImageUri, userInput);
-
     console.log("useImageCreateSubmit, requestBody: ", requestBody);
 
     // deliver payload (replicate)

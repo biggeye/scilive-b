@@ -25,8 +25,7 @@ export async function POST(req: Request) {
       webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}`,
 
     };  
-    // Further code to use the payload
-
+   
     const response = await fetch('https://api.replicate.com/v1/predictions', {
       method: 'POST',
       headers: {
@@ -35,15 +34,12 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify(payload)
     });
-
     if (!response.ok) {
-      // Handle non-2xx responses
       const errorText = await response.text(); // Use text() to avoid JSON parse error
       console.error('API call failed:', errorText);
       return new Response(errorText, { status: response.status });
     }
-
-    const responseData = await response.json(); // Now safe to assume response is JSON
+    const responseData = await response.json();
     if (response.status === 201) {
       return new Response(JSON.stringify({
         id: responseData.id,

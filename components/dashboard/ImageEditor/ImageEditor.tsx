@@ -11,7 +11,7 @@ import { convertToDataURI } from '@/utils/convertToDataURI';
 // import UI
 import {
   Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
-  Image, Grid, GridItem, Text
+  Image, Grid, GridItem, Text, Card
 } from '@chakra-ui/react';
 import {
   FileUpload,
@@ -90,6 +90,7 @@ const ImageEditor = () => {
   };
 
   return (
+    <Card className="card-standard">  
     <Box width="98vw" p="7px" bgColor="primary.50" borderRadius="md">
       <Form onSubmit={handleUserImageEditSubmit}>
         <FormLayout>
@@ -138,7 +139,8 @@ const ImageEditor = () => {
       </Form>
       {predictionError && <Alert fontSize={{ base: "sm", md: "md" }}>{predictionError}</Alert>}
     </Box >
-
+    </Card>
+  
   )
 }
 

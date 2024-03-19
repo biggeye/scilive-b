@@ -6,6 +6,8 @@ import ImageEditor from '@/components/dashboard/ImageEditor';
 import DisplayResults from '@/components/dashboard/DisplayResults';
 import ScriptWriter from '@/components/dashboard/ScriptWriter';
 import AvatarCreator from '@/components/dashboard/AvatarCreator';
+import AvatarTrainer from '@/components/dashboard/AvatarTrainer';
+import AvatarGenerator from '@/components/dashboard/AvatarGenerator';
 
 import { useRecoilValue } from 'recoil';
 import { viewModeState } from '@/state/user/user_state-atoms';
@@ -23,6 +25,8 @@ const DashboardPage = () => {
         <Tab>Image Editor</Tab>
         <Tab>Script Writer</Tab>
         <Tab>Avatar Creator</Tab>
+        <Tab>Avatar Trainer</Tab>
+        <Tab>Avatar Generator</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
@@ -49,6 +53,16 @@ const DashboardPage = () => {
         <TabPanel>
           <VStack spacing={1}>
             <AvatarCreator />
+          </VStack>
+        </TabPanel>
+        <TabPanel>
+          <VStack spacing={1}>
+            <AvatarTrainer />
+          </VStack>
+        </TabPanel>
+        <TabPanel>
+          <VStack spacing={1}>
+            <AvatarGenerator />
           </VStack>
         </TabPanel>
       </TabPanels>

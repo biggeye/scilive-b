@@ -107,11 +107,11 @@ const AvatarTrainer: React.FC = () => {
 
   return (
 
-    <Card maxW="lg" mx="auto" mt={5}>
+    <Card maxW="lg" mx="auto" mt={5} className="card-standard">
       <CardHeader>
-        <Heading>
+        <div as="h1" className="title">
           Avatar Trainer
-        </Heading>
+        </div>
       </CardHeader>
       <Grid
         templateArea="inputForm assets">
@@ -119,7 +119,7 @@ const AvatarTrainer: React.FC = () => {
           <Form onSubmit={handleSubmit}>
             <VStack spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
               <FormControl isRequired>
-                <FormLabel>Model Name</FormLabel>
+                <div as="h3" className="subtitle">Model Name</div>
                 <Input
                   value={trainingModelName}
                   onChange={(e) => setTrainingModelName(e.target.value)}
@@ -156,7 +156,7 @@ const AvatarTrainer: React.FC = () => {
               </FileUpload>
 
               <FormControl isRequired>
-                <FormLabel>Type of Model</FormLabel>
+                <div as="h3" className="subtitle">Type of Model</div>
                 <Select onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
                   <option value="man">Man</option>
                   <option value="woman">Woman</option>
@@ -186,4 +186,4 @@ const AvatarTrainer: React.FC = () => {
   );
 };
 
-export default AvatarTrainer;
+export default AvatarTrainer; 

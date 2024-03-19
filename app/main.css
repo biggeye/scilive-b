@@ -35,7 +35,6 @@ div {
 }
 
 h3 {
-  font-family: 'Antonio Variable', sans-serif;
   font-weight: '300';
 }
 
@@ -65,8 +64,8 @@ p a {
 }
 
 .doogieVibe {
-  background-color: blue;
-  color: white;
+  background-color: 'blue.500';
+  color: 'primary.50';
   padding: '3px';
   border-radius: '3px';
   border-width: '1px';
@@ -131,6 +130,51 @@ p a {
   padding: 10px;
 }
 
+.container {
+  max-width: 6xl;
+  padding: 4rem;
+  margin: auto;
+
+  @media screen and (min-width: 640px) {
+    padding-top: 6rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 0 8rem;
+  }
+}
+
+.card-standard {
+   background-image: linear-gradient(to top, var(--primary-700), var(--primary-50));
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-align: center;
+  font-family: 'Press Start 2P', system-ui;
+  @media screen and (min-width: 640px) {
+    font-size: 3rem;
+  }
+}
+
+.subtitle {
+  font-family: 'Antonio Variable', sans-serif;
+  max-width: 2xl;
+  margin: auto;
+  margin-top: 1.25rem;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-left: 1rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: 'flex';
+  justify-content: baseline;
+
+  @media screen and (min-width: 640px) {
+    font-size: 1.5rem;
+  }
+}
 
 /* Custom Animations */
 @keyframes slideDown {

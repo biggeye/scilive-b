@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
-import { CardBody, Heading, CardHeader, Card, Select, Input, Box, Button, FormControl, FormLabel, Textarea, useToast, VStack, Image, Grid, GridItem, CircularProgress, Checkbox } from '@chakra-ui/react';
+import { CardBody, Heading, CardHeader, Card, Select, Input, Box, Button, FormControl, FormLabel, InputGroup, Textarea, useToast, VStack, Image, Grid, GridItem, CircularProgress, Checkbox } from '@chakra-ui/react';
 import { avatarNameState, avatarDescriptionState, avatarUrlState, frameStyleState, photoStyleState } from '@/state/leap/avatar-atoms';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { userProfileState } from '@/state/user/user_state-atoms';
@@ -111,7 +111,7 @@ const AvatarCreator: React.FC = () => {
       gridTemplateRows="2">
       <GridItem area="topCard">
         <Card
-          className="image-card"
+          className="card-standard"
           borderColor="onyx"
           borderWidth="0.5px"
           p={{ base: "1", md: "2", lg: "4" }}
@@ -119,19 +119,28 @@ const AvatarCreator: React.FC = () => {
           <CardHeader
             align="center"
             justify="space-between">
-            <Heading>
+            <div as="h1" className="title">
               Avatar Creator
-            </Heading>
+            </div>
           </CardHeader>
           <CardBody>
             <Form
               onSubmit={handleSubmit}>
               <FormLayout spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
-                Avatar Name
+         
+                <div as="h3" className="subtitle">
+                name
+                </div>
                 <Input value={avatarName || ''} onChange={(e) => setAvatarName(e.target.value)} placeholder="Name your avatar" />
-                Avatar Description
+                <div as="h3" className="subtitle">
+                description
+                </div>
                 <Textarea value={avatarDescription || ''} onChange={(e) => setAvatarDescription(e.target.value)} placeholder="Describe your avatar" />
-                Photo Style
+             
+                <InputGroup>
+                <div as="h3" className="subtitle">
+                photo
+                </div>
                 <Select placeholder="Select option" onChange={(e) => setPhotoStyle(e.target.value)}>
                   <option value="Photorealistic">Photorealistic</option>
                   <option value="Semi-Illustrated">Semi-Illustrated</option>
@@ -141,7 +150,9 @@ const AvatarCreator: React.FC = () => {
                   <option value="Minecraft">Minecraft</option>
                   <option value="custom">Custom</option>
                 </Select>
-                Frame Style
+                <div as="h3" className="subtitle">
+                frame
+                </div>
                 <Select placeholder="Select option" onChange={(e) => setFrameStyle(e.target.value)}>
                   <option value="Minimal">Minimal</option>
                   <option value="Matrix">Matrix</option>
@@ -151,6 +162,7 @@ const AvatarCreator: React.FC = () => {
                   <option value="Tribal">Tribal</option>
                   <option value="custom">Custom</option>
                 </Select>
+                </InputGroup>
                 <Button type="submit" size="lg" width="full">
                   Submit
                 </Button>
@@ -161,7 +173,7 @@ const AvatarCreator: React.FC = () => {
       </GridItem>
       <GridItem area="bottomCard">
         <Card
-          className="featured-image-card">
+          className="doogieVibe">
           {isLoading ? (
             <CircularProgress isIndeterminate color="blue.300" />
           ) : (

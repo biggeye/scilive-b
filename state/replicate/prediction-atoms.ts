@@ -1,4 +1,3 @@
-
 import { atom } from 'recoil';
 
 
@@ -73,6 +72,7 @@ export const finalNarrativePredictionState = atom<string | null>({
   key: 'finalNarrativePredictionState',
   default: '' || null,
 });
+
 
 
 

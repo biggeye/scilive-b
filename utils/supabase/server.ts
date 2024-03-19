@@ -11,7 +11,7 @@ export const createClient = () => {
     // Pass Supabase URL and anonymous key from the environment to the client
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-
+    
     // Define a cookies object with methods for interacting with the cookie store and pass it to the client
     {
       cookies: {

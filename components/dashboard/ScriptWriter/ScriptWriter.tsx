@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 // import UI
-import { useToast, Grid, GridItem, FormLabel, CardHeader, Heading, Card, Button, Textarea, Box, VStack, HStack, Input } from '@chakra-ui/react';
+import { useToast, Grid, GridItem, FormLabel, CardHeader, Heading, Card, Button, Textarea, Box, VStack, HStack, Input, InputGroup } from '@chakra-ui/react';
 import { Form, FormLayout } from '@saas-ui/react';
 // import state
 import { voiceoverScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/leap/scriptWriter-atoms';
@@ -82,33 +82,38 @@ const ScriptWriter = () => {
     >
       <GridItem area="topCard">
         <Card
-          className="image-card"
+          className="card-standard"
           borderColor="onyx"
           borderWidth="0.5px"
           p={{ base: "1", md: "2", lg: "4" }}
           maxW="lg">
           <Form onSubmit={handleScriptFetch} display="flex" flexDirection="column" alignItems="center" mb={4}>
             <CardHeader alignItems="center" justifyContent="space-between">
-              <Heading>
-                Voiceover Generator
-              </Heading>
+              <div as="h1" className="title">
+                scr!ptWrit3r
+              </div>
             </CardHeader>
             <FormLayout>
-              <FormLabel>Host Name</FormLabel>
+              <InputGroup>
+              <div as="h3" className="subtitle">Host</div>
               <Input
+              margin="5px"
                 mb={4}
                 value={hostName}
                 onChange={(e) => setHostName(e.target.value)}
                 disabled={inputsDisabled} // Disable based on voiceoverScript
                 placeholder="Host of the show"
               />
+              <div as="h3" className="subtitle">Podcast Name</div>
               <Input
+              margin="5px"
                 mb={4}
                 value={podcastName}
                 onChange={(e) => setPodcastName(e.target.value)}
                 disabled={inputsDisabled} // Disable based on voiceoverScript
                 placeholder="Name of the podcast"
               />
+              </InputGroup>
               <Input
                 mb={4}
                 value={webpageUrl}
@@ -127,7 +132,7 @@ const ScriptWriter = () => {
       </GridItem>
 
       <GridItem area="bottomCard">
-        <Card className="featured-image-card">
+        <Card className="doogieVibe">
           <Textarea
             mb={4}
             value={voiceoverScript}

@@ -61,6 +61,7 @@ const ImageCreator = () => {
   };
 
   return (
+    <Card className='card-standard'>
     <Box width="98vw" p="7px" bgColor="primary.50" borderRadius="md">
       <form onSubmit={handleSubmit}>
         <InputGroup>
@@ -76,6 +77,7 @@ const ImageCreator = () => {
         </InputGroup>
       </form>
     </Box>
+    </Card> 
   );
 };
 
