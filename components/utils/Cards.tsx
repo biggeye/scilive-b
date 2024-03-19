@@ -41,7 +41,6 @@ export const ImageCard: FC<ImageCardProps> = ({ imageUrl, prompt, modelName }) =
   >
   <Card className="image-card" borderColor="onyx" borderWidth="0.5px"
   maxW="80vw">
-   {imageUrl && 
    <Image
       margin="5px"
       width={{ base: "50vh", md: "60vh" }}
@@ -51,7 +50,7 @@ export const ImageCard: FC<ImageCardProps> = ({ imageUrl, prompt, modelName }) =
       alt="Generated Content"
       borderRadius=".5rem"
     />
-   }
+  
     {prompt && (
       <Text fontSize={{ base: "xs", md: "sm" }}>
         <b>Prompt:</b> {prompt}

@@ -13,6 +13,7 @@ import {
   Skeleton,
   CardHeader,
   Button,
+  Image
 } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import {
@@ -97,11 +98,9 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
                 </Flex>
               </Card>
             ) : (
-              <ImageCard
-                imageUrl={displayedImage}
-                prompt={finalPredictionPrompt}
-                modelName={modelName}
-              />
+              <VStack>
+              {finalPrediction && <Image src={finalPrediction} />}
+              </VStack>
             )}
 
           </VStack>

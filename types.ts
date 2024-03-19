@@ -75,7 +75,7 @@ export type ContentItem = {
 export type GalleryImage = Pick<ContentItem, 'id' | 'created_at' | 'url' | 'prompt'>;
 export type GalleryScript = Pick<ContentItem, 'id' | 'created_at' | 'content' | 'prompt'>;
 export type ImageCardProps = {
-  imageUrl: string | null,
+  imageUrl: string,
   prompt: string,
   modelName: string,
 };
