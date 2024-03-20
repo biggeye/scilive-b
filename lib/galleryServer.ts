@@ -9,7 +9,7 @@ export async function fetchGalleryImages(): Promise<GalleryImage[]> {
         // Include a filter where 'url' is not null to ensure only rows with images are selected
         const { data, error } = await supabase
             .from('master_content')
-            .select('id, content_id, url, prompt, created_at')
+            .select('content_id, url, prompt, created_at')
             .not('url', 'is', null); // This ensures only rows where 'url' is not null are selected
 
         if (error) throw error;

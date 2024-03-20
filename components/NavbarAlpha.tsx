@@ -192,7 +192,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     <Box
                         my={4} // Margin for spacing above and below the box
                         p={2} // Padding inside the box for any content
-                        bgGradient="linear(to-r, teal.700, teal.200)" // Example of a cool background gradient
+                        bgGradient="linear(to-r, primary.100, primary.200)" // Example of a cool background gradient
                     // Rounded corners
                     ><Stack direction="row" display="flex" justifyContent="space-between">
                             <Text as="h3" color="white" fontSize="sm" textAlign="center">View Mode</Text>

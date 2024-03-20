@@ -1,17 +1,15 @@
 'use client'
 import React from 'react';
-import StripeWidget from '@/components/ui/Pricing/StripeWidget';
-import FeaturesSection from '@/components/ui/Features/FeaturesSection';
-import { Image, Box, VStack } from '@chakra-ui/react';
-import SignUpButton from '@/components/ui/AuthForms/SignUpButton';
+import { Image, Link, VStack } from '@chakra-ui/react';
 import OpeningSequence from '@/components/ui/Features/OpeningSequence';
 
 const HomePage = () => {
   return (
    <VStack>
-    <Image src="/scilive4.png" className="element-pulse" />
+    <Image src="/scilive4.png" />
         <OpeningSequence />
-        <SignUpButton />
+
+    <Link href="/signin">Sign In</Link>
     </VStack>
   )
 }

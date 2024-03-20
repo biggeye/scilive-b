@@ -87,7 +87,10 @@ const AvatarGenerator: React.FC = () => {
 
   return (
     
-      <Card maxW="lg" mx="auto" mt={5} className="card-standard">
+      <Card 
+      marginLeft="25px"
+      mt={5} 
+      className="card-standard">
            <CardHeader>
         <div as="h1" className="title">
           Avatar Generator

@@ -14,9 +14,11 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource-variable/antonio": "^5.0.19",
-    "@fontsource-variable/exo-2": "^5.0.18",
-    "@fontsource-variable/orbitron": "^5.0.18",
-    "@fontsource/press-start-2p": "^5.0.19",
+    "@fontsource-variable/big-shoulders-display": "^5.0.19",
+    "@fontsource-variable/big-shoulders-text": "^5.0.19",
+    "@fontsource/silkscreen": "^5.0.19",
+    "@fontsource/syncopate": "^5.0.18",
+    "@fontsource/unica-one": "^5.0.19",
     "@leap-ai/workflows": "^1.1.0",
     "@radix-ui/react-toast": "^1.1.5",
     "@saas-ui/auth": "^3.0.3",
@@ -50,7 +52,9 @@
     "stripe": "^14.10.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "3.4.1",
-    "uuid": "^9.0.1"
+    "tikapi": "^3.1.5",
+    "uuid": "^9.0.1",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@types/node": "20.3.1",

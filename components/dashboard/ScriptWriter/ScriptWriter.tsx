@@ -76,9 +76,13 @@ const ScriptWriter = () => {
   };
 
   return (
-    <Grid templateAreas={`"topCard"
+    <Grid 
+    marginLeft="25px"
+    mt={5} 
+    className="card-standard"
+    templateAreas={`"topCard"
                          "bottomCard"`}
-      templateRows="2"
+      gridTemplateRows="2"
     >
       <GridItem area="topCard">
         <Card

@@ -11,21 +11,21 @@ import { convertToDataURI } from '@/utils/convertToDataURI';
 // import UI
 import {
   Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
-  Image, Grid, GridItem, Text, Card
+  Image, Grid, GridItem, Text, Card, CardBody, CardHeader, CardFooter
 } from '@chakra-ui/react';
 import {
   FileUpload,
   FileUploadTrigger,
   FileUploadDropzone,
 } from '@saas-ui/file-upload';
-import { 
-  Form, 
-  FormLayout, 
-  ViewIcon, 
-  ContextMenuList, 
-  ContextMenuItem, 
-  ContextMenu, 
-  ContextMenuTrigger 
+import {
+  Form,
+  FormLayout,
+  ViewIcon,
+  ContextMenuList,
+  ContextMenuItem,
+  ContextMenu,
+  ContextMenuTrigger
 } from '@saas-ui/react';
 // import STATE
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -34,13 +34,13 @@ import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import { currentPageState } from '@/state/user/user_state-atoms'
 // import TYPES
 import { GalleryItem } from '@/types';
-
+import ToolOptions from '../ToolOptions';
 
 const ImageEditor = () => {
   const auth = useAuth();
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
-  
+
   const userId = userProfile?.id;
 
   const { profileLoading, profileError } = useUserProfile();
@@ -63,7 +63,7 @@ const ImageEditor = () => {
   const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
   const [userImageUpload, setUserImageUpload] = useRecoilState(userImageUploadState);
   const [userImageDataUri, setUserImageDataUri] = useRecoilState(userImageDataUriState);
-  
+
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
@@ -90,57 +90,52 @@ const ImageEditor = () => {
   };
 
   return (
-    <Card className="card-standard">  
-    <Box width="98vw" p="7px" bgColor="primary.50" borderRadius="md">
-      <Form onSubmit={handleUserImageEditSubmit}>
-        <FormLayout>
-
-          <FileUpload
-            maxFileSize={10000 * 10000}
-            maxFiles={1}
-            accept="image/*"
-            onChange={handleFileChange}
-          >
-            {({ files, deleteFile }) => (
-              <FileUploadDropzone
-              >
-                <Text fontSize="sm"></Text>
-                {!files?.length ? (
-                  <FileUploadTrigger color="teal" as={Button}>Drag image here or click to browse</FileUploadTrigger>
-                ) : (
-                  <HStack>
-                    <Text fontSize="sm">{files[0].name}</Text>
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        deleteFile(files[0])
-                      }}
-                    >
-                      Clear
-                    </Button>
-                  </HStack>
-                )}
-              </FileUploadDropzone>
-            )}
-          </FileUpload>
-              <InputGroup>
-            <Input
-              value={userInput}
-              onChange={handleInputChange}
-            />
-            <InputRightAddon>
-              <Button
-                type="submit">
-                Edit Image
-              </Button>
-            </InputRightAddon>
-          </InputGroup>
-        </FormLayout>
-      </Form>
+    <Box 
+    marginLeft="25px"
+    mt={5} 
+    className="card-standard">
+      <h1 className="title">
+        img3d!to|2
+      </h1>
+      <ToolOptions localPage="editImage" />
+      <form onSubmit={handleUserImageEditSubmit}>
+        <FileUpload
+          maxFileSize={10000 * 10000}
+          maxFiles={1}
+          accept="image/*"
+          onChange={handleFileChange}
+        >
+          {({ files, deleteFile }) => (
+            <FileUploadDropzone
+            >
+              {!files?.length ? (
+                <FileUploadTrigger color="teal" as={Button}>Drop Image or Click</FileUploadTrigger>
+              ) : (
+                <HStack>
+                  <Text fontSize="sm">{files[0].name}</Text>
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      deleteFile(files[0])
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </HStack>
+              )}
+            </FileUploadDropzone>
+          )}
+        </FileUpload>
+        <Input
+          value={userInput}
+          onChange={handleInputChange}
+        />
+        <Button type="submit">
+          Edit Image
+        </Button>
+      </form>
       {predictionError && <Alert fontSize={{ base: "sm", md: "md" }}>{predictionError}</Alert>}
     </Box >
-    </Card>
-  
   )
 }
 

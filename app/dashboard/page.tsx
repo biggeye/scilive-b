@@ -31,17 +31,19 @@ const DashboardPage = () => {
       <TabPanels>
         <TabPanel>
           <VStack spacing={1}>
-            <DisplayResults localPage="createImage" />   // TODO toolOptions  is rendering incorrect list of models for createImage / imageCreator
-            <Box position="fixed" backdropFilter="blur(50px)" width="98vw" bottom={{base: "40px", md: "0px"}}>
+           // TODO toolOptions  is rendering incorrect list of models for createImage / imageCreator
+            <Box position="fixed" backdropFilter="blur(50px)" width="90%">
               <ImageCreator />
+              <DisplayResults localPage="createImage" />  
             </Box>
           </VStack>
         </TabPanel>
         <TabPanel>
           <VStack spacing={1}>
-            <DisplayResults localPage="editImage" />     // TODO ImageEditor gallery sidepanel opens, but with no contents
-            <Box position="fixed" backdropFilter="blur(50px)" width="98vw" bottom={{base: "40px", md: "0px"}}>
+           // TODO ImageEditor gallery sidepanel opens, but with no contents
+            <Box position="fixed" backdropFilter="blur(50px)" width="90%">
               <ImageEditor />
+              <DisplayResults localPage="editImage" />   
             </Box>
           </VStack>
         </TabPanel>

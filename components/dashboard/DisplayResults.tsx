@@ -10,6 +10,8 @@ import {
   Text,
   Progress,
   Card,
+  CardBody,
+  CardFooter,
   Skeleton,
   CardHeader,
   Button,
@@ -30,12 +32,8 @@ import {
   exampleImageState,
   selectedModelNameState,
 } from "@/state/replicate/config-atoms";
-import ToolOptions from "./ToolOptions";
-import { ImageCard } from '../utils/Cards';
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { DisplayResultsProps } from '@/types';
-
 
 const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   const cancelPrediction = useRecoilValue(cancelRunningPredictionState);
@@ -47,10 +45,7 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   const finalPredictionPrompt = useRecoilValue(finalPredictionPromptState);
   const userImagePreview = useRecoilValue(userImagePreviewState);
   const exampleImage = useRecoilValue(exampleImageState);
-  const modelName = useRecoilValue(
-    selectedModelNameState
-  );
-
+  const modelName = useRecoilValue(selectedModelNameState);
 
   const displayedImage = finalPrediction || userImagePreview;
 
@@ -60,53 +55,53 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   };
 
   return (
-    <Box height="100%" m={{ base: "5px", md: "15px" }}>
-      <Flex direction="column">
-        <Center>
           <VStack>
-            <ToolOptions localPage={localPage}/>
-            {globalLoading ? (
-              <Card
-                className="image-card"
-                borderColor="onyx"
-                borderWidth="0.5px"
-              >
-                <CardHeader>
-                  {cancelPrediction && (
-                    <Link href={cancelPrediction}>Cancel</Link>
-                  )}
-                </CardHeader>
+            <Card>
+          <CardHeader>
+
+            {globalLoading && cancelPrediction ? (
+              <Link href={cancelPrediction}>Cancel Image Creation</Link>
+            ) : (
+              <div className="title">{modelName}</div>
+            )}
+          </CardHeader>
+          <CardBody>
+            <VStack
+              display="flex"
+              direction="column"
+              justifyContent="space-evenly">
+              {globalLoading ? (
+
                 <Skeleton
                   height="400px"
                   width="400px"
-                  className="element-pulse"
-                />
-                <Flex direction="column" justifyContent="space-evenly">
-                  {modelBootResult === "loading" && (
-                    <CircularProgress
-                      isIndeterminate
-                      className="element-pulse"
-                    />
-                  )}
-                  <Text fontSize={{ base: "sm", md: "md" }}>
+                  className="Logo"
+                ><CircularProgress
+                    isIndeterminate
+                    className="element-pulse-fast"
+                  />
+                  <Text as="h3" className="subtitle">
                     Model Status: {modelBootResult}
                   </Text>
-                  <Progress value={predictionProgress} />
-                  <Text fontSize={{ base: "sm", md: "md" }}>
+                  <Text as="h3" className="subtitle">
                     Prediction Status: {predictionStatus}
                   </Text>
-                </Flex>
-              </Card>
-            ) : (
-              <VStack>
-              {finalPrediction && <Image src={finalPrediction} />}
-              </VStack>
-            )}
-
-          </VStack>
-        </Center>
-      </Flex>
-    </Box>
+                </Skeleton>
+              ) : (
+                <Box>
+                  {finalPrediction &&
+                    <Image src={finalPrediction} />}
+                </Box>
+              )}
+            </VStack>
+          </CardBody>
+          <CardFooter>
+            <Text as="h3" className="subtitle">
+              {finalPredictionPrompt}
+            </Text>
+          </CardFooter>
+          </Card>
+        </VStack>
   );
 };
 

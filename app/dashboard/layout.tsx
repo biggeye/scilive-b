@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 import { useDisclosure } from '@chakra-ui/react';
 import { ContentItem } from "@/types";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 
 //import auth
 import { createClient } from "@/utils/supabase/client";
@@ -14,11 +14,10 @@ import { useAuth } from "@saas-ui/auth";
 import { SignOut } from "@/utils/auth-helpers/server";
 
 //import components
-import GalleryDrawer from '@/components/GalleryDrawer';
+// import GalleryDrawer from '@/components/GalleryDrawer';
 import SidePanelButton from "@/components/SidePanelButton";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
-import Canvas from "@/components/ui/Canvas";
 
 //import UI
 import { ViewIcon } from '@saas-ui/react';
@@ -38,10 +37,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
-  const [predictionProgress, setPredictionProgress] = useRecoilState(predictionProgressState);
-  const [predictionStatus, setPredictionStatus] = useRecoilState(predictionStatusState);
-  const [finalPrediction, setFinalPrediction] = useRecoilState(finalPredictionState);
+  const setGlobalLoading = useSetRecoilState(globalLoadingState);
+  const setPredictionProgress = useSetRecoilState(predictionProgressState);
+  const setPredictionStatus = useSetRecoilState(predictionStatusState);
+  const setFinalPrediction = useSetRecoilState(finalPredictionState);
 
   const handleSignOut = async () => {
     const formData = new FormData();
@@ -140,7 +139,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
       {children}
 
-      <GalleryDrawer
+  {/*}    <GalleryDrawer
         isOpen={isOpen}
         onClose={onClose}
         items={contentItems.filter(item => item.url).map(item => ({
@@ -151,8 +150,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         }))}
         onEdit={handleEdit}
         onDelete={handleDelete}
-      />
-    </ErrorBoundary>
+      />   */}
+     </ErrorBoundary>
   );
 };
 

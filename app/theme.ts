@@ -1,28 +1,22 @@
 import { extendTheme } from '@chakra-ui/react';
 import { theme as baseTheme } from '@saas-ui/react';
-import '@fontsource-variable/exo-2';
-import '@fontsource-variable/orbitron';
-import '@fontsource/press-start-2p';
+
 
 export const sciLiveTheme = extendTheme({
   ...baseTheme,
   colors: {
     ...baseTheme.colors,
     primary: {
-      "50": "#f2f2f2", // Lightest gray
-      "100": "#d9d9d9", // Lighter gray
-      "200": "#bfbfbf", // Light gray
-      "300": "#a6a6a6", // Gray
-      "400": "#8c8c8c", // Medium gray
-      "500": "#737373", // Default gray
-      "600": "#595959", // Dark gray
-      "700": "#404040", // Darker gray
-      "800": "#262626", // Very dark gray
-      "900": "#0d0d0d", // Darkest gray (almost black)
-    },
-    accent: {
-      blue: "#245883", // Deep blue, could be used for highlights
-      orange: "#d35400", // Deep orange, could be used for call-to-action or important elements
+     "50":  "#E7DABA",
+     "100": "#A5BCD1", 
+     "200": "#2B82C9", 
+     "300": "#D89958", 
+     "400": "#B7380C", 
+     "500": "#6A6E72", 
+     "600": "#565E64", 
+     "700": "#30343A", 
+     "800": "#262626",
+     "900": "#000000",
     },
   },
 });

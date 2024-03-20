@@ -44,7 +44,7 @@ const VideoProduction = () => {
 
   const renderGrid = () => (
     <Grid
-      templateAreas={{
+      gridTemplateAreass={{
         lg: `"avatar script"
                           "footer footer "`,
         base: `"avatar"

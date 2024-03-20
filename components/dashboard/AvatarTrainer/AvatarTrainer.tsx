@@ -107,14 +107,17 @@ const AvatarTrainer: React.FC = () => {
 
   return (
 
-    <Card maxW="lg" mx="auto" mt={5} className="card-standard">
+    <Card 
+    marginLeft="25px"
+    mt={5} 
+       className="card-standard">
       <CardHeader>
         <div as="h1" className="title">
           Avatar Trainer
         </div>
       </CardHeader>
       <Grid
-        templateArea="inputForm assets">
+        gridTemplateAreas="inputForm assets">
         <GridItem name="inputForm">
           <Form onSubmit={handleSubmit}>
             <VStack spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>

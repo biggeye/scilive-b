@@ -106,7 +106,11 @@ const AvatarCreator: React.FC = () => {
 
 
   return (
-    <Grid templateAreas={`"topCard"
+    <Grid 
+    marginLeft="25px"
+      mt={5} 
+      className="card-standard"
+    gridTemplateAreass={`"topCard"
                        "bottomCard"`}
       gridTemplateRows="2">
       <GridItem area="topCard">

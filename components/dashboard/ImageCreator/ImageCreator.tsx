@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Card,
+  CardBody,
+  CardFooter,
   Box,
   Input,
   InputGroup,
@@ -8,7 +10,9 @@ import {
   Button,
   InputRightAddon,
   useToast,
+  CardHeader,
 } from '@chakra-ui/react';
+import { Form } from '@saas-ui/react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
@@ -21,8 +25,10 @@ import {
 } from '@/state/replicate/prediction-atoms';
 import { useImageCreateSubmit } from '@/lib/dashboard/submit/replicate/useImageCreateSubmit';
 import { userProfileState, currentPageState } from '@/state/user/user_state-atoms';
+import ToolOptions from '../ToolOptions';
 
 const ImageCreator = () => {
+
   const toast = useToast();
   const userProfile = useRecoilValue(userProfileState);
   const auth = useAuth();
@@ -44,12 +50,15 @@ const ImageCreator = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setGlobalLoading(true);
+
     if (!modelId || !userProfile?.id) {
       console.error('No model selected or user not found');
       setGlobalLoading(false);
       return;
     }
+
     const prediction_id = await imageCreateSubmit(userInput);
+
     if (prediction_id) {
       toast({
         title: 'Processing',
@@ -62,23 +71,23 @@ const ImageCreator = () => {
   };
 
   return (
-    <Card className='card-standard'>
-    <Box width="98vw" p="7px" bgColor="primary.50" borderRadius="md">
+    <Box  
+    marginLeft="25px"
+    mt={5} 
+    className="card-standard">
+      <h1 className="title">
+        imgCr8|2
+      </h1>
+      <ToolOptions localPage="createImage" />
       <form onSubmit={handleSubmit}>
-        <InputGroup>
-          <Input
-            value={userInput}
-            onChange={handleInputChange}
-          />
-          <InputRightAddon>
-            <Button type="submit">
-              Create Image
-            </Button>
-          </InputRightAddon>
-        </InputGroup>
+        <Input
+          value={userInput}
+          onChange={handleInputChange} />
+        <Button type="submit">
+          Create Image
+        </Button>
       </form>
-    </Box>
-    </Card> 
+    </Box >
   );
 };
 
