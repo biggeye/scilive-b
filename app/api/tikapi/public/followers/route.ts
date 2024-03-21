@@ -1,6 +1,6 @@
 import TikAPI from 'tikapi';
-
-const api = TikAPI("myAPIKey");
+const tikApiKey = process.env.NEXT_PUBLIC_TIKAPI_API_KEY;
+const api = TikAPI(tikApiKey);
 
 export async function POST(res: Response, req: Request){
     const body = await req.json();
