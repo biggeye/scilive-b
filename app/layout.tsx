@@ -4,8 +4,8 @@ import { PropsWithChildren, Suspense } from 'react';
 import { getURL } from '@/utils/helpers';
 import './main.css';
 import '@fontsource/iceland';
-import '@fontsource/silkscreen'; 
-import '@fontsource/unica-one'; 
+import '@fontsource/silkscreen';
+import '@fontsource/unica-one';
 
 const meta = {
   title: 'sciLive',
@@ -51,9 +51,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body overflow-x="hidden">
-        <ClientLayout>
-        {children}
-        </ClientLayout>
+        <script src="https://tikapi.io/assets/js/popup.js">
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </script>
       </body>
     </html>
   );

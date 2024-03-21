@@ -1,6 +1,6 @@
 import TikAPI from 'tikapi';
-
-const api = TikAPI('DemoAPIKeyTokenSeHYGXDfd4SFD320Sc39Asd0Sc39Asd4s');
+const tikApiKey = process.env.NEXT_PUBLIC_TIKAPI_API_KEY;
+const api = TikAPI(tikApiKey);
 
 api.set({
     $sandbox: true
