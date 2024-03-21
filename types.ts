@@ -122,6 +122,8 @@ export interface SelectedModel {
   inputtype: string,
 }
 
+export type ModelList = Pick<SelectedModel, id, friendlyName>;
+
 // Interface for prediction preparation inputs
 export interface PredictionPreparationState {
   imageNarrativeUploadState: File | null;

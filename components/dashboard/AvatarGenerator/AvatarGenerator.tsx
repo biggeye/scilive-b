@@ -21,7 +21,7 @@ const AvatarGenerator: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
   const toast = useToast();
 
-
+/*
   useEffect(() => {
     const subscription = supabase
       .channel('custom-insert-channel')
@@ -41,6 +41,7 @@ const AvatarGenerator: React.FC = () => {
       supabase.removeChannel(subscription);
     };
   }, []);
+  */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

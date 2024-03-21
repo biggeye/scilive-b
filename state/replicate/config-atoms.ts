@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { selector } from "recoil";
 import { fetchModels } from "@/lib/modelServer";
-
+import { ModelList, SelectedModel } from '@/types';
 // Atom definitions
 export const selectedModelIdState = atom({
   key: "selectedModelIdState",
@@ -9,11 +9,12 @@ export const selectedModelIdState = atom({
 });
 
 // Selector to fetch models
-export const modelListSelector = selector({
+export const modelListSelector = selector<ModelList>({
   key: 'modelListSelector',
   get: async () => {
     try {
       const models = await fetchModels();
+      console.log("modelListSelector: ", models);
       return models;
     } catch (error) {
       console.error('Error fetching models:', error);
@@ -23,15 +24,15 @@ export const modelListSelector = selector({
 });
 
 // Selector to handle selected model configuration
-export const selectedModelConfigSelector = selector({
+export const selectedModelConfigSelector = selector<SelectedModel>({
   key: 'selectedModelConfigSelector',
   get: async ({ get }) => {
     const selectedModelId = get(selectedModelIdState);
-
+    console.log("selectedModelConfigSelector (setting selected model):", selectedModelId);
     try {
       // Fetch model data
       const modelData = await fetchModels();
-      // Find the selected model based on its ID
+      console.log("selectedModelConfigSelector (fetching data): ", modelData);
       const selectedModel = modelData.find(model => model.id === selectedModelId);
 
       if (selectedModel) {

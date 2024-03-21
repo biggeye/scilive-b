@@ -5,6 +5,7 @@ const supabase = createClient();
 
 export async function fetchModels() {
         const { data, error } = await supabase.from('models_master').select('*');
+        console.log("fetchModels: ", datas)
         if (error) throw error;
         return data;
     }
