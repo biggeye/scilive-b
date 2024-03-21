@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import ClientLayout from './ClientLayout';
 import { PropsWithChildren, Suspense } from 'react';
 import { getURL } from '@/utils/helpers';
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import './main.css';
 import '@fontsource/iceland';
 import '@fontsource/silkscreen';
@@ -56,6 +58,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             {children}
           </ClientLayout>
         </script>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
