@@ -9,7 +9,7 @@ export async function fetchModels() {
         return data;
     }
 
-
+/*
 export async function fetchTxt2ImgModels() {
     try {
         const session = await supabase.auth.getSession();
@@ -33,3 +33,4 @@ export async function fetchImg2ImgModels() {
         throw new Error('Internal Server Error');
     }
 }
+*/
