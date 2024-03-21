@@ -30,13 +30,22 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const auth = useAuth();
-
+  const router = useRouter();
 
   const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
+  useEffect(() => {
+    if (!auth.isLoading) {
+      if (!auth.isAuthenticated) {
+        router.push('/signin');
+      } else {
+        setIsAuthCheckComplete(true);
+      }
+    }
+  }, [auth.isAuthenticated, auth.isLoading, router]);
   if (!isAuthCheckComplete) {
     return <VStack><LoadingCircle /></VStack>;
   }
-  const router = useRouter();
+
   const isMobile = useBreakpointValue({ base: true, md: false });
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const setGlobalLoading = useSetRecoilState(globalLoadingState);
@@ -51,15 +60,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     await SignOut(formData);
   }
 
-  useEffect(() => {
-    if (!auth.isLoading) {
-      if (!auth.isAuthenticated) {
-        router.push('/signin');
-      } else {
-        setIsAuthCheckComplete(true);
-      }
-    }
-  }, [auth.isAuthenticated, auth.isLoading, router]);
 
   const toast = useToast();
   const supabase = createClient();
