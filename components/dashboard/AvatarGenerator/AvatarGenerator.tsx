@@ -86,45 +86,43 @@ const AvatarGenerator: React.FC = () => {
   };
 
   return (
-    
-      <Card 
+    <Box
       marginLeft="25px"
-      mt={5} 
+      mt={5}
       className="card-standard">
-           <CardHeader>
-        <div as="h1" className="title">
-          Avatar Generator
-        </div>
+      <h1 className="title">
+        Avatar Generator
+      </h1>
 
-      </CardHeader>
       <Form onSubmit={handleSubmit}>
         <FormLayout columns={[1, null, 2]}>
-         
+
+
+          {isLoading ? (
+            <CircularProgress isIndeterminate color="primary.300" />
+          ) : (
+            <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
+              {images.map((imgUrl, index) => (
+                <GridItem key={index} colSpan={1}>
+                  <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} />
+                  <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
+                </GridItem>
+              ))}
+            </Grid>
+          )}
+          <Button
+            isDisabled={selectedImageIndex === null}
+            onClick={() => {
+              if (selectedImageIndex !== null) {
+                // setAvatarUrl(images[selectedImageIndex]); // setAvatarUrl is not defined
+              }
+            }}
+          >
+            Select Avatar
+          </Button>
         </FormLayout>
       </Form>
-      {isLoading ? (
-        <CircularProgress isIndeterminate color="blue.300" />
-      ) : (
-        <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
-          {images.map((imgUrl, index) => (
-            <GridItem key={index} colSpan={1}>
-              <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} />
-              <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
-            </GridItem>
-          ))}
-        </Grid>
-      )}
-      <Button
-        isDisabled={selectedImageIndex === null}
-        onClick={() => {
-          if (selectedImageIndex !== null) {
-            // setAvatarUrl(images[selectedImageIndex]); // setAvatarUrl is not defined
-          }
-        }}
-      >
-        Select Avatar
-      </Button>
-    </Card>
+    </Box>
   );
 };
 

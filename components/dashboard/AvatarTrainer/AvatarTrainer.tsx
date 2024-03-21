@@ -106,84 +106,72 @@ const AvatarTrainer: React.FC = () => {
   };
 
   return (
+    <Box
+      marginLeft="25px"
+      mt={5}
+      className="card-standard">
+      <h1 className="title">
+        Avatar Trainer
+      </h1>
 
-    <Card 
-    marginLeft="25px"
-    mt={5} 
-       className="card-standard">
-      <CardHeader>
-        <div as="h1" className="title">
-          Avatar Trainer
-        </div>
-      </CardHeader>
-      <Grid
-        gridTemplateAreas="inputForm assets">
-        <GridItem name="inputForm">
-          <Form onSubmit={handleSubmit}>
-            <VStack spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
-              <FormControl isRequired>
-                <div as="h3" className="subtitle">Model Name</div>
-                <Input
-                  value={trainingModelName}
-                  onChange={(e) => setTrainingModelName(e.target.value)}
-                  placeholder="Enter model name" />
-              </FormControl>
 
-              <FileUpload
-                maxFileSize={1024 * 1024}
-                maxFiles={50}
-                accept="image/*"
-              >
-                {({ files, deleteFile }) => (
-                  <FileUploadDropzone>
-                    {!files?.length ? (
-                      <>
-                        <Text fontSize="sm">Drag your image here, or click to select files</Text>
-                        <FileUploadTrigger as={Button}>Select files</FileUploadTrigger>
-                      </>
-                    ) : (
-                      <HStack>
-                        <FileUploadPreview file={files[0]} width="200px" />
-                        <Button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteFile(files[0]);
-                          }}
-                        >
-                          Remove
-                        </Button>
-                      </HStack>
-                    )}
-                  </FileUploadDropzone>
+      <Form onSubmit={handleSubmit}>
+        <VStack spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
+          <FormControl isRequired>
+            <div as="h3" className="subtitle">Model Name</div>
+            <Input
+              value={trainingModelName}
+              onChange={(e) => setTrainingModelName(e.target.value)}
+              placeholder="Enter model name" />
+          </FormControl>
+
+          <FileUpload
+            maxFileSize={1024 * 1024}
+            maxFiles={50}
+            accept="image/*"
+          >
+            {({ files, deleteFile }) => (
+              <FileUploadDropzone>
+                {!files?.length ? (
+                  <>
+                    <Text fontSize="sm">Drag your image here, or click to select files</Text>
+                    <FileUploadTrigger as={Button}>Select files</FileUploadTrigger>
+                  </>
+                ) : (
+                  <HStack>
+                    <FileUploadPreview file={files[0]} width="200px" />
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteFile(files[0]);
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </HStack>
                 )}
-              </FileUpload>
+              </FileUploadDropzone>
+            )}
+          </FileUpload>
 
-              <FormControl isRequired>
-                <div as="h3" className="subtitle">Type of Model</div>
-                <Select onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
-                  <option value="man">Man</option>
-                  <option value="woman">Woman</option>
-                  <option value="animal">Animal</option>
-                  <option value="vehicle">Vehicle</option>
-                  <option value="fantasy">Fantasy</option>
-                  <option value="object">Object</option>
-                </Select>
-              </FormControl>
+          <FormControl isRequired>
+            <div as="h3" className="subtitle">Type of Model</div>
+            <Select onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+              <option value="animal">Animal</option>
+              <option value="vehicle">Vehicle</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="object">Object</option>
+            </Select>
+          </FormControl>
 
-              <Button type="submit" size="lg" width="full" isLoading={isLoading}>
-                Train Model
-              </Button>
-            </VStack>
-          </Form>
-        </GridItem>
-        <GridItem name="assets">
-
-        </GridItem>
-      </Grid>
-      
-
-
-    </Card>
+          <Button type="submit" size="lg" width="full" isLoading={isLoading}>
+            Train Model
+          </Button>
+        </VStack>
+      </Form>
+    </Box>
 
 
   );

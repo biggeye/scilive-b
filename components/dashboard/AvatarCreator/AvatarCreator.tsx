@@ -106,106 +106,86 @@ const AvatarCreator: React.FC = () => {
 
 
   return (
-    <Grid 
-    marginLeft="25px"
-      mt={5} 
-      className="card-standard"
-    gridTemplateAreass={`"topCard"
-                       "bottomCard"`}
-      gridTemplateRows="2">
-      <GridItem area="topCard">
-        <Card
-          className="card-standard"
-          borderColor="onyx"
-          borderWidth="0.5px"
-          p={{ base: "1", md: "2", lg: "4" }}
-          maxW="lg">
-          <CardHeader
-            align="center"
-            justify="space-between">
-            <div as="h1" className="title">
-              Avatar Creator
-            </div>
-          </CardHeader>
-          <CardBody>
-            <Form
-              onSubmit={handleSubmit}>
-              <FormLayout spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
-         
-                <div as="h3" className="subtitle">
-                name
-                </div>
-                <Input value={avatarName || ''} onChange={(e) => setAvatarName(e.target.value)} placeholder="Name your avatar" />
-                <div as="h3" className="subtitle">
-                description
-                </div>
-                <Textarea value={avatarDescription || ''} onChange={(e) => setAvatarDescription(e.target.value)} placeholder="Describe your avatar" />
-             
-                <InputGroup>
-                <div as="h3" className="subtitle">
-                photo
-                </div>
-                <Select placeholder="Select option" onChange={(e) => setPhotoStyle(e.target.value)}>
-                  <option value="Photorealistic">Photorealistic</option>
-                  <option value="Semi-Illustrated">Semi-Illustrated</option>
-                  <option value="Illustration">Illustration</option>
-                  <option value="Manga Illustration">Manga Illustration</option>
-                  <option value="Pixar">Pixar</option>
-                  <option value="Minecraft">Minecraft</option>
-                  <option value="custom">Custom</option>
-                </Select>
-                <div as="h3" className="subtitle">
-                frame
-                </div>
-                <Select placeholder="Select option" onChange={(e) => setFrameStyle(e.target.value)}>
-                  <option value="Minimal">Minimal</option>
-                  <option value="Matrix">Matrix</option>
-                  <option value="Digital">Digital</option>
-                  <option value="HUD">HUD</option>
-                  <option value="Aiming Reticle">Aiming Reticle</option>
-                  <option value="Tribal">Tribal</option>
-                  <option value="custom">Custom</option>
-                </Select>
-                </InputGroup>
-                <Button type="submit" size="lg" width="full">
-                  Submit
-                </Button>
-              </FormLayout>
-            </Form>
-          </CardBody>
-        </Card>
-      </GridItem>
-      <GridItem area="bottomCard">
-        <Card
-          className="doogieVibe">
-          {isLoading ? (
-            <CircularProgress isIndeterminate color="blue.300" />
-          ) : (
-            <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
-              {images.map((imgUrl, index) => (
-                <GridItem key={index} colSpan={1}>
-                  <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} boxSize="100px" objectFit="cover" />
-                  <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
-                </GridItem>
-              ))}
-            </Grid>
-          )}
-          <Button
-            mt={4}
+    <Box
+      marginLeft="25px"
+      mt={5}
+      className="card-standard">
+      <h1 className="title">
+        Avatar Creator
+      </h1>
+      <Form
+        onSubmit={handleSubmit}>
+        <FormLayout spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
 
-            isDisabled={selectedImageIndex === null}
-            onClick={() => {
-              if (selectedImageIndex !== null) {
-                setAvatarUrl(images[selectedImageIndex]);
-              }
-            }}
-          >
-            Select Avatar
+          <h3 className="subtitle">
+            name
+          </h3>
+          <Input value={avatarName || ''} onChange={(e) => setAvatarName(e.target.value)} placeholder="Name your avatar" />
+          <h3 className="subtitle">
+            description
+          </h3>
+          <Textarea value={avatarDescription || ''} onChange={(e) => setAvatarDescription(e.target.value)} placeholder="Describe your avatar" />
+
+          <InputGroup>
+            <h3 className="subtitle">
+              photo
+            </h3>
+            <Select placeholder="Select option" onChange={(e) => setPhotoStyle(e.target.value)}>
+              <option value="Photorealistic">Photorealistic</option>
+              <option value="Semi-Illustrated">Semi-Illustrated</option>
+              <option value="Illustration">Illustration</option>
+              <option value="Manga Illustration">Manga Illustration</option>
+              <option value="Pixar">Pixar</option>
+              <option value="Minecraft">Minecraft</option>
+              <option value="custom">Custom</option>
+            </Select>
+            <h3 className="subtitle">
+              frame
+            </h3>
+            <Select placeholder="Select option" onChange={(e) => setFrameStyle(e.target.value)}>
+              <option value="Minimal">Minimal</option>
+              <option value="Matrix">Matrix</option>
+              <option value="Digital">Digital</option>
+              <option value="HUD">HUD</option>
+              <option value="Aiming Reticle">Aiming Reticle</option>
+              <option value="Tribal">Tribal</option>
+              <option value="custom">Custom</option>
+            </Select>
+          </InputGroup>
+          <Button type="submit" size="lg" width="full">
+            Submit
           </Button>
-        </Card>
-      </GridItem>
-    </Grid>
+        </FormLayout>
+      </Form>
 
+      <Card
+        className="doogieVibe">
+        {isLoading ? (
+          <CircularProgress isIndeterminate color="primaryary.300" />
+        ) : (
+          <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
+            {images.map((imgUrl, index) => (
+              <GridItem key={index} colSpan={1}>
+                <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} boxSize="100px" objectFit="cover" />
+                <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
+              </GridItem>
+            ))}
+          </Grid>
+        )}
+        <Button
+          mt={4}
+
+          isDisabled={selectedImageIndex === null}
+          onClick={() => {
+            if (selectedImageIndex !== null) {
+              setAvatarUrl(images[selectedImageIndex]);
+            }
+          }}
+        >
+          Select Avatar
+        </Button>
+      </Card>
+    </Box>
   );
 };
 

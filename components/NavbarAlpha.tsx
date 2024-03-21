@@ -176,7 +176,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                 </>)}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent bgGradient="linear(to-b, transparent, primary.50, gray.50, primary.50, transparent, primary.100)">
 
                     <DrawerHeader>
                         <PersonaAvatar
@@ -191,8 +191,8 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     </DrawerHeader>
                     <Box
                         my={4} // Margin for spacing above and below the box
-                        p={2} // Padding inside the box for any content
-                        bgGradient="linear(to-r, primary.100, primary.200)" // Example of a cool background gradient
+                        p={1} // Padding inside the box for any content
+                        bgGradient="linear(to-r, primary.200, primary.50, gray.50, primary.200)" // Example of a cool background gradient
                     // Rounded corners
                     ><Stack direction="row" display="flex" justifyContent="space-between">
                             <Text as="h3" color="white" fontSize="sm" textAlign="center">View Mode</Text>
@@ -203,18 +203,18 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     <DrawerBody>
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
-                                <NavGroup><Text color="teal.700" as="h1">pr0duc3</Text>
+                                <NavGroup><Text color="primary.700" as="h1">pr0duc3</Text>
                                     <NavItem icon={<PlusIcon />} href="/dashboard/create-image">Create Images</NavItem>
                                     <NavItem icon={<PencilIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
                                     <NavItem icon={<MessageSquareIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
                                     <NavItem icon={<PersonStandingIcon />} href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
 
-                                <NavGroup><Text color="teal.700" as="h1">tr@ining</Text>
+                                <NavGroup><Text color="primary.700" as="h1">tr@ining</Text>
                                     <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
                                 </NavGroup>
 
-                                <NavGroup><Text as="h1" color="teal.500">acc0unt</Text>
+                                <NavGroup><Text as="h1" color="primary.500">acc0unt</Text>
                                     <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
                                     <NavItem icon={<SettingsIcon />} href="/account">Settings</NavItem>
                                 </NavGroup>

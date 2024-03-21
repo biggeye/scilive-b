@@ -27,7 +27,6 @@ body {
   position: relative;
   min-height: 100%;
   margin: 0;
-  font-family: 'Iceland', system-ui;
 }
 
 div {
@@ -63,7 +62,7 @@ p a {
 }
 
 .doogieVibe {
-  background-color: 'blue.500';
+  background-color: 'primary.500';
   color: 'primary.50';
   padding: '3px';
   border-radius: '3px';

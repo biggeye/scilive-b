@@ -16,7 +16,7 @@ interface FeatureCardProps {
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ title, text, imgSrc }) => {
   return (
-    <Card p={9} mt={4} className="FeatureCard" bgGradient='linear-gradient(145deg, teal.50 0%, gray.400 100%)' boxShadow="md">
+    <Card p={9} mt={4} className="FeatureCard" bgGradient='linear-gradient(145deg, primary.50 0%, gray.400 100%)' boxShadow="md">
 
       <Tooltip label={title}>
         <VStack

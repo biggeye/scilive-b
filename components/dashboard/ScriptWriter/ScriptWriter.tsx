@@ -18,13 +18,13 @@ const ScriptWriter = () => {
   const userId = userProfile.id;
   const { profileLoading, profileError } = useUserProfile();
 
-// global state
+  // global state
   const [hostName, setHostName] = useRecoilState(hostNameState);
   const [podcastName, setPodcastName] = useRecoilState(podcastNameState);
   const [webpageUrl, setWebpageUrl] = useRecoilState(webpageUrlState);
   const [voiceoverScript, setVoiceoverScript] = useRecoilState(voiceoverScriptState);
 
-// local state
+  // local state
   const inputsDisabled = voiceoverScript.trim().length > 0;
   const [isScriptFetched, setIsScriptFetched] = useState(false);
 
@@ -32,36 +32,37 @@ const ScriptWriter = () => {
 
   const handleScriptFetch = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log("hostName: ", hostName, "podcastName: ", podcastName, "webpageUrl: ", webpageUrl, "userId: ", userId);
-     if (hostName && podcastName && webpageUrl && userId) {
-    try {
-       const data = await fetchVoiceoverScript(
-        hostName, 
-        podcastName, 
-        webpageUrl, 
-        userId
+    if (hostName && podcastName && webpageUrl && userId) {
+      try {
+        const data = await fetchVoiceoverScript(
+          hostName,
+          podcastName,
+          webpageUrl,
+          userId
         ); // Make sure userId is defined
-      if (data) {
-             console.log(data);
-      //  setIsScriptFetched(true);
+        if (data) {
+          console.log(data);
+          //  setIsScriptFetched(true);
+          toast({
+            title: "Processing",
+            description: `Script is generating, Prediction ID: ${data.prediction_id}`,
+            status: "sucess",
+            duration: 5000,
+            isClosable: true,
+          })
+        }
+
+      } catch (error) {
         toast({
-          title: "Processing",
-          description: `Script is generating, Prediction ID: ${data.prediction_id}`,
-          status: "sucess",
+          title: "Error",
+          description: "Please enter a webpage URL.",
+          status: "error",
           duration: 5000,
           isClosable: true,
-        })
+        });
       }
-
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Please enter a webpage URL.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    } } else {
-      return error ("missing required inputs")
+    } else {
+      return error("missing required inputs")
     }
   };
 
@@ -76,84 +77,70 @@ const ScriptWriter = () => {
   };
 
   return (
-    <Grid 
-    marginLeft="25px"
-    mt={5} 
-    className="card-standard"
-    templateAreas={`"topCard"
-                         "bottomCard"`}
-      gridTemplateRows="2"
-    >
-      <GridItem area="topCard">
-        <Card
-          className="card-standard"
-          borderColor="onyx"
-          borderWidth="0.5px"
-          p={{ base: "1", md: "2", lg: "4" }}
-          maxW="lg">
-          <Form onSubmit={handleScriptFetch} display="flex" flexDirection="column" alignItems="center" mb={4}>
-            <CardHeader alignItems="center" justifyContent="space-between">
-              <div as="h1" className="title">
-                scr!ptWrit3r
-              </div>
-            </CardHeader>
-            <FormLayout>
-              <InputGroup>
-              <div as="h3" className="subtitle">Host</div>
-              <Input
-              margin="5px"
-                mb={4}
-                value={hostName}
-                onChange={(e) => setHostName(e.target.value)}
-                disabled={inputsDisabled} // Disable based on voiceoverScript
-                placeholder="Host of the show"
-              />
-              <div as="h3" className="subtitle">Podcast Name</div>
-              <Input
-              margin="5px"
-                mb={4}
-                value={podcastName}
-                onChange={(e) => setPodcastName(e.target.value)}
-                disabled={inputsDisabled} // Disable based on voiceoverScript
-                placeholder="Name of the podcast"
-              />
-              </InputGroup>
-              <Input
-                mb={4}
-                value={webpageUrl}
-                onChange={(e) => setWebpageUrl(e.target.value)}
-                disabled={inputsDisabled} // Disable based on voiceoverScript
-                placeholder="Enter the web article URL here"
-              />
-              <Button
-                type="submit"
-              >
-                Fetch Script
-              </Button>
-            </FormLayout>
-          </Form>
-        </Card>
-      </GridItem>
+    <Box
+      marginLeft="25px"
+      mt={5}
+      className="card-standard">
+      <h1 className="title">
+        scr!ptWrit3r
+      </h1>
 
-      <GridItem area="bottomCard">
-        <Card className="doogieVibe">
-          <Textarea
+      <Form onSubmit={handleScriptFetch} display="flex" flexDirection="column" alignItems="center" mb={4}>
+
+        <FormLayout>
+          <InputGroup>
+            <div as="h3" className="subtitle">Host</div>
+            <Input
+              margin="5px"
+              mb={4}
+              value={hostName}
+              onChange={(e) => setHostName(e.target.value)}
+              disabled={inputsDisabled} // Disable based on voiceoverScript
+              placeholder="Host of the show"
+            />
+            <div as="h3" className="subtitle">Podcast Name</div>
+            <Input
+              margin="5px"
+              mb={4}
+              value={podcastName}
+              onChange={(e) => setPodcastName(e.target.value)}
+              disabled={inputsDisabled} // Disable based on voiceoverScript
+              placeholder="Name of the podcast"
+            />
+          </InputGroup>
+          <Input
             mb={4}
-            value={voiceoverScript}
-            onChange={handleScriptChange}
-            placeholder="The script will appear here"
-            isDisabled={!inputsDisabled} // Enable when voiceoverScript is received
+            value={webpageUrl}
+            onChange={(e) => setWebpageUrl(e.target.value)}
+            disabled={inputsDisabled} // Disable based on voiceoverScript
+            placeholder="Enter the web article URL here"
           />
-       <Button
-  onClick={generateVoiceover}
-  isDisabled={!isScriptFetched} // Enable the button only after the script is fetched
->
-  Generate Voiceover
-</Button>
-        </Card>
-      </GridItem>
+          <Button
+            type="submit"
+          >
+            Fetch Script
+          </Button>
+        </FormLayout>
+      </Form>
 
-    </Grid>
+
+
+      <Card className="doogieVibe">
+        <Textarea
+          mb={4}
+          value={voiceoverScript}
+          onChange={handleScriptChange}
+          placeholder="The script will appear here"
+          isDisabled={!inputsDisabled} // Enable when voiceoverScript is received
+        />
+        <Button
+          onClick={generateVoiceover}
+          isDisabled={!isScriptFetched} // Enable the button only after the script is fetched
+        >
+          Generate Voiceover
+        </Button>
+      </Card>
+    </Box >
   );
 };
 

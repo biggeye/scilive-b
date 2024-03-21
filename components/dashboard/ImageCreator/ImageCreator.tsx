@@ -71,10 +71,10 @@ const ImageCreator = () => {
   };
 
   return (
-    <Box  
-    marginLeft="25px"
-    mt={5} 
-    className="card-standard">
+    <Box
+      marginLeft="25px"
+      mt={5}
+      className="card-standard">
       <h1 className="title">
         !mgCreator
       </h1>
