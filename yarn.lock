@@ -1046,6 +1046,11 @@
   resolved "https://registry.npmjs.org/@fontsource-variable/big-shoulders-text/-/big-shoulders-text-5.0.19.tgz"
   integrity sha512-cp2WMw2Osn9GzNXmKhKNEIRlGVDp1zslFB0ytoz0Cm5DnsYeNLONEBFGj+t1GyjD4nu1H/yDSYdQS6SbdK0+5g==
 
+"@fontsource/iceland@^5.0.18":
+  version "5.0.18"
+  resolved "https://registry.npmjs.org/@fontsource/iceland/-/iceland-5.0.18.tgz"
+  integrity sha512-WEzBNlO1NxRHD7vWKLORBXBX+gaYb43hBdW+UKRJ2CgssYT9IL6zdQcjk/eoN1SZm8ixoD85w/JU2RlTWwCnyg==
+
 "@fontsource/silkscreen@^5.0.19":
   version "5.0.19"
   resolved "https://registry.npmjs.org/@fontsource/silkscreen/-/silkscreen-5.0.19.tgz"

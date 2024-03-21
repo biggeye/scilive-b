@@ -6,34 +6,31 @@ import { Box, VStack, Skeleton, CircularProgress, Spacer } from '@chakra-ui/reac
 import { useEffect } from 'react'; // Make sure 'react' is lowercase
 import { currentPageState } from '@/state/user/user_state-atoms';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { globalLoadingState } from '@/state/replicate/prediction-atoms';
-
+import { globalLoadingState, predictionProgressState } from '@/state/replicate/prediction-atoms';
 
 const ImageEditorPage = () => {
-    const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+
+    const predictionProgress = useRecoilValue(predictionProgressState);
     const globalLoading = useRecoilValue(globalLoadingState)
-    useEffect(() => {
-        setCurrentPage("editImage");
-    }, []); // Empty dependency array to run only on mount
 
     return (
         <Suspense fallback={
             <Skeleton height="400px"
                 width="400px"
                 className="element-pulse" />}>
-                    {globalLoading ? (
-                        <CircularProgress isIndeterminate />
-                    ) : (
-            <VStack
-            display="flex"
-            justifyContent="space-between">
-          
-                    <DisplayResults localPage="editImage" />
-   <Box position="absolute" bottom={{base: "40px", md: "0px"}}>
-                    <ImageEditor />
+            {globalLoading ? (
+                <CircularProgress value={predictionProgress} />
+            ) : (
+                <VStack
+                    display="flex"
+                    justifyContent="space-between">
+
+                    <DisplayResults />
+                    <Box position="absolute" bottom={{ base: "40px", md: "0px" }}>
+                        <ImageEditor />
                     </Box>
-                    </VStack>
-                    )}
+                </VStack>
+            )}
         </Suspense>
     );
 }

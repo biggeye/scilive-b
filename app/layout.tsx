@@ -3,10 +3,8 @@ import ClientLayout from './ClientLayout';
 import { PropsWithChildren, Suspense } from 'react';
 import { getURL } from '@/utils/helpers';
 import './main.css';
-import '@fontsource/syncopate';
+import '@fontsource/iceland';
 import '@fontsource/silkscreen'; 
-import '@fontsource-variable/big-shoulders-display';
-import '@fontsource-variable/big-shoulders-text';
 import '@fontsource/unica-one'; 
 
 const meta = {

@@ -57,9 +57,8 @@ export interface ModalProps {
   handleDelete: object,
 }
 
-
 export type ContentItem = {
-  id: string;
+  content_id: string;
   name?: string;
   title?: string;
   url: string | "";
@@ -72,8 +71,8 @@ export type ContentItem = {
   is_public?: boolean;
 };
 
-export type GalleryImage = Pick<ContentItem, 'id' | 'created_at' | 'url' | 'prompt'>;
-export type GalleryScript = Pick<ContentItem, 'id' | 'created_at' | 'content' | 'prompt'>;
+export type GalleryImage = Pick<ContentItem, 'content_id' | 'created_at' | 'url' | 'prompt'>;
+export type GalleryScript = Pick<ContentItem, 'content_id' | 'created_at' | 'content' | 'prompt'>;
 export type ImageCardProps = {
   imageUrl: string,
   prompt: string,

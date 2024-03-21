@@ -95,7 +95,7 @@ const ImageEditor = () => {
     mt={5} 
     className="card-standard">
       <h1 className="title">
-        img3d!to|2
+        !mg3dito|2
       </h1>
       <ToolOptions localPage="editImage" />
       <form onSubmit={handleUserImageEditSubmit}>

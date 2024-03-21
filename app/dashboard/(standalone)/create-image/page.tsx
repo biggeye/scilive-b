@@ -7,10 +7,11 @@ import { Box, VStack, Spacer, CircularProgress, Grid, GridItem, Skeleton } from 
 import { Suspense, useEffect } from 'react';
 import { currentPageState } from '@/state/user/user_state-atoms';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { globalLoadingState } from '@/state/replicate/prediction-atoms';
+import { predictionProgressState, globalLoadingState } from '@/state/replicate/prediction-atoms';
 
 const ImageCreatorPage = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+    const predictionProgress = useRecoilValue(predictionProgressState);
     const globalLoading = useRecoilValue(globalLoadingState);
     useEffect(() => {
         setCurrentPage("createImage");
@@ -20,19 +21,19 @@ const ImageCreatorPage = () => {
             <Skeleton height="400px"
                 width="400px"
                 className="element-pulse" />}>
-                    {globalLoading ? (
-                        <CircularProgress isIndeterminate />
-                    ) : (
-                        <VStack
-                        display="flex"
-                        justifyContent="space-between">
-                      
-                                <DisplayResults localPage="createImage" />
-               <Box position="absolute" bottom={{base: "40px", md: "0px"}}>
-                                <ImageCreator />
-                                </Box>
-                                </VStack>
-                    )}
+            {globalLoading ? (
+                <CircularProgress value={predictionProgress} />
+            ) : (
+                <VStack
+                    display="flex"
+                    justifyContent="space-between">
+
+                    <DisplayResults />
+                    <Box position="absolute" bottom={{ base: "40px", md: "0px" }}>
+                        <ImageCreator />
+                    </Box>
+                </VStack>
+            )}
         </Suspense>
     )
 }

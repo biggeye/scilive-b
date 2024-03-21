@@ -1,7 +1,6 @@
 'use client'
 import { Tooltip, Button } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { ReactComponentElement } from "react";
 
 import { ReactElement } from "react";
 
@@ -10,8 +9,6 @@ interface SidePanelButtonProps {
   label: string,
   href: string,
 }
-
-
 
 const SidePanelButton = ({ icon, label, href }: SidePanelButtonProps) => {
 

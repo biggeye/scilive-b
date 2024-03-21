@@ -15,7 +15,7 @@ import { SignOut } from "@/utils/auth-helpers/server";
 
 //import components
 // import GalleryDrawer from '@/components/GalleryDrawer';
-import SidePanelButton from "@/components/SidePanelButton";
+import SidePanelButton from "@/components/utils/SidePanelButton";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
 

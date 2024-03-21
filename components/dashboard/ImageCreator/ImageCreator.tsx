@@ -76,7 +76,7 @@ const ImageCreator = () => {
     mt={5} 
     className="card-standard">
       <h1 className="title">
-        imgCr8|2
+        !mgCreator
       </h1>
       <ToolOptions localPage="createImage" />
       <form onSubmit={handleSubmit}>

@@ -34,7 +34,7 @@ const DashboardPage = () => {
            // TODO toolOptions  is rendering incorrect list of models for createImage / imageCreator
             <Box position="fixed" backdropFilter="blur(50px)" width="90%">
               <ImageCreator />
-              <DisplayResults localPage="createImage" />  
+              <DisplayResults />  
             </Box>
           </VStack>
         </TabPanel>
@@ -43,7 +43,7 @@ const DashboardPage = () => {
            // TODO ImageEditor gallery sidepanel opens, but with no contents
             <Box position="fixed" backdropFilter="blur(50px)" width="90%">
               <ImageEditor />
-              <DisplayResults localPage="editImage" />   
+              <DisplayResults />   
             </Box>
           </VStack>
         </TabPanel>
@@ -76,11 +76,11 @@ const DashboardPage = () => {
     <Grid
     >
       <GridItem area="createDisplay">
-        <DisplayResults localPage="createImage" />
+        <DisplayResults />
         <ImageCreator />
       </GridItem>
       <GridItem area="editDisplay">
-        <DisplayResults localPage="editImage" />
+        <DisplayResults />
         <ImageEditor />
       </GridItem>
       <GridItem area="panel">

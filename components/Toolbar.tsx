@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { CreateAvatarIcon, CreateImageIcon, EditImageIcon, WriteScriptIcon } from "@/app/icons";
-import { Button, Tooltip, VStack } from "@chakra-ui/react";
+import { Spacer, Button, Tooltip, VStack } from "@chakra-ui/react";
+import { Axis3dIcon, WandIcon } from "lucide-react";
 
 interface ToolbarButtonProps {
     icon: React.ReactElement;
@@ -29,13 +30,16 @@ const Toolbar = () => {
 
     return (
         <VStack
-            bgImage="@/light_dots_pattern.png" bgRepeat="repeat"
+            display="flex" justifyContent="space-between"
             align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
             <ToolbarButton icon={<CreateImageIcon />} label="Create Images" href="/dashboard/create-image" />
             <ToolbarButton icon={<EditImageIcon />} label="Edit Images" href="/dashboard/edit-image" />
+            <Spacer />
+            <ToolbarButton icon={<CreateAvatarIcon />} label="Design Avatar" href="/dashboard/create-avatar" />
+            <ToolbarButton icon={<Axis3dIcon />} label="Train Model" href="/dashboard/AvatarTrainer" />
+            <ToolbarButton icon={<WandIcon />} label="Generate Model Images" href="/AvatarGenerator" />
+            <Spacer />
             <ToolbarButton icon={<WriteScriptIcon />} label="Write Script" href="/dashboard/write-script" />
-            <ToolbarButton icon={<CreateAvatarIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
-            {/* Additional buttons */}
         </VStack>
     )
 }

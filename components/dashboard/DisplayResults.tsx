@@ -33,9 +33,8 @@ import {
   selectedModelNameState,
 } from "@/state/replicate/config-atoms";
 import Link from "next/link";
-import { DisplayResultsProps } from '@/types';
 
-const DisplayResults = ({ localPage }: DisplayResultsProps) => {
+const DisplayResults = () => {
   const cancelPrediction = useRecoilValue(cancelRunningPredictionState);
   const globalLoading = useRecoilValue(globalLoadingState);
   const modelBootResult = useRecoilValue(modelBootResultState);
@@ -45,7 +44,7 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
   const finalPredictionPrompt = useRecoilValue(finalPredictionPromptState);
   const userImagePreview = useRecoilValue(userImagePreviewState);
   const exampleImage = useRecoilValue(exampleImageState);
-  const modelName = useRecoilValue(selectedModelNameState);
+  const model = useRecoilValueLoadable(selectedModelConfigSelector);
 
   const displayedImage = finalPrediction || userImagePreview;
 
@@ -62,7 +61,7 @@ const DisplayResults = ({ localPage }: DisplayResultsProps) => {
             {globalLoading && cancelPrediction ? (
               <Link href={cancelPrediction}>Cancel Image Creation</Link>
             ) : (
-              <div className="title">{modelName}</div>
+              <div className="title">{model.friendlyName}</div>
             )}
           </CardHeader>
           <CardBody>
