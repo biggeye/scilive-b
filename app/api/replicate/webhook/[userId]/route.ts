@@ -75,7 +75,7 @@ export async function POST(req: Request) {
         });
       }
     } else
-    */ if (body.status === 'processing') {
+     if (body.status === 'processing') {
       const { data, error } = await supabase
         .from('master_content')
         .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status, cancel_url: cancelUrl })
@@ -93,7 +93,7 @@ export async function POST(req: Request) {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
       })
-    }
+    } */
 
     if (body.status === 'succeeded' && body.output) {
       const { output } = body;
