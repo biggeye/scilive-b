@@ -3,9 +3,9 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "@saas-ui/react";
 import { useRouter } from "next/navigation";
-import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
-import { useDisclosure } from '@chakra-ui/react';
-import { ContentItem } from "@/types";
+// import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
+// import { useDisclosure } from '@chakra-ui/react';
+// import { ContentItem } from "@/types";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
 //import auth
@@ -15,15 +15,12 @@ import { SignOut } from "@/utils/auth-helpers/server";
 
 //import components
 // import GalleryDrawer from '@/components/GalleryDrawer';
-import SidePanelButton from "@/components/utils/SidePanelButton";
+// import SidePanelButton from "@/components/utils/SidePanelButton";
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
 import NavbarAlpha from "@/components/NavbarAlpha";
 
 //import UI
-import { ViewIcon } from '@saas-ui/react';
 import { Box, Button, useToast, CircularProgress, VStack, Tooltip, useBreakpointValue } from '@chakra-ui/react';
-import { MessageSquareIcon, PencilIcon, PersonStandingIcon, PlusIcon } from "lucide-react";
-import { GalleryIcon, AddIcon, EditIcon, ImageIcon, VoiceoverIcon } from '@/components/icons/UI';
 
 //import state
 import { globalLoadingState, predictionStatusState, predictionProgressState, finalPredictionState } from "@/state/replicate/prediction-atoms";
@@ -33,10 +30,15 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const auth = useAuth();
-  const router = useRouter();
+
+
   const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
+  if (!isAuthCheckComplete) {
+    return <VStack><LoadingCircle /></VStack>;
+  }
+  const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   const setGlobalLoading = useSetRecoilState(globalLoadingState);
   const setPredictionProgress = useSetRecoilState(predictionProgressState);
   const setPredictionStatus = useSetRecoilState(predictionStatusState);
@@ -116,16 +118,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     };
   }, [router, toast]);
 
-  const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
-  const shouldSidePanel = () => !isOpen && !isMobile;
+  // const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
+  // const shouldSidePanel = () => !isOpen && !isMobile;
 
-  if (!isAuthCheckComplete) {
-    return <VStack><LoadingCircle /></VStack>;
-  }
+
 
   return (
     <ErrorBoundary>
-      {(!isOpen && !isMobile) && (
+      {/*    {(!isOpen && !isMobile) && (
         <VStack
           align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
           <SidePanelButton icon={<GalleryIcon />} label="Gallery" href="/dashboard/assets" />
@@ -134,12 +134,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           <SidePanelButton icon={<MessageSquareIcon />} label="Write Script" href="/dashboard/write-script" />
           <SidePanelButton icon={<PersonStandingIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
         </VStack>
-      )}
+  )}   */}
       <NavbarAlpha handleSignOut={handleSignOut} />
 
       {children}
 
-  {/*}    <GalleryDrawer
+      {/*}    <GalleryDrawer
         isOpen={isOpen}
         onClose={onClose}
         items={contentItems.filter(item => item.url).map(item => ({
@@ -151,7 +151,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />   */}
-     </ErrorBoundary>
+    </ErrorBoundary>
   );
 };
 

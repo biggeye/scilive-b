@@ -27,38 +27,57 @@ body {
   position: relative;
   min-height: 100%;
   margin: 0;
+  font-family: 'Antonio Variable';
 }
-
+h1 {
+  font-family: 'Share Tech Mono';
+}
 div {
   font-weight: '400';
 }
-
-h1 {
-  font-family: 'Silkscreen', sans-serif;
-}
-
-h2 {
-  font-family: 'Unica One', sans-serif;
-  font-weight: '700';
-
-}
-
-h3 {
-  font-family: 'Unica One', sans-serif;
-  font-weight: '400';
-}
-
 p {
-
   font-weight: '300';
 }
-
 a {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(#454545);
+ font-weight: '300';
 }
 
 p a {
   @apply hover:underline;
+}
+
+.title {
+  font-size: 2.25rem;
+  text-align: center;
+  @media screen and (min-width: 640px) {
+    font-size: 3rem;
+  }
+}
+
+.subtitle {
+  max-width: 2xl;
+  margin: auto;
+  margin-top: 1.25rem;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-left: 1rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: 'flex';
+  justify-content: baseline;
+
+  @media screen and (min-width: 640px) {
+    font-size: 1.5rem;
+  }
+}
+
+button {
+  box-shadow: 1px;
+  padding: 2px; 
+  border-width: .5px;
+  border-radius: 5px;
+  background-color: #689ECA; 
 }
 
 .doogieVibe {
@@ -112,7 +131,11 @@ p a {
   background-color: "primary.400";
 }
 
-
+.standard-button {
+  border-width: .5px;
+  border-radius: 2px;
+  background-color: "primary.500";
+}
 .image-card {
   border-width: 1px;
   border-color: "primary.800";
@@ -146,30 +169,7 @@ p a {
    background-image: linear-gradient(to top, var(--primary-700), var(--primary-50));
 }
 
-.title {
-  font-size: 2.25rem;
-  text-align: center;
-  @media screen and (min-width: 640px) {
-    font-size: 3rem;
-  }
-}
 
-.subtitle {
-  max-width: 2xl;
-  margin: auto;
-  margin-top: 1.25rem;
-  font-size: 1.25rem;
-  text-align: center;
-  margin-left: 1rem;
-  margin-right: 1.5rem;
-  margin-bottom: 1.5rem;
-  display: 'flex';
-  justify-content: baseline;
-
-  @media screen and (min-width: 640px) {
-    font-size: 1.5rem;
-  }
-}
 
 /* Custom Animations */
 @keyframes slideDown {
@@ -302,7 +302,6 @@ p a {
 
 .animation-container {
   cursor: pointer;
-  font-family: 'Press Start 2P', monospace;
   font-size: 24px;
   display: inline-block;
 }

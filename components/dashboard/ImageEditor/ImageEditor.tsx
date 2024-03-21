@@ -10,7 +10,7 @@ import { handleGalleryEditSelection } from '@/lib/gallery/handleGalleryEditSelec
 import { convertToDataURI } from '@/utils/convertToDataURI';
 // import UI
 import {
-  Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
+  VStack, Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
   Image, Grid, GridItem, Text, Card, CardBody, CardHeader, CardFooter
 } from '@chakra-ui/react';
 import {
@@ -90,49 +90,54 @@ const ImageEditor = () => {
   };
 
   return (
-    <Box 
-    marginLeft="25px"
-    mt={5} 
-    className="card-standard">
+    <Box
+      marginLeft="25px"
+      mt={5}
+      className="card-standard">
       <h1 className="title">
-        !mg3dito|2
+        imgEditor
       </h1>
-      <ToolOptions localPage="editImage" />
+
       <form onSubmit={handleUserImageEditSubmit}>
-        <FileUpload
-          maxFileSize={10000 * 10000}
-          maxFiles={1}
-          accept="image/*"
-          onChange={handleFileChange}
-        >
-          {({ files, deleteFile }) => (
-            <FileUploadDropzone
-            >
-              {!files?.length ? (
-                <FileUploadTrigger color="teal" as={Button}>Drop Image or Click</FileUploadTrigger>
-              ) : (
-                <HStack>
-                  <Text fontSize="sm">{files[0].name}</Text>
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      deleteFile(files[0])
-                    }}
-                  >
-                    Clear
-                  </Button>
-                </HStack>
-              )}
-            </FileUploadDropzone>
-          )}
-        </FileUpload>
-        <Input
-          value={userInput}
-          onChange={handleInputChange}
-        />
-        <Button type="submit">
-          Edit Image
-        </Button>
+        <VStack>
+          <ToolOptions localPage="editImage" />
+          <FileUpload
+            boxShadow="lg"
+            maxFileSize={10000 * 10000}
+            maxFiles={1}
+            accept="image/*"
+            onChange={handleFileChange}
+          >
+            {({ files, deleteFile }) => (
+              <FileUploadDropzone
+              >
+                {!files?.length ? (
+                  <FileUploadTrigger color="teal" as={Button}>Drop Image or Click</FileUploadTrigger>
+                ) : (
+                  <HStack>
+                    <Text fontSize="sm">{files[0].name}</Text>
+                    <Button
+                      boxShadow="sm"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        deleteFile(files[0])
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  </HStack>
+                )}
+              </FileUploadDropzone>
+            )}
+          </FileUpload>
+          <Input
+            value={userInput}
+            onChange={handleInputChange}
+          />
+          <Button boxShadow="sm" size="lg" type="submit">
+            Edit Image
+          </Button>
+        </VStack>
       </form>
       {predictionError && <Alert fontSize={{ base: "sm", md: "md" }}>{predictionError}</Alert>}
     </Box >

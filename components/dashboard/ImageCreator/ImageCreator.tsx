@@ -11,6 +11,7 @@ import {
   InputRightAddon,
   useToast,
   CardHeader,
+  VStack,
 } from '@chakra-ui/react';
 import { Form } from '@saas-ui/react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -75,18 +76,25 @@ const ImageCreator = () => {
       marginLeft="25px"
       mt={5}
       className="card-standard">
+       
       <h1 className="title">
-        !mgCreator
+        imgCreator
       </h1>
-      <ToolOptions localPage="createImage" />
+     
       <form onSubmit={handleSubmit}>
+      <VStack>
+      <ToolOptions localPage="createImage" />
+   
         <Input
+        boxShadow="lg"
           value={userInput}
           onChange={handleInputChange} />
-        <Button type="submit">
+        <Button size="lg" boxShadow="sm" type="submit">
           Create Image
         </Button>
+        </VStack>
       </form>
+      
     </Box >
   );
 };

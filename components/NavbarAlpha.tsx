@@ -92,7 +92,10 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     }
                     <NavbarContent as="div" justifyContent="end">
                         <Menu>
-                            <MenuButton>
+                            <MenuButton
+                            borderRadius="full"
+                            borderWidth="0"
+                            bgColor="primary.100">
                                 <PersonaAvatar
                                     src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
                                     name={userProfile?.full_name || ""}
@@ -176,7 +179,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                 </>)}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
                 <DrawerOverlay />
-                <DrawerContent bgGradient="linear(to-b, transparent, primary.50, gray.50, primary.50, transparent, primary.100)">
+                <DrawerContent bgGradient="linear(to-b, transparent, gray.50, transparent, transparent, primary.100)">
 
                     <DrawerHeader>
                         <PersonaAvatar

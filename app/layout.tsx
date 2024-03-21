@@ -5,9 +5,10 @@ import { getURL } from '@/utils/helpers';
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import './main.css';
-import '@fontsource/iceland';
 import '@fontsource/silkscreen';
-import '@fontsource/unica-one';
+import '@fontsource/share-tech-mono';
+import '@fontsource-variable/antonio';
+
 
 const meta = {
   title: 'sciLive',

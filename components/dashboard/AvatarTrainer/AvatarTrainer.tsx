@@ -118,8 +118,9 @@ const AvatarTrainer: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         <VStack spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
           <FormControl isRequired>
-            <div as="h3" className="subtitle">Model Name</div>
+     
             <Input
+            boxShadow="lg"
               value={trainingModelName}
               onChange={(e) => setTrainingModelName(e.target.value)}
               placeholder="Enter model name" />
@@ -134,8 +135,8 @@ const AvatarTrainer: React.FC = () => {
               <FileUploadDropzone>
                 {!files?.length ? (
                   <>
-                    <Text fontSize="sm">Drag your image here, or click to select files</Text>
-                    <FileUploadTrigger as={Button}>Select files</FileUploadTrigger>
+              
+                    <FileUploadTrigger as={Button}>drop image / browse files</FileUploadTrigger>
                   </>
                 ) : (
                   <HStack>
@@ -155,8 +156,10 @@ const AvatarTrainer: React.FC = () => {
           </FileUpload>
 
           <FormControl isRequired>
-            <div as="h3" className="subtitle">Type of Model</div>
-            <Select onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
+        
+            <Select 
+            boxShadow="md"
+            onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
               <option value="man">Man</option>
               <option value="woman">Woman</option>
               <option value="animal">Animal</option>
@@ -166,7 +169,7 @@ const AvatarTrainer: React.FC = () => {
             </Select>
           </FormControl>
 
-          <Button type="submit" size="lg" width="full" isLoading={isLoading}>
+          <Button boxShadow="sm" type="submit" size="lg" width="full" isLoading={isLoading}>
             Train Model
           </Button>
         </VStack>

@@ -57,54 +57,56 @@ const DisplayResults = () => {
   };
 
   return (
-          <VStack>
-            <Card>
-          <CardHeader>
+    <VStack>
+      {userImagePreview || finalPrediction &&
+      <Card>
+        <CardHeader>
 
-            {globalLoading && cancelPrediction ? (
-              <Link href={cancelPrediction}>Cancel Image Creation</Link>
+          {globalLoading && cancelPrediction ? (
+            <Link href={cancelPrediction}>Cancel Image Creation</Link>
+          ) : (
+            <div>model name</div>
+          )}
+
+        </CardHeader>
+        <CardBody>
+          <VStack
+            display="flex"
+            direction="column"
+            justifyContent="space-evenly">
+            {globalLoading ? (
+
+              <Skeleton
+                height="400px"
+                width="400px"
+                className="Logo"
+              ><CircularProgress
+                  isIndeterminate
+                  className="element-pulse-fast"
+                />
+                <Text as="h3" className="subtitle">
+                  Model Status: {modelBootResult}
+                </Text>
+                <Text as="h3" className="subtitle">
+                  Prediction Status: {predictionStatus}
+                </Text>
+              </Skeleton>
             ) : (
-             <div>model name</div>
+              <Box>
+                {finalPrediction &&
+                  <Image src={finalPrediction} />}
+              </Box>
             )}
-
-          </CardHeader>
-          <CardBody>
-            <VStack
-              display="flex"
-              direction="column"
-              justifyContent="space-evenly">
-              {globalLoading ? (
-
-                <Skeleton
-                  height="400px"
-                  width="400px"
-                  className="Logo"
-                ><CircularProgress
-                    isIndeterminate
-                    className="element-pulse-fast"
-                  />
-                  <Text as="h3" className="subtitle">
-                    Model Status: {modelBootResult}
-                  </Text>
-                  <Text as="h3" className="subtitle">
-                    Prediction Status: {predictionStatus}
-                  </Text>
-                </Skeleton>
-              ) : (
-                <Box>
-                  {finalPrediction &&
-                    <Image src={finalPrediction} />}
-                </Box>
-              )}
-            </VStack>
-          </CardBody>
-          <CardFooter>
-            <Text as="h3" className="subtitle">
-              {finalPredictionPrompt}
-            </Text>
-          </CardFooter>
-          </Card>
-        </VStack>
+          </VStack>
+        </CardBody>
+        <CardFooter>
+          <Text as="h3" className="subtitle">
+            {finalPredictionPrompt}
+          </Text>
+        </CardFooter>
+      </Card>
+}
+    </VStack>
   );
 };
 

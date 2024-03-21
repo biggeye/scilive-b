@@ -89,26 +89,28 @@ const ScriptWriter = () => {
 
         <FormLayout>
           <InputGroup>
-            <div as="h3" className="subtitle">Host</div>
+      
             <Input
+            boxShadow="md"
               margin="5px"
               mb={4}
               value={hostName}
               onChange={(e) => setHostName(e.target.value)}
               disabled={inputsDisabled} // Disable based on voiceoverScript
-              placeholder="Host of the show"
+              placeholder="Name of the Show's Host"
             />
-            <div as="h3" className="subtitle">Podcast Name</div>
-            <Input
+                <Input
+                boxShadow="md"
               margin="5px"
               mb={4}
               value={podcastName}
               onChange={(e) => setPodcastName(e.target.value)}
               disabled={inputsDisabled} // Disable based on voiceoverScript
-              placeholder="Name of the podcast"
+              placeholder="Name of the Show"
             />
           </InputGroup>
           <Input
+          boxShadow="lg"
             mb={4}
             value={webpageUrl}
             onChange={(e) => setWebpageUrl(e.target.value)}
@@ -116,6 +118,8 @@ const ScriptWriter = () => {
             placeholder="Enter the web article URL here"
           />
           <Button
+          boxShadow="sm"
+          size="lg"
             type="submit"
           >
             Fetch Script

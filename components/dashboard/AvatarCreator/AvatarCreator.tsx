@@ -117,20 +117,17 @@ const AvatarCreator: React.FC = () => {
         onSubmit={handleSubmit}>
         <FormLayout spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
 
-          <h3 className="subtitle">
-            name
-          </h3>
-          <Input value={avatarName || ''} onChange={(e) => setAvatarName(e.target.value)} placeholder="Name your avatar" />
-          <h3 className="subtitle">
-            description
-          </h3>
-          <Textarea value={avatarDescription || ''} onChange={(e) => setAvatarDescription(e.target.value)} placeholder="Describe your avatar" />
+          <Input
+            boxShadow="md"
+            value={avatarName || ''} onChange={(e) => setAvatarName(e.target.value)} placeholder="Name your avatar" />
+
+          <Textarea
+            boxShadow="lg"
+            value={avatarDescription || ''} onChange={(e) => setAvatarDescription(e.target.value)} placeholder="Describe your avatar" />
 
           <InputGroup>
-            <h3 className="subtitle">
-              photo
-            </h3>
-            <Select placeholder="Select option" onChange={(e) => setPhotoStyle(e.target.value)}>
+
+            <Select placeholder="choose image style" onChange={(e) => setPhotoStyle(e.target.value)}>
               <option value="Photorealistic">Photorealistic</option>
               <option value="Semi-Illustrated">Semi-Illustrated</option>
               <option value="Illustration">Illustration</option>
@@ -139,10 +136,8 @@ const AvatarCreator: React.FC = () => {
               <option value="Minecraft">Minecraft</option>
               <option value="custom">Custom</option>
             </Select>
-            <h3 className="subtitle">
-              frame
-            </h3>
-            <Select placeholder="Select option" onChange={(e) => setFrameStyle(e.target.value)}>
+
+            <Select placeholder="choose frame style" onChange={(e) => setFrameStyle(e.target.value)}>
               <option value="Minimal">Minimal</option>
               <option value="Matrix">Matrix</option>
               <option value="Digital">Digital</option>

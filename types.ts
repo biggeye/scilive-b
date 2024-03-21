@@ -115,14 +115,27 @@ export type currentIndex = {
 export interface SelectedModel {
   id: string,
   name: string,
-  friendlyname: string,
+  friendlyName: string,
   example?: string,
   url?: string,
-  shortdesc: string,
-  inputtype: string,
+  shortDesc: string,
+  inputType: string,
 }
 
-export type ModelList = Pick<SelectedModel, id, friendlyName>;
+export type ModelList = {
+  id: string,
+  name: string,
+  friendlyName: string,
+  shortDesc: string
+}
+
+export interface ModelInputs {
+  variable: string,
+  default_value: string,
+  description: string,
+  validation_rules: "boolean" | "integer" | "uri",
+  is_required: boolean,
+}
 
 // Interface for prediction preparation inputs
 export interface PredictionPreparationState {

@@ -1,5 +1,5 @@
 'use client'
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Skeleton, Tabs, Tab, TabList, TabPanels, TabPanel, VStack, Box, Grid, GridItem, Card, Link, Text } from '@chakra-ui/react';
 import ImageCreator from '@/components/dashboard/ImageCreator';
 import ImageEditor from '@/components/dashboard/ImageEditor';
@@ -14,6 +14,7 @@ import { viewModeState } from '@/state/user/user_state-atoms';
 
 const DashboardPage = () => {
   const viewMode = useRecoilValue(viewModeState);
+  const [creator, setCreator] = useState(true);
 
   const renderTabs = () => (
     <Tabs
@@ -73,29 +74,20 @@ const DashboardPage = () => {
 
   const renderGrid = () => (
 
-    <Grid
+    <Grid padding="10px" margin="10px" display="flex" direction="row" position="relative"
     >
-      <GridItem area="createDisplay">
+      <GridItem bgColor="primary.50" area="createDisplay">
         <DisplayResults />
-        <ImageCreator />
+        {creator ? ( <ImageCreator /> ) : ( <ImageEditor />)}
       </GridItem>
-      <GridItem area="editDisplay">
-        <DisplayResults />
-        <ImageEditor />
+      <GridItem bgColor="primary.100" area="scriptWriter">
+       <ScriptWriter />
       </GridItem>
-      <GridItem area="panel">
-        <Box
-          w="55vw"
-          h="auto"
-          bgColor="silver"
-          borderRadius="md">
-        </Box>
-      </GridItem>
-      <GridItem area="avatar">
+      <GridItem bgColor="primary.200" area="avatar">
         <AvatarCreator />
       </GridItem>
-      <GridItem area="script">
-        <ScriptWriter />
+      <GridItem bgColor="primary.300" area="trainer">
+        <AvatarTrainer />
       </GridItem>
       <GridItem area="footer">
 
