@@ -13,8 +13,8 @@ type ToolOptionsProps = {
 const ToolOptions = ({ localPage }: ToolOptionsProps) => {
   const currentPage = useRecoilValueLoadable(currentPageState);
   const [selectedModelId, setSelectedModelId] = useRecoilState<string>(selectedModelIdState);
-  const modelList = useRecoilValueLoadable<ModelList>(modelListSelector);
-  const selectedModelConfig = useRecoilValueLoadable<SelectedModel>(selectedModelConfigSelector);
+  const modelList = useRecoilValueLoadable(modelListSelector);
+  const selectedModelConfig = useRecoilValueLoadable(selectedModelConfigSelector);
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newSelectedModelId = event.target.value;
@@ -23,7 +23,7 @@ const ToolOptions = ({ localPage }: ToolOptionsProps) => {
 
   useEffect(() => {
     if (modelList.state === 'hasError') {
-      fetchModels();
+      const modelList: ModelList = fetchModels();
     }
   }, [modelList.state]);
 
