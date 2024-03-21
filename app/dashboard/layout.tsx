@@ -33,6 +33,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const router = useRouter();
 
   const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
+
   useEffect(() => {
     if (!auth.isLoading) {
       if (!auth.isAuthenticated) {
@@ -42,10 +43,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       }
     }
   }, [auth.isAuthenticated, auth.isLoading, router]);
-  if (!isAuthCheckComplete) {
-    return <VStack><LoadingCircle /></VStack>;
-  }
-
   const isMobile = useBreakpointValue({ base: true, md: false });
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const setGlobalLoading = useSetRecoilState(globalLoadingState);
@@ -121,6 +118,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   // const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
   // const shouldSidePanel = () => !isOpen && !isMobile;
 
+
+  if (!isAuthCheckComplete) {
+    return <VStack><LoadingCircle /></VStack>;
+  }
 
 
   return (

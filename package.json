@@ -19,7 +19,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@saas-ui/auth": "^3.0.3",
     "@saas-ui/file-upload": "^0.2.4",
-    "@saas-ui/react": "^2.6.0",
+    "@saas-ui/react": "^2.6.2",
     "@saas-ui/supabase": "^2.1.4",
     "@saas-ui/theme-glass": "^0.5.4",
     "@stripe/stripe-js": "^3.0.6",
