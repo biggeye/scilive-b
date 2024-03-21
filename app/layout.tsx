@@ -53,13 +53,13 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body overflow-x="hidden">
-        <script src="https://tikapi.io/assets/js/popup.js">
+        <script src="https://tikapi.io/assets/js/popup.js" />
           <ClientLayout>
             {children}
           </ClientLayout>
-        </script>
-        <Analytics />
+          <Analytics />
         <SpeedInsights />
+     
       </body>
     </html>
   );
