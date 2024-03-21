@@ -1,7 +1,7 @@
 'use client'
 // import utility
 import React, { Suspense, useEffect, useState } from "react";
-import { ErrorBoundary } from "@saas-ui/react";
+import { AppShell, ErrorBoundary } from "@saas-ui/react";
 import { useRouter } from "next/navigation";
 // import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 // import { useDisclosure } from '@chakra-ui/react';
@@ -136,10 +136,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           <SidePanelButton icon={<PersonStandingIcon />} label="Create Avatar" href="/dashboard/create-avatar" />
         </VStack>
   )}   */}
-      <NavbarAlpha handleSignOut={handleSignOut} />
-
+  <AppShell
+  navbar={<NavbarAlpha handleSignOut={handleSignOut} />}>
       {children}
-
+      </AppShell>
       {/*}    <GalleryDrawer
         isOpen={isOpen}
         onClose={onClose}
