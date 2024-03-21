@@ -17,7 +17,7 @@ import {
   Button,
   Image
 } from "@chakra-ui/react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import {
   cancelRunningPredictionState,
   modelBootResultState,
@@ -29,10 +29,14 @@ import {
   globalLoadingState,
 } from "@/state/replicate/prediction-atoms";
 import {
-  exampleImageState,
-  selectedModelNameState,
+  selectedModelConfigSelector,
 } from "@/state/replicate/config-atoms";
 import Link from "next/link";
+
+interface Model {
+  selectedModelId: string;
+  selectedModelFriendlyName: string;
+}
 
 const DisplayResults = () => {
   const cancelPrediction = useRecoilValue(cancelRunningPredictionState);
@@ -43,7 +47,6 @@ const DisplayResults = () => {
   const finalPrediction = useRecoilValue(finalPredictionState);
   const finalPredictionPrompt = useRecoilValue(finalPredictionPromptState);
   const userImagePreview = useRecoilValue(userImagePreviewState);
-  const exampleImage = useRecoilValue(exampleImageState);
   const model = useRecoilValueLoadable(selectedModelConfigSelector);
 
   const displayedImage = finalPrediction || userImagePreview;
@@ -61,8 +64,9 @@ const DisplayResults = () => {
             {globalLoading && cancelPrediction ? (
               <Link href={cancelPrediction}>Cancel Image Creation</Link>
             ) : (
-              <div className="title">{model.friendlyName}</div>
+             <div>model name</div>
             )}
+
           </CardHeader>
           <CardBody>
             <VStack
