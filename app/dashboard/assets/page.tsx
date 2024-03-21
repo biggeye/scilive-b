@@ -15,7 +15,7 @@ const GalleryPage: React.FC = () => {
 
     <Gallery
       items={contentItems.map(item => ({
-        id: item.id,
+        id: item.content_id,
         url: item.url,
         title: item.title,
         prompt: item.prompt,
