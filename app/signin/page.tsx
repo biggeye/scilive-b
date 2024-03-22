@@ -1,6 +1,6 @@
 'use client'
 import Logo from '@/components/utils/Logo'
-import { Image, VStack, Flex, Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
+import { Image, Button, VStack, Flex, Grid, GridItem, CardBody, Spacer, Box, Card, CardHeader } from '@chakra-ui/react'
 import { Auth } from '@saas-ui/auth'
 import { useSnackbar } from '@saas-ui/react'
 import { useRouter } from 'next/navigation'
@@ -15,6 +15,10 @@ export default function AuthPage() {
       return path
     }
     return window.location.origin
+  }
+
+  const handleTikApiLogin = () => {
+    router.push(`${process.env.NEXT_PUBLIC_TIKAPI_OAUTH_LINK}`)
   }
 
   return (
@@ -52,6 +56,7 @@ export default function AuthPage() {
               redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/dashboard`}
 
             />
+            <Button onClick={handleTikApiLogin}>Continue with Tik Tok</Button>
 
           </CardBody>
         </Card>
