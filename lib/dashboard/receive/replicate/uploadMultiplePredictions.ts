@@ -7,7 +7,7 @@ export async function uploadMultiplePredictions(
     prompt: string
 ): Promise<string[]> {
     const urls = await Promise.all(contents.map((content, index) =>
-        uploadPrediction(content, userId, modelId, `${predictionId}-${index}`, prompt)
+        uploadPrediction(content, userId, modelId, `${predictionId}`, prompt, `${predictionId}-${index}`)
     ));
     return urls;
 }

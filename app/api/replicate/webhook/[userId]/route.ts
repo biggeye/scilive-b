@@ -97,7 +97,6 @@ export async function POST(req: Request) {
 
     if (body.status === 'succeeded' && body.output) {
       const { output } = body;
-
       // Handle output as an array of strings
       if (Array.isArray(output) && output.every(item => typeof item === 'string')) {
         try {
@@ -105,14 +104,12 @@ export async function POST(req: Request) {
             .from('master_content')
             .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
             .match({ prediction_id: predictionId });
-
           const urls = await uploadMultiplePredictions(output, userId, modelId, predictionId, prompt);
           // Return these URLs in your response
           return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
           })
-
         } catch (error) {
           console.error('Error handling webhook:', error);
           return new Response(JSON.stringify({ error: 'Error handling webhook' }), {
@@ -120,22 +117,20 @@ export async function POST(req: Request) {
             headers: { 'Content-Type': 'application/json' }
           });
         }
-
       } else if (typeof output === 'string') {
         // Handle single string output
         try {
-          const url = await uploadPrediction(output, userId, modelId, `${predictionId}`, prompt);
+          const url = await uploadPrediction(output, userId, modelId, `${predictionId}`, prompt, `${predictionId}`);
           const finalPrediction = await url;
           await supabase
-          .from('master_content')
-          .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status, url: finalPrediction })
-          .match({ prediction_id: predictionId });
+            .from('master_content')
+            .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
+            .match({ prediction_id: predictionId });
           console.log("finalPredictoin:", finalPrediction);
           return new Response(JSON.stringify({ message: 'Webhook processed successfully', finalPrediction }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
           })
-
         } catch (error) {
           console.error('Error uploading prediction:', error);
           // Handle error case here
