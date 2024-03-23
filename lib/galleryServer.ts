@@ -3,55 +3,75 @@
 'use server'; // Should this be 'use strict'?
 
 import { createClient } from "@/utils/supabase/server";
-import { GalleryImage} from '@/types';
+import { GalleryImage } from '@/types';
 
 const supabase = createClient();
 
 let cachedGalleryImages: GalleryImage[] | null = null;
 
 /**
+ * Fetches supplementary data (URLs) for a given prediction_id.
+ * @param predictionId The prediction_id for which to fetch supplementary data.
+ * @returns {Promise<string[]>} A promise that resolves to an array of URLs.
+ */
+const fetchSupplementaryData = async (predictionId: string): Promise<string[]> => {
+
+  const { data, error } = await supabase
+    .from('prediction_content')
+    .select('url')
+    .like('prediction_id', predictionId);
+
+  if (error) {
+    console.error("Error fetching URLs for prediction_id: ", predictionId, error);
+    throw new Error('Supabase - URL Fetch Error');
+  }
+
+  return data.map(item => item.url);
+}
+
+/**
  * Fetches gallery images from the database.
  * @returns {Promise<GalleryImage[]>} A promise that resolves to an array of gallery images.
  */
-const fetchSupplementaryData = async (predictionData: any) => {
-    const prediction = predictionData.prediction_id;
-    const { data, error } = await supabase
-      .from('prediction_content')
-      .select('url')
-      .eq('prediction_id', prediction);
-  
-    if (error) throw error;
-    return data.map(item => item.url); // map the data array to an array of URLs
+export async function fetchGalleryImages(): Promise<GalleryImage[]> {
+  if (cachedGalleryImages !== null) {
+    return cachedGalleryImages;
   }
   
+  try {
+    const { data: masterData, error: masterError } = await supabase
+      .from('master_content')
+      .select('content_id, prediction_id, prompt, created_at, created_by');
 
-  export async function fetchGalleryImages(): Promise<GalleryImage[]> {
-    if (cachedGalleryImages !== null) {
-      return cachedGalleryImages;
+    if (masterError) {
+      console.error("Error fetching master content: ", masterError);
+      throw new Error('Supabase - Master Content Fetch Error');
     }
-    try {
-      const { data, error } = await supabase
-        .from('master_content')
-        .select('content_id, prediction_id, prompt, created_at, created_by');
-      if (error) throw error;
+
+    const galleryImages: GalleryImage[] = [];
+    for (const item of masterData) {
+      const urls = await fetchSupplementaryData(item.prediction_id);
   
-      const cachedGalleryImages = await Promise.all(data.map(async item => {
-        const urls = await fetchSupplementaryData(item); // this is now an array of URLs
-        return {
-          ...item,
-          urls, // include the array of URLs in the item
-        };
-      }));
-  
-      return cachedGalleryImages;
-    } catch (error) {
-      console.error("Error fetching images from gallery: ", error);
-      throw new Error('Supabase - Image Fetch Error');
+      // Create a new GalleryImage for each URL
+      for (const url of urls) {
+        galleryImages.push({
+          content_id: item.content_id,
+          prediction_id: item.prediction_id,
+          prompt: item.prompt,
+          created_at: item.created_at,
+          created_by: item.created_by,
+          url: url,
+        });
+      }
     }
+
+    cachedGalleryImages = galleryImages;
+
+    console.log("return of cachedGalleryImages: ", cachedGalleryImages)
+    return cachedGalleryImages;
+  } catch (error) {
+    console.error("Error fetching images from gallery: ", error);
+    throw new Error('Supabase - Image Fetch Error');
   }
-  
+}
 
-/**
- * Fetches gallery scripts from the database.
- * @returns {Promise<GalleryScript[]>} A promise that resolves to an array of gallery scripts.
- */

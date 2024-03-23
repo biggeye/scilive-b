@@ -61,7 +61,7 @@ export type ContentItem = {
   content_id: string;
   name?: string;
   title?: string;
-  url: string | "";
+  url: string;
   created_by?: string;
   created_at: string;
   model_id?: string;
@@ -76,7 +76,7 @@ export type GalleryImage = {
   prompt: string;
   created_at: string;
   created_by: string;
-  urls: string[]; // array of URLs
+  url: string; // array of URLs
 };
 
 

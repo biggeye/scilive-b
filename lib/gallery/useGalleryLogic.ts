@@ -21,8 +21,7 @@ export const useGalleryLogic = () => {
       const [imagesData] = await Promise.all([
         fetchGalleryImages(),
       ]);
-      const combinedData = [...imagesData];
-      setContentItems(combinedData);
+      setContentItems(imagesData);
     };
     fetchData();
   }, []);
