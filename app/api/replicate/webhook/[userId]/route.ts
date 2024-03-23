@@ -120,7 +120,7 @@ export async function POST(req: Request) {
       } else if (typeof output === 'string') {
         // Handle single string output
         try {
-          const url = await uploadPrediction(output, userId, modelId, `${predictionId}`, prompt, `${predictionId}`);
+          const url = await uploadPrediction(output, userId, modelId, `${predictionId}`, prompt );
           const finalPrediction = await url;
           await supabase
             .from('master_content')

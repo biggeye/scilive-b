@@ -1,56 +1,57 @@
 // /lib/galleryServer.ts
 
-'use server'
+'use server'; // Should this be 'use strict'?
+
 import { createClient } from "@/utils/supabase/server";
-import { GalleryImage, GalleryScript } from '@/types';
+import { GalleryImage} from '@/types';
 
 const supabase = createClient();
 
 let cachedGalleryImages: GalleryImage[] | null = null;
-let cachedGalleryScripts: GalleryScript[] | null = null;
 
-// Memoized fetch function for gallery images
-export async function fetchGalleryImages(): Promise<GalleryImage[]> {
+/**
+ * Fetches gallery images from the database.
+ * @returns {Promise<GalleryImage[]>} A promise that resolves to an array of gallery images.
+ */
+const fetchSupplementaryData = async (predictionData: any) => {
+    const prediction = predictionData.prediction_id;
+    const { data, error } = await supabase
+      .from('prediction_content')
+      .select('url')
+      .eq('prediction_id', prediction);
+  
+    if (error) throw error;
+    return data.map(item => item.url); // map the data array to an array of URLs
+  }
+  
+
+  export async function fetchGalleryImages(): Promise<GalleryImage[]> {
     if (cachedGalleryImages !== null) {
-        return cachedGalleryImages;
+      return cachedGalleryImages;
     }
-
     try {
-        // Include a filter where 'url' is not null to ensure only rows with images are selected
-        const { data, error } = await supabase
-            .from('master_content')
-            .select('content_id, url, prompt, created_at')
-            .not('url', 'is', null); // This ensures only rows where 'url' is not null are selected
-
-        if (error) throw error;
-
-        cachedGalleryImages = data || [];
-        return cachedGalleryImages;
+      const { data, error } = await supabase
+        .from('master_content')
+        .select('content_id, prediction_id, prompt, created_at, created_by');
+      if (error) throw error;
+  
+      const cachedGalleryImages = await Promise.all(data.map(async item => {
+        const urls = await fetchSupplementaryData(item); // this is now an array of URLs
+        return {
+          ...item,
+          urls, // include the array of URLs in the item
+        };
+      }));
+  
+      return cachedGalleryImages;
     } catch (error) {
-        console.error("Error fetching images from gallery: ", error);
-        throw new Error('Supabase - Image Fetch Error');
+      console.error("Error fetching images from gallery: ", error);
+      throw new Error('Supabase - Image Fetch Error');
     }
-}
+  }
+  
 
-// Memoized fetch function for gallery scripts
-export async function fetchGalleryScripts(): Promise<GalleryScript[]> {
-    if (cachedGalleryScripts !== null) {
-        return cachedGalleryScripts;
-    }
-
-    try {
-        // Include a filter where 'content' is not null to ensure only rows with content are selected
-        const { data, error } = await supabase
-            .from('master_content')
-            .select('content_id, created_at, content, prompt')
-            .not('content', 'is', null); // This ensures only rows where 'content' is not null are selected
-
-        if (error) throw error;
-
-        cachedGalleryScripts = data || [];
-        return cachedGalleryScripts;
-    } catch (error) {
-        console.error("Error fetching scripts from gallery: ", error)
-        throw new Error('Supabase - Script Fetch Error');
-    }
-}
+/**
+ * Fetches gallery scripts from the database.
+ * @returns {Promise<GalleryScript[]>} A promise that resolves to an array of gallery scripts.
+ */

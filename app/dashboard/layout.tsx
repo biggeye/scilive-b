@@ -73,8 +73,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         toast({
           title: `${predictionId} is complete!`,
           status: 'success',
-          duration: 5000,
-          isClosable: true,
+          isClosable: false,
         });
         setGlobalLoading(false);
         setPredictionStatus("Succeeded");

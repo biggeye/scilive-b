@@ -33,7 +33,7 @@ export interface UserState {
   loading: boolean;
   error: string | null;
 }
-   // UserProvider.tsx
+// UserProvider.tsx
 export interface UserContextType {
   userState: UserState;
   setUserState: React.Dispatch<React.SetStateAction<UserState>>;
@@ -63,16 +63,23 @@ export type ContentItem = {
   title?: string;
   url: string | "";
   created_by?: string;
-  created_at: Date;
-  content?: string;
+  created_at: string;
   model_id?: string;
   prediction_id?: string;
   prompt?: string;
   is_public?: boolean;
 };
 
-export type GalleryImage = Pick<ContentItem, 'content_id' | 'created_at' | 'url' | 'prompt'>;
-export type GalleryScript = Pick<ContentItem, 'content_id' | 'created_at' | 'content' | 'prompt'>;
+export type GalleryImage = {
+  content_id: string;
+  prediction_id: string;
+  prompt: string;
+  created_at: string;
+  created_by: string;
+  urls: string[]; // array of URLs
+};
+
+
 export type ImageCardProps = {
   imageUrl: string,
   prompt: string,

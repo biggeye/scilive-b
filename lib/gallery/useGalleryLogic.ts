@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/client';
 import { useRecoilState } from 'recoil';
 import { convertToDataURI } from '@/utils/convertToDataURI';
 import { userImagePreviewState, userImageDataUriState } from '@/state/replicate/prediction-atoms'
-import { fetchGalleryImages, fetchGalleryScripts } from '@/lib/galleryServer';
+import { fetchGalleryImages } from '@/lib/galleryServer';
 import { contentItemsState } from '@/state/user/gallery-atoms';
 import { useRouter } from 'next/navigation';
 
@@ -18,11 +18,10 @@ export const useGalleryLogic = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [imagesData, scriptsData] = await Promise.all([
+      const [imagesData] = await Promise.all([
         fetchGalleryImages(),
-        fetchGalleryScripts(),
       ]);
-      const combinedData = [...imagesData, ...scriptsData];
+      const combinedData = [...imagesData];
       setContentItems(combinedData);
     };
     fetchData();
