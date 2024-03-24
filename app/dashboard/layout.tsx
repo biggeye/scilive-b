@@ -60,7 +60,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   const toast = useToast();
   const supabase = createClient();
-
+/*
   useEffect(() => {
     const handleEvent = (payload: any) => {
       console.log("webhook payload: ", payload);
@@ -99,13 +99,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     };
 
     const insertSubscription = supabase
-      .channel('master_content_inserts')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'master_content' }, handleEvent)
+      .channel('master_inserts')
+      .on('postgres_changes', { event: 'INSERT', schema: 'predictions', table: 'master' }, handleEvent)
       .subscribe();
 
     const updateSubscription = supabase
-      .channel('master_content_updates')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'master_content' }, handleEvent)
+      .channel('master_updates')
+      .on('postgres_changes', { event: 'UPDATE', schema: 'predictions', table: 'master' }, handleEvent)
       .subscribe();
 
     return () => {
@@ -114,6 +114,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     };
   }, [router, toast]);
 
+  */
   // const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
   // const shouldSidePanel = () => !isOpen && !isMobile;
 

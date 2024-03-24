@@ -1,6 +1,6 @@
 'use server';
 
-import { createClient } from "@/utils/supabase/service";
+import { createClient } from "@/utils/supabase/predictionsServer";
 
 export async function uploadPrediction(
   content: string,
@@ -34,7 +34,7 @@ export async function uploadPrediction(
 
 
   const { data, error } = await supabase
-    .from('prediction_content')
+    .from('items')
     .insert([{ url: url, prediction_id: predictionId }]);
   if (data) {
     console.log('Image URL inserted to prediction_content: ', url);
@@ -45,10 +45,10 @@ export async function uploadPrediction(
 
   } else {
     const { data, error } = await supabase
-      .from('master_content')
+      .from('master')
       .upsert(({ prompt: prompt, prediction_id: predictionId, model_id: modelId, created_by: userId }))
     if (data) {
-      console.log(`master_content table updated via uploadPrediction.ts: ${data}`);
+      console.log(`master table updated via uploadPrediction.ts: ${data}`);
 
 
     } else {

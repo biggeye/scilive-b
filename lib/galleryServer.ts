@@ -2,7 +2,7 @@
 
 'use server'; // Should this be 'use strict'?
 
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/predictionsServer";
 import { GalleryImage } from '@/types';
 
 const supabase = createClient();
@@ -17,7 +17,7 @@ let cachedGalleryImages: GalleryImage[] | null = null;
 const fetchSupplementaryData = async (predictionId: string): Promise<string[]> => {
 
   const { data, error } = await supabase
-    .from('prediction_content')
+    .from('items')
     .select('url')
     .like('prediction_id', predictionId);
 
@@ -40,7 +40,7 @@ export async function fetchGalleryImages(): Promise<GalleryImage[]> {
   
   try {
     const { data: masterData, error: masterError } = await supabase
-      .from('master_content')
+      .from('master')
       .select('content_id, prediction_id, prompt, created_at, created_by');
 
     if (masterError) {

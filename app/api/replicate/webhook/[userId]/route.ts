@@ -1,6 +1,6 @@
 import { uploadPrediction } from "@/lib/dashboard/receive/replicate/uploadPrediction";
 import { uploadMultiplePredictions } from "@/lib/dashboard/receive/replicate/uploadMultiplePredictions";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/predictionsServer";
 
 interface PredictionResponsePostBody {
   id: string;
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
   /*  if (body.status === 'starting') {
       console.log("predictionId: ", predictionId, "userId: ", userId, "prompt: ", prompt, "status: ", body.status);
       const { data, error } = await supabase
-        .from('master_content')
+        .from('master')
         .insert([
           { prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status }
         ]);
@@ -77,7 +77,7 @@ export async function POST(req: Request) {
     } else
      if (body.status === 'processing') {
       const { data, error } = await supabase
-        .from('master_content')
+        .from('master')
         .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status, cancel_url: cancelUrl })
         .match({ prediction_id: predictionId });
 
@@ -101,7 +101,7 @@ export async function POST(req: Request) {
       if (Array.isArray(output) && output.every(item => typeof item === 'string')) {
         try {
           const { data, error } = await supabase
-            .from('master_content')
+            .from('master')
             .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
             .match({ prediction_id: predictionId });
           const urls = await uploadMultiplePredictions(output, userId, modelId, predictionId, prompt);
@@ -123,7 +123,7 @@ export async function POST(req: Request) {
           const url = await uploadPrediction(output, userId, modelId, `${predictionId}`, prompt );
           const finalPrediction = await url;
           await supabase
-            .from('master_content')
+            .from('master')
             .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
             .match({ prediction_id: predictionId });
           console.log("finalPredictoin:", finalPrediction);

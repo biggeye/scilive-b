@@ -1,29 +1,125 @@
 export type Json =
-  | string        
-  | number        
-  | boolean       
+  | string
+  | number
+  | boolean
   | null
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
-  graphql_public: {
+export type Database = {
+  models: {
     Tables: {
-      [_ in never]: never
+      outputs_detail: {
+        Row: {
+          description: string | null
+          id: number
+          parent_model: number | null
+          validation_rules: string | null
+          variable: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: number
+          parent_model?: number | null
+          validation_rules?: string | null
+          variable?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: number
+          parent_model?: number | null
+          validation_rules?: string | null
+          variable?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      graphql: {
-        Args: {
-          operationName?: string
-          query?: string
-          variables?: Json
-          extensions?: Json
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+  predictions: {
+    Tables: {
+      items: {
+        Row: {
+          content_id: string
+          prediction_id: string
+          url: string | null
         }
-        Returns: Json
+        Insert: {
+          content_id?: string
+          prediction_id: string
+          url?: string | null
+        }
+        Update: {
+          content_id?: string
+          prediction_id?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "predictions_prediction_items_prediction_id_fkey"
+            columns: ["prediction_id"]
+            isOneToOne: false
+            referencedRelation: "master"
+            referencedColumns: ["prediction_id"]
+          },
+        ]
       }
+      master: {
+        Row: {
+          content_id: string
+          content_type: string | null
+          created_at: string | null
+          created_by: string | null
+          is_public: boolean | null
+          model_id: string | null
+          name: string | null
+          prediction_id: string
+          prompt: string | null
+          title: string | null
+        }
+        Insert: {
+          content_id?: string
+          content_type?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          is_public?: boolean | null
+          model_id?: string | null
+          name?: string | null
+          prediction_id: string
+          prompt?: string | null
+          title?: string | null
+        }
+        Update: {
+          content_id?: string
+          content_type?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          is_public?: boolean | null
+          model_id?: string | null
+          name?: string | null
+          prediction_id?: string
+          prompt?: string | null
+          title?: string | null
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
@@ -34,6 +130,27 @@ export interface Database {
   }
   public: {
     Tables: {
+      avatars: {
+        Row: {
+          created_by: string | null
+          id: string
+          name: string | null
+          url: string | null
+        }
+        Insert: {
+          created_by?: string | null
+          id?: string
+          name?: string | null
+          url?: string | null
+        }
+        Update: {
+          created_by?: string | null
+          id?: string
+          name?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           id: string
@@ -54,52 +171,220 @@ export interface Database {
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
-      oauth2tokens: {
+      img2img: {
         Row: {
-          access_token: string | null
-          created_at: string
-          expires_in: string | null
+          example: string | null
+          friendlyname: string | null
           id: string
-          provider: string | null
-          refresh_token: string | null
-          service: string | null
-          token_type: string | null
-          user_id: string | null
+          inputtype: string | null
+          name: string
+          outputindex: number | null
+          shortdesc: string | null
         }
         Insert: {
-          access_token?: string | null
-          created_at?: string
-          expires_in?: string | null
-          id?: string
-          provider?: string | null
-          refresh_token?: string | null
-          service?: string | null
-          token_type?: string | null
-          user_id?: string | null
+          example?: string | null
+          friendlyname?: string | null
+          id: string
+          inputtype?: string | null
+          name: string
+          outputindex?: number | null
+          shortdesc?: string | null
         }
         Update: {
-          access_token?: string | null
-          created_at?: string
-          expires_in?: string | null
+          example?: string | null
+          friendlyname?: string | null
           id?: string
-          provider?: string | null
-          refresh_token?: string | null
-          service?: string | null
-          token_type?: string | null
-          user_id?: string | null
+          inputtype?: string | null
+          name?: string
+          outputindex?: number | null
+          shortdesc?: string | null
+        }
+        Relationships: []
+      }
+      img2txt: {
+        Row: {
+          additionalparameters: Json | null
+          example: string | null
+          friendlyname: string | null
+          id: string
+          inputtype: string | null
+          name: string
+          shortdesc: string | null
+        }
+        Insert: {
+          additionalparameters?: Json | null
+          example?: string | null
+          friendlyname?: string | null
+          id: string
+          inputtype?: string | null
+          name: string
+          shortdesc?: string | null
+        }
+        Update: {
+          additionalparameters?: Json | null
+          example?: string | null
+          friendlyname?: string | null
+          id?: string
+          inputtype?: string | null
+          name?: string
+          shortdesc?: string | null
+        }
+        Relationships: []
+      }
+      master_content: {
+        Row: {
+          avatar_id: string | null
+          cancel_url: string | null
+          content: string | null
+          content_id: string
+          content_type: string | null
+          created_at: string | null
+          created_by: string
+          is_public: boolean | null
+          model_id: string | null
+          name: string | null
+          prediction_id: string | null
+          progress_status: string | null
+          prompt: string | null
+          status: string | null
+          title: string | null
+          url: string | null
+        }
+        Insert: {
+          avatar_id?: string | null
+          cancel_url?: string | null
+          content?: string | null
+          content_id?: string
+          content_type?: string | null
+          created_at?: string | null
+          created_by: string
+          is_public?: boolean | null
+          model_id?: string | null
+          name?: string | null
+          prediction_id?: string | null
+          progress_status?: string | null
+          prompt?: string | null
+          status?: string | null
+          title?: string | null
+          url?: string | null
+        }
+        Update: {
+          avatar_id?: string | null
+          cancel_url?: string | null
+          content?: string | null
+          content_id?: string
+          content_type?: string | null
+          created_at?: string | null
+          created_by?: string
+          is_public?: boolean | null
+          model_id?: string | null
+          name?: string | null
+          prediction_id?: string | null
+          progress_status?: string | null
+          prompt?: string | null
+          status?: string | null
+          title?: string | null
+          url?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "oauth2tokens_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "master_content_created_by_fkey"
+            columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
+      }
+      models_inputs_detail: {
+        Row: {
+          created_at: string
+          default_value: string | null
+          description: string | null
+          input_id: string
+          is_required: boolean | null
+          parent_model: string | null
+          parent_model_id: string
+          validation_rules: string | null
+          variable: string | null
+        }
+        Insert: {
+          created_at?: string
+          default_value?: string | null
+          description?: string | null
+          input_id?: string
+          is_required?: boolean | null
+          parent_model?: string | null
+          parent_model_id: string
+          validation_rules?: string | null
+          variable?: string | null
+        }
+        Update: {
+          created_at?: string
+          default_value?: string | null
+          description?: string | null
+          input_id?: string
+          is_required?: boolean | null
+          parent_model?: string | null
+          parent_model_id?: string
+          validation_rules?: string | null
+          variable?: string | null
+        }
+        Relationships: []
+      }
+      models_master: {
+        Row: {
+          created_at: string
+          description: string | null
+          friendly_name: string | null
+          id: string
+          model_type: string | null
+          name: string | null
+          outputs: Json | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          friendly_name?: string | null
+          id: string
+          model_type?: string | null
+          name?: string | null
+          outputs?: Json | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          friendly_name?: string | null
+          id?: string
+          model_type?: string | null
+          name?: string | null
+          outputs?: Json | null
+        }
+        Relationships: []
+      }
+      prediction_content: {
+        Row: {
+          content_id: string
+          prediction_id: string
+          prediction_key: string | null
+          url: string
+        }
+        Insert: {
+          content_id?: string
+          prediction_id: string
+          prediction_key?: string | null
+          url: string
+        }
+        Update: {
+          content_id?: string
+          prediction_id?: string
+          prediction_key?: string | null
+          url?: string
+        }
+        Relationships: []
       }
       prices: {
         Row: {
@@ -148,7 +433,7 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "products"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       products: {
@@ -244,8 +529,123 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
+      }
+      tikapi: {
+        Row: {
+          access_token: string
+          created_at: string
+          created_by: string
+          id: number
+          scope: Json | null
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          created_by?: string
+          id?: number
+          scope?: Json | null
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          created_by?: string
+          id?: number
+          scope?: Json | null
+        }
+        Relationships: []
+      }
+      trained_models: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          image_data: Json | null
+          model_id: string | null
+          model_name: string | null
+          number_of_images: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_data?: Json | null
+          model_id?: string | null
+          model_name?: string | null
+          number_of_images: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_data?: Json | null
+          model_id?: string | null
+          model_name?: string | null
+          number_of_images?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_trained_models_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trained_models_images: {
+        Row: {
+          created_at: string
+          id: number
+          model_id: string | null
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          model_id?: string | null
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          model_id?: string | null
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_trained_models_images_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "trained_models"
+            referencedColumns: ["model_id"]
+          },
+        ]
+      }
+      txt2img: {
+        Row: {
+          example: string | null
+          friendlyname: string | null
+          id: string
+          name: string
+          shortdesc: string | null
+        }
+        Insert: {
+          example?: string | null
+          friendlyname?: string | null
+          id: string
+          name: string
+          shortdesc?: string | null
+        }
+        Update: {
+          example?: string | null
+          friendlyname?: string | null
+          id?: string
+          name?: string
+          shortdesc?: string | null
+        }
+        Relationships: []
       }
       users: {
         Row: {
@@ -285,7 +685,7 @@ export interface Database {
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
     }
@@ -315,195 +715,18 @@ export interface Database {
       [_ in never]: never
     }
   }
-  storage: {
-    Tables: {
-      buckets: {
-        Row: {
-          allowed_mime_types: string[] | null
-          avif_autodetection: boolean | null
-          created_at: string | null
-          file_size_limit: number | null
-          id: string
-          name: string
-          owner: string | null
-          owner_id: string | null
-          public: boolean | null
-          updated_at: string | null
-        }
-        Insert: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id: string
-          name: string
-          owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
-          updated_at?: string | null
-        }
-        Update: {
-          allowed_mime_types?: string[] | null
-          avif_autodetection?: boolean | null
-          created_at?: string | null
-          file_size_limit?: number | null
-          id?: string
-          name?: string
-          owner?: string | null
-          owner_id?: string | null
-          public?: boolean | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
-      migrations: {
-        Row: {
-          executed_at: string | null
-          hash: string
-          id: number
-          name: string
-        }
-        Insert: {
-          executed_at?: string | null
-          hash: string
-          id: number
-          name: string
-        }
-        Update: {
-          executed_at?: string | null
-          hash?: string
-          id?: number
-          name?: string
-        }
-        Relationships: []
-      }
-      objects: {
-        Row: {
-          bucket_id: string | null
-          created_at: string | null
-          id: string
-          last_accessed_at: string | null
-          metadata: Json | null
-          name: string | null
-          owner: string | null
-          owner_id: string | null
-          path_tokens: string[] | null
-          updated_at: string | null
-          version: string | null
-        }
-        Insert: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          version?: string | null
-        }
-        Update: {
-          bucket_id?: string | null
-          created_at?: string | null
-          id?: string
-          last_accessed_at?: string | null
-          metadata?: Json | null
-          name?: string | null
-          owner?: string | null
-          owner_id?: string | null
-          path_tokens?: string[] | null
-          updated_at?: string | null
-          version?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
-            isOneToOne: false
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      can_insert_object: {
-        Args: {
-          bucketid: string
-          name: string
-          owner: string
-          metadata: Json
-        }
-        Returns: undefined
-      }
-      extension: {
-        Args: {
-          name: string
-        }
-        Returns: string
-      }
-      filename: {
-        Args: {
-          name: string
-        }
-        Returns: string
-      }
-      foldername: {
-        Args: {
-          name: string
-        }
-        Returns: unknown
-      }
-      get_size_by_bucket: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          size: number
-          bucket_id: string
-        }[]
-      }
-      search: {
-        Args: {
-          prefix: string
-          bucketname: string
-          limits?: number
-          levels?: number
-          offsets?: number
-          search?: string
-          sortcolumn?: string
-          sortorder?: string
-        }
-        Returns: {
-          name: string
-          id: string
-          updated_at: string
-          created_at: string
-          last_accessed_at: string
-          metadata: Json
-        }[]
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
 }
+
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
@@ -511,71 +734,67 @@ export type Tables<
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
-      Database["public"]["Views"])
-  ? (Database["public"]["Tables"] &
-      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
-      Row: infer R
-    }
-    ? R
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
     : never
-  : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-      Insert: infer I
-    }
-    ? I
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
     : never
-  : never
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-      Update: infer U
-    }
-    ? U
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
     : never
-  : never
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof Database["public"]["Enums"]
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
-    : never = never
+    : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
-  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
-  : never
-
-
-
-  
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
