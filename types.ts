@@ -74,6 +74,15 @@ export type GalleryImage = {
   content_id: string;
   prediction_id: string;
   prompt: string;
+  friendly_name?: string;
+  created_at: string;
+  created_by: string;
+  url: string; // array of URLs
+};
+
+export type GalleryImageView = {  prediction_id: string;
+  prompt: string;
+  friendly_name?: string;
   created_at: string;
   created_by: string;
   url: string; // array of URLs

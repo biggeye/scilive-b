@@ -1,6 +1,6 @@
 'use client'
 import React, { Suspense, useState } from 'react';
-import { Skeleton, Tabs, Tab, TabList, TabPanels, TabPanel, VStack, Box, Grid, GridItem, Card, Link, Text } from '@chakra-ui/react';
+import { useBreakpointValue, Skeleton, Tabs, Tab, TabList, TabPanels, TabPanel, VStack, Box, Grid, GridItem, Card, Link, Text } from '@chakra-ui/react';
 import ImageCreator from '@/components/dashboard/ImageCreator';
 import ImageEditor from '@/components/dashboard/ImageEditor';
 import DisplayResults from '@/components/dashboard/DisplayResults';
@@ -15,6 +15,7 @@ import { viewModeState } from '@/state/user/user_state-atoms';
 const DashboardPage = () => {
   const viewMode = useRecoilValue(viewModeState);
   const [creator, setCreator] = useState(true);
+  const columns = useBreakpointValue({ base: 2, md: 1 });
 
   const renderTabs = () => (
     <Tabs
@@ -73,8 +74,10 @@ const DashboardPage = () => {
   )
 
   const renderGrid = () => (
-
-    <Grid padding="10px" margin="10px" display="flex" direction="row" position="relative"
+   
+    <Grid 
+    templateColumns={`repeat(${columns}, 1fr)`} // Set the number of columns dynamically
+   padding="10px" margin="10px" display="flex" position="relative" gap="6"
     >
       <GridItem bgColor="primary.50" area="createDisplay">
         <DisplayResults />

@@ -9,7 +9,6 @@ import { Form, FormLayout } from '@saas-ui/react';
 // import state
 import { voiceoverScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/leap/scriptWriter-atoms';
 import { userProfileState } from '@/state/user/user_state-atoms';
-import { fetchVoiceoverScript } from '@/lib/dashboard/submit/leap/fetchVoiceoverScript';
 
 const ScriptWriter = () => {
   const toast = useToast();

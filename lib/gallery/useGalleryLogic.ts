@@ -1,5 +1,4 @@
 'use client'
-import { parseGalleryImages } from '@/lib/gallery/getGalleryItems';
 import { ContentItem } from '@/types';
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -9,6 +8,7 @@ import { userImagePreviewState, userImageDataUriState } from '@/state/replicate/
 import { fetchGalleryImages } from '@/lib/galleryServer';
 import { contentItemsState } from '@/state/user/gallery-atoms';
 import { useRouter } from 'next/navigation';
+import { GalleryImage } from '@/types';
 
 export const useGalleryLogic = () => {
   const [contentItems, setContentItems] = useRecoilState(contentItemsState);

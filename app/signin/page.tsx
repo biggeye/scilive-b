@@ -17,9 +17,7 @@ export default function AuthPage() {
     return window.location.origin
   }
 
-  const handleTikApiLogin = () => {
-    router.push(`${process.env.NEXT_PUBLIC_TIKAPI_OAUTH_LINK}`)
-  }
+
 
   return (
     <VStack>
@@ -56,7 +54,7 @@ export default function AuthPage() {
               redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/dashboard`}
 
             />
-            <Button onClick={handleTikApiLogin}>Continue with Tik Tok</Button>
+
 
           </CardBody>
         </Card>

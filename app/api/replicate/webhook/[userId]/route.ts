@@ -1,6 +1,6 @@
 import { uploadPrediction } from "@/lib/dashboard/receive/replicate/uploadPrediction";
 import { uploadMultiplePredictions } from "@/lib/dashboard/receive/replicate/uploadMultiplePredictions";
-import { createClient } from "@/utils/supabase/predictionsServer";
+import { createClient } from "@/utils/supabase/server";
 
 interface PredictionResponsePostBody {
   id: string;
@@ -27,9 +27,8 @@ interface PredictionResponsePostBody {
     predict_time: number;
   };
 }
-export async function POST(req: Request) {
-  const supabase = createClient();
 
+export async function POST(req: Request) {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({
       error: 'Method Not Allowed',
@@ -40,108 +39,55 @@ export async function POST(req: Request) {
     });
   }
 
+  const supabase = createClient();
+  const body: PredictionResponsePostBody = await req.json();
+  console.log("Webhook object: ", body);
+
   try {
-
-    const body: PredictionResponsePostBody = await req.json();
+    const { id, version, input: { prompt }, status, output, urls: { cancel, get } } = body;
     const logs = body.logs;
-    const url = require('url');
-    const userId = url.parse(req.url).pathname.split('/').pop();
-    const modelId = body.version;
-    const cancelUrl = body.urls.cancel;
-    const predictionId = body.id;
-    const prompt = body.input.prompt;
-    const status = body.status; +
-      console.log("Received workflow:");
-    console.log("Prediction ID:", body.id);
-    console.log("User ID:", userId);
-    console.log("Model ID:", body.version);
-    console.log("Prompt:", body.input.prompt);
-    console.log("Status:", body.status);
-    console.log("Cancel URL:", body.urls.cancel);
+    const userId = getUserIdFromRequestUrl(req);
+    const modelId = version;
+    const predictionId = id;
 
-  /*  if (body.status === 'starting') {
-      console.log("predictionId: ", predictionId, "userId: ", userId, "prompt: ", prompt, "status: ", body.status);
+    if (status === 'succeeded' && output && userId) {
+      console.log("Prediction successful, attempting to save to database", "", "", "", "");
       const { data, error } = await supabase
         .from('master')
-        .insert([
-          { prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status }
-        ]);
+        .insert({ prediction_id: predictionId, model_id: modelId, created_by: userId, prompt: prompt });
 
-      if (error) {
-        console.error('Error inserting to Supabase:', error);
-        return new Response(JSON.stringify({ error: 'Database insertion failed' }), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-    } else
-     if (body.status === 'processing') {
-      const { data, error } = await supabase
-        .from('master')
-        .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status, cancel_url: cancelUrl })
-        .match({ prediction_id: predictionId });
+        console.log("master table updated: ", data);
+        let urls;
 
-      if (error) {
-        console.error('Error updating Supabase:', error);
-        return new Response(JSON.stringify({ error: 'Database update failed' }), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        })
-      };
+        if (Array.isArray(output) && output.length > 1) {
+          urls = await uploadMultiplePredictions(output, predictionId);
+        } else if (output.length === 1) {
+          urls = await uploadPrediction(output[0], `${predictionId}`);
+        }
 
-      return new Response(JSON.stringify({ message: `${predictionId} is processing.  ${cancelUrl} to cancel`, status: `${body.status}`, logs: `${logs}` }), {
+      return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
-      })
-    } */
-
-    if (body.status === 'succeeded' && body.output) {
-      const { output } = body;
-      // Handle output as an array of strings
-      if (Array.isArray(output) && output.every(item => typeof item === 'string')) {
-        try {
-          const { data, error } = await supabase
-            .from('master')
-            .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
-            .match({ prediction_id: predictionId });
-          const urls = await uploadMultiplePredictions(output, userId, modelId, predictionId, prompt);
-          // Return these URLs in your response
-          return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          })
-        } catch (error) {
-          console.error('Error handling webhook:', error);
-          return new Response(JSON.stringify({ error: 'Error handling webhook' }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' }
-          });
-        }
-      } else if (typeof output === 'string') {
-        // Handle single string output
-        try {
-          const url = await uploadPrediction(output, userId, modelId, `${predictionId}`, prompt );
-          const finalPrediction = await url;
-          await supabase
-            .from('master')
-            .upsert({ prediction_id: predictionId, created_by: userId, prompt: prompt, status: body.status })
-            .match({ prediction_id: predictionId });
-          console.log("finalPredictoin:", finalPrediction);
-          return new Response(JSON.stringify({ message: 'Webhook processed successfully', finalPrediction }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          })
-        } catch (error) {
-          console.error('Error uploading prediction:', error);
-          // Handle error case here
-        }
-      } else {
-        console.error('output is neither an array of strings nor a string');
-        // Handle invalid output type here
-      }
+      });
     }
-
   } catch (error) {
-    console.error('Error handling webhook:')
+    console.error('Error processing webhook:', error);
+    return new Response(JSON.stringify({ error: 'Error processing webhook' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  return new Response(JSON.stringify({ message: "Status Unknown" }));
+}
+
+function getUserIdFromRequestUrl(req: Request): string | undefined {
+  try {
+    const url = require('url');
+    const userId = url.parse(req.url).pathname.split('/').pop();
+    return userId;
+  } catch (error) {
+    console.error('Error extracting user ID from request URL:', error);
+    return undefined;
   }
 }

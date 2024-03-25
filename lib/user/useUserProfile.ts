@@ -1,4 +1,4 @@
-// useUserProfile.ts
+'use client'
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { userProfileState } from '@/state/user/user_state-atoms';
