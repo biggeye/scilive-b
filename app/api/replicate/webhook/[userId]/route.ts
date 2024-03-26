@@ -1,32 +1,6 @@
 import { uploadPrediction } from "@/lib/dashboard/receive/replicate/uploadPrediction";
-import { uploadMultiplePredictions } from "@/lib/dashboard/receive/replicate/uploadMultiplePredictions";
 import { createClient } from "@/utils/supabase/server";
-
-interface PredictionResponsePostBody {
-  id: string;
-  model: string;
-  version: string;
-  input: {
-    image: string; // Assuming base64 image data is a string
-    prompt: string;
-  };
-  logs: string;
-  output: string[];
-  error: null | string;
-  status: 'starting' | 'processing' | 'succeeded' | 'failed' | 'cancelled'; // Adjust based on possible values
-  created_at: string;
-  started_at: string;
-  completed_at: string;
-  webhook: string;
-  urls: {
-    cancel: string;
-    get: string;
-  };
-
-  metrics: {
-    predict_time: number;
-  };
-}
+import { PredictionResponsePostBody } from "@/types";
 
 export async function POST(req: Request) {
   if (req.method !== 'POST') {
@@ -43,40 +17,43 @@ export async function POST(req: Request) {
   const body: PredictionResponsePostBody = await req.json();
 
   try {
-    const { id, version, input: { prompt }, status, output, urls: { cancel, get } } = body;
+    const { id, version, input: { prompt }, status, output } = body;
     const urlObj = new URL(req.url);
     const pathname = urlObj.pathname;
 
     if (pathname) {
-      const [userId, temporaryPredictionId] = pathname.split('/').slice(-2);
+      const [userId, temporaryPredictionId] = pathname.split(/[\/+]/).filter(Boolean).slice(-2);
+
 
       console.log("Received webhook body");
 
       if (status === 'succeeded' && output && userId) {
         console.log("Prediction successful, attempting to save to database");
         const tempdisplay = output[0];
+        const payload = {
+          'prediction_id': id,
+          'model_id': version,
+          'created_by': userId,
+          'prompt': prompt,
+          'temp_url': tempdisplay,
+          'temp_id': temporaryPredictionId
+        };
         const { data, error } = await supabase
           .from('master')
-          .insert({ prediction_id: id, model_id: version, created_by: userId, prompt, temp_url: tempdisplay, temp_id: temporaryPredictionId});
-
-        console.log("master table updated:", data);
-
-        let urls;
-
-        if (Array.isArray(output) && output.length > 1) {
-          console.log("Multiple predictions received. Uploading each prediction...");
-          urls = await uploadMultiplePredictions(output, temporaryPredictionId);
-        } else if (output.length === 1) {
-          console.log("Single prediction received. Uploading prediction...");
-          urls = await uploadPrediction(output[0], `${temporaryPredictionId}`);
+          .insert(payload);
+        if (data) {
+          console.log("master table updated:", data);
+        } else if (error) {
+          console.log("error occured: ", error)
+          return new Response(JSON.stringify({ message: 'Webhook crash & burn', error }))
         }
-
-        console.log("Upload URLs:", urls);
-
-        return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        });
+        const upload = await uploadPrediction(tempdisplay, id);
+        if (upload) {
+          return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        };
       }
     }
   } catch (error) {

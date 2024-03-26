@@ -79,15 +79,13 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     </NavbarBrand>
                     {auth.isAuthenticated &&
                         <NavbarContent display={{ base: 'hidden', md: 'flex' }}
-                  
-           
                             flexWrap="nowrap">
-<NavGroup><HStack>
-                                <NavItem href="/dashboard"><Text as="h1" color="primary.200">Production</Text></NavItem>
-                
-                                <NavItem href="/dashboard/assets"><Text as="h1" color="primary.200">Assets</Text></NavItem>
+                            <NavGroup>
+                                <HStack>
+                                    <NavItem href="/dashboard"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">Production</Text></NavItem>
+                                    <NavItem href="/dashboard/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">Assets</Text></NavItem>
                                 </HStack>
-                                </NavGroup>     
+                            </NavGroup>
 
                         </NavbarContent>
                     }
@@ -109,19 +107,21 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                             <MenuList>
                                 {auth.isAuthenticated ? (
                                     <MenuGroup>
-                                        <MenuItem><h1 className="blinking-cursor">{userProfile?.full_name}</h1></MenuItem>
+                                        <Box width="90%" margin="5%">
+                                            <h1 className="blinking-cursor">{userProfile?.full_name}</h1>
+                                        </Box>
                                         <MenuDivider />
-                                        <MenuItem><NavbarLink as="h3" href="/dashboard/assets">Gallery</NavbarLink></MenuItem>
-                                        <MenuItem><NavbarLink as="h3" href="/account">Account</NavbarLink></MenuItem>
+                                        <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
+                                        <NavItem icon={<SettingsIcon />} href="/account">Account</NavItem>
                                         <MenuDivider />
-                                        <VStack>
-                                            <Button onClick={handleSignOut}>Sign-Out</Button>
-                                        </VStack>
+
+                                        <Button width="90%" margin="5%" onClick={handleSignOut}>Sign-Out</Button>
+
                                     </MenuGroup>
                                 ) : (
                                     <MenuGroup>
                                         <MenuDivider />
-                                        <MenuItem><NavbarLink as="h2" href="/signin">Login / Signup</NavbarLink></MenuItem>
+                                        <MenuItem><Link as="h2" href="/signin">Login / Signup</Link></MenuItem>
                                     </MenuGroup>
                                 )}
                             </MenuList>
@@ -180,8 +180,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                 </>)}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
                 <DrawerOverlay />
-                <DrawerContent bgGradient="linear(to-b, transparent, gray.50, transparent, transparent, primary.100)">
-
+                <DrawerContent bgGradient="linear(to-b, transparent, gray.50, gray.100, transparent, primary.100)">
                     <DrawerHeader>
                         <PersonaAvatar
                             src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
@@ -196,9 +195,9 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     <Box
                         my={4} // Margin for spacing above and below the box
                         p={1} // Padding inside the box for any content
-                        bgGradient="linear(to-r, primary.200, primary.50, gray.50, primary.200)" // Example of a cool background gradient
+                        bgGradient="linear(to-r, transparent, primary.50, gray.50, primary.800)" // Example of a cool background gradient
                     ><Stack direction="row" display="flex" justifyContent="space-between">
-                            <Text as="h3" color="white" fontSize="sm" textAlign="center">View Mode</Text>
+                            <Text as="h3" color="primary.800" fontSize="sm" textAlign="center">View Mode</Text>
                             <Spacer />
                             <ViewModeSwitch />
                         </Stack>
@@ -212,11 +211,9 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                     <NavItem icon={<MessageSquareIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
                                     <NavItem icon={<PersonStandingIcon />} href="/dashboard/write-script">Write Script</NavItem>
                                 </NavGroup>
-
                                 <NavGroup><Text as="h1" color="primary.500">tr@ining</Text>
                                     <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
                                 </NavGroup>
-
                                 <NavGroup><Text as="h1" color="primary.500">acc0unt</Text>
                                     <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
                                     <NavItem icon={<SettingsIcon />} href="/account">Settings</NavItem>

@@ -61,6 +61,7 @@ const ImageCreator = () => {
     const prediction_id = await imageCreateSubmit(userInput);
 
     if (prediction_id) {
+      console.log(prediction_id);
       toast({
         title: 'Processing',
         description: `Your image is now processing (ID: ${prediction_id}).`,

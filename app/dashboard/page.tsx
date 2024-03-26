@@ -76,8 +76,13 @@ const DashboardPage = () => {
   const renderGrid = () => (
    
     <Grid 
-    templateColumns={`repeat(${columns}, 1fr)`} // Set the number of columns dynamically
-   padding="10px" margin="10px" display="flex" position="relative" gap="6"
+    templateAreas={ `"createDisplay"
+                       "scriptWriter"
+                       "avatar"
+                       "trainer"`}
+      gridTemplateColumns={{ base: '90vw', lg: '35vw 35vw' }}
+      gridTemplateRows={{ base: '4', lg: '2' }} // Set the number of columns dynamically
+   padding="5px" margin="5px" display="flex" flexDirection="column" position="relative" gap="6"
     >
       <GridItem bgColor="primary.50" area="createDisplay">
         <DisplayResults />

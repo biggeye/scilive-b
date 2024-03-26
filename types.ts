@@ -175,7 +175,31 @@ export interface PredictionInstanceState {
   // Add other properties as needed
 }
 
+export interface PredictionResponsePostBody {
+  id: string;
+  model: string;
+  version: string;
+  input: {
+    image: string; // Assuming base64 image data is a string
+    prompt: string;
+  };
+  logs: string;
+  output: string[];
+  error: null | string;
+  status: 'starting' | 'processing' | 'succeeded' | 'failed' | 'cancelled'; // Adjust based on possible values
+  created_at: string;
+  started_at: string;
+  completed_at: string;
+  webhook: string;
+  urls: {
+    cancel: string;
+    get: string;
+  };
 
+  metrics: {
+    predict_time: number;
+  };
+}
 // Leap AI
 export type WorkflowStatus = 'completed' | 'running' | 'failed';
 
