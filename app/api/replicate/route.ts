@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { version, user_id, prompt, input_images } = await req.json();
+    const { version, user_id, prompt, input_images, temporaryPredictionId } = await req.json();
     let image;
     if (Array.isArray(input_images)) { 
       image = input_images;
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const payload = {
       version,
       input: { prompt, image },
-      webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}`,
+      webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}+${temporaryPredictionId}`,
 
     };  
    

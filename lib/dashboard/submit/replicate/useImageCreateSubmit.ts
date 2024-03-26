@@ -1,5 +1,7 @@
-'use client'
+// useImageCreateSubmit.ts
+
 import { useState } from "react";
+import generateUUID from "@/utils/generateUUID"; // Import UUID library
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userProfileState } from "@/state/user/user_state-atoms";
 //import utilities
@@ -7,7 +9,7 @@ import { useUserProfile } from "@/lib/user/useUserProfile";
 import { buildRequestBody } from './requestBodyBuilder';
 import { fetchPrediction } from './fetchPrediction';
 import { convertToDataURI } from "@/utils/convertToDataURI";
-import { uploadPrediction } from "../../receive/replicate/uploadPrediction";
+
 import { userImageUploadState, userImageDataUriState, finalPredictionPromptState } from "@/state/replicate/prediction-atoms";
 import { selectedModelIdState } from "@/state/replicate/config-atoms";
 
@@ -25,11 +27,8 @@ export const useImageCreateSubmit = () => {
   const userImageUpload = useRecoilValue<File | null>(userImageUploadState);
   const userImageUri = useRecoilValue<string | null>(userImageDataUriState);
   const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState<string>(finalPredictionPromptState);
-  // prediction progress state
-
 
   const submitImageCreate = async (userInput: string, userImageDataUri?: string): Promise<string | null> => {
-
     setFinalPredictionPrompt(userInput);
 
     if (!userId) {
@@ -39,22 +38,21 @@ export const useImageCreateSubmit = () => {
     if (userImageUpload) {
       try {
         const imageUpload: string = await convertToDataURI(userImageUpload);
-
       } catch (error) {
         console.error("Error converting image to Data URI:", error);
         return null;
       }
     }
 
-    // create payload
-    const requestBody = buildRequestBody(userId, modelId, userImageUri, userInput);
+    const temporaryPredictionId = generateUUID();
+
+    const requestBody = buildRequestBody(userId, modelId, userImageUri, userInput, temporaryPredictionId);
     console.log("useImageCreateSubmit, requestBody: ", requestBody);
 
-    // deliver payload (replicate)
     try {
-      const predictionId = await fetchPrediction(requestBody);
+      await fetchPrediction(requestBody);
 
-      return predictionId;
+      return temporaryPredictionId; // Return the unique temporary prediction identifier
     } catch (err) {
       console.error("An unexpected error occurred");
       return null;

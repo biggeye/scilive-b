@@ -58,22 +58,23 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       const newRow = payload.new;
       setGlobalLoading(false);
       setPredictionStatus("Succeeded");
-      setFinalPrediction(newRow.url);
+      // cancelTempId(newRow.temp_id);
+      setFinalPrediction(newRow.temp_url);
     };
 
-    const insertSubscription = supabase
-      .channel('master_inserts')
+    const itemInsertSubscriptions = supabase
+      .channel('item_inserts')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'items' }, handleEvent)
       .subscribe();
 
-    const updateSubscription = supabase
-      .channel('master_updates')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'master' }, handleEvent)
+    const masterInsertSubscriptions = supabase
+      .channel('master_inserts')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'master' }, handleEvent)
       .subscribe();
 
     return () => {
-      supabase.removeChannel(insertSubscription);
-      supabase.removeChannel(updateSubscription);
+      supabase.removeChannel(itemInsertSubscriptions);
+      supabase.removeChannel(masterInsertSubscriptions);
     };
   }, []);
 

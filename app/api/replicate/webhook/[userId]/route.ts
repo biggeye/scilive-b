@@ -41,34 +41,43 @@ export async function POST(req: Request) {
 
   const supabase = createClient();
   const body: PredictionResponsePostBody = await req.json();
-  console.log("Webhook object: ", body);
 
   try {
     const { id, version, input: { prompt }, status, output, urls: { cancel, get } } = body;
-    const logs = body.logs;
-    const userId = getUserIdFromRequestUrl(req);
-    const modelId = version;
-    const predictionId = id;
+    const urlObj = new URL(req.url);
+    const pathname = urlObj.pathname;
 
-    if (status === 'succeeded' && output && userId) {
-      console.log("Prediction successful, attempting to save to database", "", "", "", "");
-      const { data, error } = await supabase
-        .from('master')
-        .insert({ prediction_id: predictionId, model_id: modelId, created_by: userId, prompt: prompt });
+    if (pathname) {
+      const [userId, temporaryPredictionId] = pathname.split('/').slice(-2);
 
-        console.log("master table updated: ", data);
+      console.log("Received webhook body");
+
+      if (status === 'succeeded' && output && userId) {
+        console.log("Prediction successful, attempting to save to database");
+        const tempdisplay = output[0];
+        const { data, error } = await supabase
+          .from('master')
+          .insert({ prediction_id: id, model_id: version, created_by: userId, prompt, temp_url: tempdisplay, temp_id: temporaryPredictionId});
+
+        console.log("master table updated:", data);
+
         let urls;
 
         if (Array.isArray(output) && output.length > 1) {
-          urls = await uploadMultiplePredictions(output, predictionId);
+          console.log("Multiple predictions received. Uploading each prediction...");
+          urls = await uploadMultiplePredictions(output, temporaryPredictionId);
         } else if (output.length === 1) {
-          urls = await uploadPrediction(output[0], `${predictionId}`);
+          console.log("Single prediction received. Uploading prediction...");
+          urls = await uploadPrediction(output[0], `${temporaryPredictionId}`);
         }
 
-      return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      });
+        console.log("Upload URLs:", urls);
+
+        return new Response(JSON.stringify({ message: 'Webhook processed successfully', urls }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
     }
   } catch (error) {
     console.error('Error processing webhook:', error);
@@ -79,15 +88,4 @@ export async function POST(req: Request) {
   }
 
   return new Response(JSON.stringify({ message: "Status Unknown" }));
-}
-
-function getUserIdFromRequestUrl(req: Request): string | undefined {
-  try {
-    const url = require('url');
-    const userId = url.parse(req.url).pathname.split('/').pop();
-    return userId;
-  } catch (error) {
-    console.error('Error extracting user ID from request URL:', error);
-    return undefined;
-  }
 }

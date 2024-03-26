@@ -63,10 +63,10 @@ const ImageCreator = () => {
     if (prediction_id) {
       toast({
         title: 'Processing',
-        description: `Your image is now processing (ID: ${prediction_id}). You will be notified upon completion.`,
+        description: `Your image is now processing (ID: ${prediction_id}).`,
         status: 'info',
-        duration: 9000,
-        isClosable: true,
+        duration: 0,
+        isClosable: false,
       });
     }
   };
