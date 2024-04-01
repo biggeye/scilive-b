@@ -45,9 +45,9 @@ export const predictionErrorState = atom<string | null>({
   key: 'predictionErrorState',
   default: null,
 });
-export const predictionProgressState = atom<number>({
+export const predictionProgressState = atom<string | null>({
   key: 'predictionProgressState',
-  default: 0, // Default progress is 0
+  default: null, // Default progress is 0
 });
 export const predictionStatusState = atom({
   key: 'predictionStatusState',

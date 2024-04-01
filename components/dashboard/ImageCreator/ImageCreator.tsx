@@ -12,14 +12,14 @@ import {
   useToast,
   CardHeader,
   VStack,
+  CircularProgress,
 } from '@chakra-ui/react';
 import { Form } from '@saas-ui/react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
 import {
-  predictionProgressState,
   predictionErrorState,
   finalPredictionState,
   globalLoadingState,
@@ -27,6 +27,7 @@ import {
 import { useImageCreateSubmit } from '@/lib/dashboard/submit/replicate/useImageCreateSubmit';
 import { userProfileState, currentPageState } from '@/state/user/user_state-atoms';
 import ToolOptions from '../ToolOptions';
+import { predictionProgressState } from '@/state/replicate/prediction-atoms';
 
 const ImageCreator = () => {
 
@@ -36,7 +37,8 @@ const ImageCreator = () => {
   const { profileLoading, profileError } = useUserProfile();
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
-  const setGlobalLoading = useSetRecoilState(globalLoadingState);
+  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
+  const predictionProgress = useRecoilValue(predictionProgressState);
   const [userInput, setUserInput] = useState<string>('');
   const imageCreateSubmit = useImageCreateSubmit();
   const setCurrentPage = useSetRecoilState(currentPageState);
@@ -83,20 +85,26 @@ const ImageCreator = () => {
       </h1>
      
       <form onSubmit={handleSubmit}>
-      <VStack>
-      <ToolOptions localPage="createImage" />
+        <VStack>
+          {globalLoading ? ( 
+            <CircularProgress isIndeterminate />
+          ) : (
+            <>
+              <ToolOptions localPage="createImage" />
    
-        <Input
-        boxShadow="lg"
-          value={userInput}
-          onChange={handleInputChange} />
-        <Button size="lg" boxShadow="sm" type="submit">
-          Create Image
-        </Button>
+              <Input
+                boxShadow="lg"
+                value={userInput}
+                onChange={handleInputChange} />
+              <Button size="lg" boxShadow="sm" type="submit">
+                Create Image
+              </Button>
+            </>
+          )}
         </VStack>
       </form>
       
-    </Box >
+    </Box>
   );
 };
 

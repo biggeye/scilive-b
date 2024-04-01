@@ -28,6 +28,7 @@ body {
   min-height: 100%;
   margin: 0;
   font-family: 'Antonio Variable';
+  background-image: linear-gradient(to-t, transparent, transparent, gray.50, primary.50);
 }
 h1 {
   font-family: 'Share Tech Mono';
@@ -153,6 +154,7 @@ button {
 }
 
 .container {
+  
   max-width: 6xl;
   padding: 4rem;
   margin: auto;

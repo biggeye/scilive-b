@@ -64,7 +64,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                 // Non-mobile navbar rendering goes here...
                 <Navbar
                     minWidth="480px"
-                    bgGradient="linear(to-t, transparent, primary.50)"
+                    
                     backdropFilter="blur(50px)"
                     position="sticky"
                     top="0"

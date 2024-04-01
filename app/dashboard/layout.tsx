@@ -84,12 +84,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   return (
     <ErrorBoundary>
-
+<Suspense fallback={<VStack><LoadingCircle /></VStack>}>
       <AppShell
         navbar={<NavbarAlpha handleSignOut={handleSignOut} />}>
         {children}
       </AppShell>
-
+</Suspense>
     </ErrorBoundary>
   );
 };
