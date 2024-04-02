@@ -59,7 +59,7 @@ const VideoProduction = () => {
       fontWeight='bold'
       maxW="100vw"
     >
-       <GridItem pl='2' area={'avatar'}>
+      <GridItem pl='2' area={'avatar'}>
         <Box w="100%">
           <AvatarCreator />
         </Box>

@@ -6,14 +6,14 @@ export const getURL = (path: string = '') => {
   // Check if NEXT_PUBLIC_SITE_URL is set and non-empty. Set this to your site URL in production env.
   let url =
     process?.env?.NEXT_PUBLIC_SITE_URL &&
-    process.env.NEXT_PUBLIC_SITE_URL.trim() !== ''
+      process.env.NEXT_PUBLIC_SITE_URL.trim() !== ''
       ? process.env.NEXT_PUBLIC_SITE_URL
       : // If not set, check for NEXT_PUBLIC_VERCEL_URL, which is automatically set by Vercel.
-        process?.env?.NEXT_PUBLIC_VERCEL_URL &&
-          process.env.NEXT_PUBLIC_VERCEL_URL.trim() !== ''
+      process?.env?.NEXT_PUBLIC_VERCEL_URL &&
+        process.env.NEXT_PUBLIC_VERCEL_URL.trim() !== ''
         ? process.env.NEXT_PUBLIC_VERCEL_URL
         : // If neither is set, default to localhost for local development.
-          'http://localhost:3000/';
+        'http://localhost:3000/';
 
   // Trim the URL and remove trailing slash if exists.
   url = url.replace(/\/+$/, '');
@@ -131,3 +131,23 @@ export const getErrorRedirect = (
     disableButton,
     arbitraryParams
   );
+
+export const generateUUID = () => {
+  // Generate a UUID-like string without using crypto.randomUUID
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+export const dataUriToBlob = (dataUri: string) => {
+  const byteString = atob(dataUri.split(',')[1]);
+  const mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+};

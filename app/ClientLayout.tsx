@@ -1,10 +1,9 @@
 'use client'
 import React from 'react';
 import { CacheProvider } from '@chakra-ui/next-js';
-import { SaasProvider, AppShell } from '@saas-ui/react'
+import { SaasProvider } from '@saas-ui/react'
 import { AuthProvider } from '@saas-ui/auth'
 import { createAuthService } from '@saas-ui/supabase'
-import { Box } from '@chakra-ui/react';
 import { RecoilRoot } from "recoil";
 import { createClient } from '@/utils/supabase/client';
 import { sciLiveTheme } from './theme';

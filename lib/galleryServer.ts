@@ -3,6 +3,8 @@
 'use server'; // Should this be 'use strict'?
 
 import { createClient } from "@/utils/supabase/server";
+import { GalleryImageView } from '@/types';
+import { useAccountDetails } from "./user/useUserServer";
 
 const supabase = createClient();
 
@@ -22,6 +24,8 @@ export async function fetchGalleryImages() {
     throw new Error('Supabase - Master Content Fetch Error');
   }
 
-  cachedGalleryImages = masterData; // Remove 'const' to update module-level variable
+  const galleryImages = await masterData;
+
+  cachedGalleryImages = galleryImages;
   return cachedGalleryImages;
 }

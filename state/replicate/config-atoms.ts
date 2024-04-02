@@ -23,7 +23,7 @@ export const selectedModelConfigSelector = selector({
       const selectedModel = modelData.find(model => model.id === selectedModelId);
 
       if (selectedModel) {
-        const inputs: ModelInputs[] = await fetchModelInputs(selectedModelId);
+        const inputs = await fetchModelInputs(selectedModelId);
                 if (!inputs) {
         return {
           selectedModelId,

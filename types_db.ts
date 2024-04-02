@@ -7,150 +7,8 @@ export type Json =
   | Json[]
 
 export type Database = {
-  models: {
-    Tables: {
-      outputs_detail: {
-        Row: {
-          description: string | null
-          id: number
-          parent_model: number | null
-          validation_rules: string | null
-          variable: string | null
-        }
-        Insert: {
-          description?: string | null
-          id?: number
-          parent_model?: number | null
-          validation_rules?: string | null
-          variable?: string | null
-        }
-        Update: {
-          description?: string | null
-          id?: number
-          parent_model?: number | null
-          validation_rules?: string | null
-          variable?: string | null
-        }
-        Relationships: []
-      }
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      [_ in never]: never
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-  predictions: {
-    Tables: {
-      items: {
-        Row: {
-          content_id: string
-          prediction_id: string
-          url: string | null
-        }
-        Insert: {
-          content_id?: string
-          prediction_id: string
-          url?: string | null
-        }
-        Update: {
-          content_id?: string
-          prediction_id?: string
-          url?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "predictions_prediction_items_prediction_id_fkey"
-            columns: ["prediction_id"]
-            isOneToOne: false
-            referencedRelation: "master"
-            referencedColumns: ["prediction_id"]
-          },
-        ]
-      }
-      master: {
-        Row: {
-          content_id: string
-          content_type: string | null
-          created_at: string | null
-          created_by: string | null
-          is_public: boolean | null
-          model_id: string | null
-          name: string | null
-          prediction_id: string
-          prompt: string | null
-          title: string | null
-        }
-        Insert: {
-          content_id?: string
-          content_type?: string | null
-          created_at?: string | null
-          created_by?: string | null
-          is_public?: boolean | null
-          model_id?: string | null
-          name?: string | null
-          prediction_id: string
-          prompt?: string | null
-          title?: string | null
-        }
-        Update: {
-          content_id?: string
-          content_type?: string | null
-          created_at?: string | null
-          created_by?: string | null
-          is_public?: boolean | null
-          model_id?: string | null
-          name?: string | null
-          prediction_id?: string
-          prompt?: string | null
-          title?: string | null
-        }
-        Relationships: []
-      }
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      [_ in never]: never
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
-      avatars: {
-        Row: {
-          created_by: string | null
-          id: string
-          name: string | null
-          url: string | null
-        }
-        Insert: {
-          created_by?: string | null
-          id?: string
-          name?: string | null
-          url?: string | null
-        }
-        Update: {
-          created_by?: string | null
-          id?: string
-          name?: string | null
-          url?: string | null
-        }
-        Relationships: []
-      }
       customers: {
         Row: {
           id: string
@@ -174,127 +32,98 @@ export type Database = {
           },
         ]
       }
-      img2img: {
+      items: {
         Row: {
-          example: string | null
-          friendlyname: string | null
-          id: string
-          inputtype: string | null
-          name: string
-          outputindex: number | null
-          shortdesc: string | null
+          content_id: string
+          created_by: string
+          prediction_id: string
+          url: string
         }
         Insert: {
-          example?: string | null
-          friendlyname?: string | null
-          id: string
-          inputtype?: string | null
-          name: string
-          outputindex?: number | null
-          shortdesc?: string | null
+          content_id?: string
+          created_by: string
+          prediction_id: string
+          url: string
         }
         Update: {
-          example?: string | null
-          friendlyname?: string | null
-          id?: string
-          inputtype?: string | null
-          name?: string
-          outputindex?: number | null
-          shortdesc?: string | null
+          content_id?: string
+          created_by?: string
+          prediction_id?: string
+          url?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "predictions_prediction_items_prediction_id_fkey"
+            columns: ["prediction_id"]
+            isOneToOne: false
+            referencedRelation: "master"
+            referencedColumns: ["prediction_id"]
+          },
+          {
+            foreignKeyName: "predictions_prediction_items_prediction_id_fkey"
+            columns: ["prediction_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_urls"
+            referencedColumns: ["prediction_id"]
+          },
+        ]
       }
-      img2txt: {
+      master: {
         Row: {
-          additionalparameters: Json | null
-          example: string | null
-          friendlyname: string | null
-          id: string
-          inputtype: string | null
-          name: string
-          shortdesc: string | null
-        }
-        Insert: {
-          additionalparameters?: Json | null
-          example?: string | null
-          friendlyname?: string | null
-          id: string
-          inputtype?: string | null
-          name: string
-          shortdesc?: string | null
-        }
-        Update: {
-          additionalparameters?: Json | null
-          example?: string | null
-          friendlyname?: string | null
-          id?: string
-          inputtype?: string | null
-          name?: string
-          shortdesc?: string | null
-        }
-        Relationships: []
-      }
-      master_content: {
-        Row: {
-          avatar_id: string | null
-          cancel_url: string | null
-          content: string | null
           content_id: string
           content_type: string | null
           created_at: string | null
           created_by: string
           is_public: boolean | null
-          model_id: string | null
+          model_id: string
           name: string | null
-          prediction_id: string | null
-          progress_status: string | null
+          prediction_id: string
           prompt: string | null
-          status: string | null
+          temp_id: string | null
+          temp_url: string | null
           title: string | null
-          url: string | null
         }
         Insert: {
-          avatar_id?: string | null
-          cancel_url?: string | null
-          content?: string | null
           content_id?: string
           content_type?: string | null
           created_at?: string | null
           created_by: string
           is_public?: boolean | null
-          model_id?: string | null
+          model_id: string
           name?: string | null
-          prediction_id?: string | null
-          progress_status?: string | null
+          prediction_id: string
           prompt?: string | null
-          status?: string | null
+          temp_id?: string | null
+          temp_url?: string | null
           title?: string | null
-          url?: string | null
         }
         Update: {
-          avatar_id?: string | null
-          cancel_url?: string | null
-          content?: string | null
           content_id?: string
           content_type?: string | null
           created_at?: string | null
           created_by?: string
           is_public?: boolean | null
-          model_id?: string | null
+          model_id?: string
           name?: string | null
-          prediction_id?: string | null
-          progress_status?: string | null
+          prediction_id?: string
           prompt?: string | null
-          status?: string | null
+          temp_id?: string | null
+          temp_url?: string | null
           title?: string | null
-          url?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "master_content_created_by_fkey"
+            foreignKeyName: "public_master_created_by_fkey"
             columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_master_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models_master"
             referencedColumns: ["id"]
           },
         ]
@@ -362,27 +191,6 @@ export type Database = {
           model_type?: string | null
           name?: string | null
           outputs?: Json | null
-        }
-        Relationships: []
-      }
-      prediction_content: {
-        Row: {
-          content_id: string
-          prediction_id: string
-          prediction_key: string | null
-          url: string
-        }
-        Insert: {
-          content_id?: string
-          prediction_id: string
-          prediction_key?: string | null
-          url: string
-        }
-        Update: {
-          content_id?: string
-          prediction_id?: string
-          prediction_key?: string | null
-          url?: string
         }
         Relationships: []
       }
@@ -623,30 +431,6 @@ export type Database = {
           },
         ]
       }
-      txt2img: {
-        Row: {
-          example: string | null
-          friendlyname: string | null
-          id: string
-          name: string
-          shortdesc: string | null
-        }
-        Insert: {
-          example?: string | null
-          friendlyname?: string | null
-          id: string
-          name: string
-          shortdesc?: string | null
-        }
-        Update: {
-          example?: string | null
-          friendlyname?: string | null
-          id?: string
-          name?: string
-          shortdesc?: string | null
-        }
-        Relationships: []
-      }
       users: {
         Row: {
           avatar_url: string | null
@@ -690,7 +474,42 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      prediction_urls: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          friendly_name: string | null
+          model_id: string | null
+          prediction_id: string | null
+          prompt: string | null
+          url: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_master_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_master_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models_master"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      view_users: {
+        Row: {
+          email: string | null
+          full_name: string | null
+          stripe_customer_id: string | null
+          username: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       clean_expired_tokens: {
