@@ -40,7 +40,7 @@ export async function POST(req: Request) {
         };
         const { data, error } = await supabase
           .from('master')
-          .insert(payload);
+          .upsert(payload);
         if (data) {
           console.log("master table updated:", data);
         } else if (error) {
