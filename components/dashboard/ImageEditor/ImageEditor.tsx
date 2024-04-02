@@ -10,7 +10,7 @@ import { handleGalleryEditSelection } from '@/lib/gallery/handleGalleryEditSelec
 import { convertToDataURI } from '@/utils/convertToDataURI';
 // import UI
 import {
-  VStack, Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
+  CircularProgress, VStack, Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
   Image, Grid, GridItem, Text, Card, CardBody, CardHeader, CardFooter
 } from '@chakra-ui/react';
 import {
@@ -18,32 +18,22 @@ import {
   FileUploadTrigger,
   FileUploadDropzone,
 } from '@saas-ui/file-upload';
-import {
-  Form,
-  FormLayout,
-  ViewIcon,
-  ContextMenuList,
-  ContextMenuItem,
-  ContextMenu,
-  ContextMenuTrigger
-} from '@saas-ui/react';
+
 // import STATE
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import { finalPredictionState, userImageDataUriState, userImagePreviewState, userImageUploadState, predictionErrorState, globalLoadingState } from '@/state/replicate/prediction-atoms';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
-import { currentPageState } from '@/state/user/user_state-atoms'
+import { currentPageState } from '@/state/user/user_state-atoms';
 // import TYPES
-import { GalleryItem } from '@/types';
 import ToolOptions from '../ToolOptions';
 
 const ImageEditor = () => {
+  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
   const auth = useAuth();
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
 
   const userId = userProfile?.id;
-
-  const { profileLoading, profileError } = useUserProfile();
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
   useEffect(() => {
@@ -55,25 +45,33 @@ const ImageEditor = () => {
   const finalPrediction = useRecoilValue(finalPredictionState);
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
-  const globalLoading = useRecoilValue(globalLoadingState);
-  // Gallery State and Fetching
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  // User Input State
+
   const [userInput, setUserInput] = useState<string>('');
-  const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
+  const setUserImagePreview = useSetRecoilState(userImagePreviewState);
   const [userImageUpload, setUserImageUpload] = useRecoilState(userImageUploadState);
   const [userImageDataUri, setUserImageDataUri] = useRecoilState(userImageDataUriState);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
+      console.log("File:", file); // Log the file object
+  
       const imagePreview = URL.createObjectURL(file);
+      console.log("Image Preview URL:", imagePreview); // Log the image preview URL
+  
       setUserImageUpload(file);
+  
       setUserImagePreview(imagePreview);
+      console.log("Set User Image Preview State:", imagePreview); // Log the image preview state
+  
       const URI = await convertToDataURI(file);
+      console.log("Data URI:", URI); // Log the data URI
+  
       setUserImageDataUri(URI);
+      console.log("Set User Image Data URI State:", URI); // Log the data URI state
     }
   };
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserInput(e.target.value);
 
@@ -82,12 +80,21 @@ const ImageEditor = () => {
       console.error("No model selected or user not found");
       return;
     }
+    setGlobalLoading(true);
     await imageEditSubmit(userInput, userImageDataUri);
     if (finalPrediction) {
       setUserImageUpload(null);
       setUserImagePreview(null);
+      setGlobalLoading(false);
     }
   };
+
+  const handleCancelPrediction = () => {
+    setGlobalLoading(false);
+    setUserInput('');
+  
+  }
+  
 
   return (
     <Box
@@ -100,6 +107,13 @@ const ImageEditor = () => {
 
       <form onSubmit={handleUserImageEditSubmit}>
         <VStack>
+        {globalLoading ? ( 
+            <VStack>
+            <CircularProgress isIndeterminate />
+            <button onClick={handleCancelPrediction}>Cancel</button>
+            </VStack>
+          ) : (
+            <>
           <ToolOptions localPage="editImage" />
           <FileUpload
             boxShadow="lg"
@@ -137,6 +151,7 @@ const ImageEditor = () => {
           <Button boxShadow="sm" size="lg" type="submit">
             Edit Image
           </Button>
+          </>)}
         </VStack>
       </form>
       {predictionError && <Alert fontSize={{ base: "sm", md: "md" }}>{predictionError}</Alert>}
