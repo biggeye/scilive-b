@@ -40,15 +40,18 @@ export async function POST(req: Request) {
         };
         const { data, error } = await supabase
           .from('master_test')
-          .upsert(payload);
+          .upsert(payload)
+          .like('prediction_id', id);
+
         if (data) {
           console.log("master table updated:", data);
         } else if (error) {
           console.log("error occured: ", error)
           return new Response(JSON.stringify({ message: 'Webhook crash & burn', error }))
         }
-        const upload = await uploadPrediction(tempdisplay, id);
-        if (upload) {
+        const { upload }: any = await uploadPrediction(tempdisplay, id);
+        const uploadPredictionResponse = await upload.json;
+        if (uploadPredictionResponse) {
           return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
