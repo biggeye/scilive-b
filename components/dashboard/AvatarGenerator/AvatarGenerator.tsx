@@ -93,50 +93,50 @@ const AvatarGenerator: React.FC = () => {
 
   return (
     <Box marginLeft="25px" mt={5} className="card-standard">
-    <h1 className="title">Avatar Generator</h1>
-    <Form onSubmit={handleSubmit}>
-      <FormLayout columns={{base: "1", md: "2"}}>
-        {isLoading ? (
-          <CircularProgress isIndeterminate color="primary.300" />
-        ) : (
-          <>
-            <VStack>
-              <Select width="90%">
-                {trainedModel.map((trainedModel, index) => (
-                  <option key={trainedModel.id} label={trainedModel.model_name}>
-                    {trainedModel.model_name}
-                  </option>
-                ))}
-              </Select>
-              <Grid width="90%" templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
-                <GridItem colSpan="1">
-                <Textarea value={prompt} placeholder="describe the entire image your model should be portrayed in" onChange={(e) => setPrompt(e.target.value)} />
-                </GridItem>
-                <GridItem colSpan="1">
-                <Textarea value={negative_prompt} placeholder="specify anything you do not want to see in the image" onChange={(e) => setNegativePrompt(e.target.value)} />
-                </GridItem>
-                {images.map((imgUrl, index) => (
-                  <GridItem key={index} colSpan={1}>
-                    <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} />
-                    <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
-                    <Button
-                      isDisabled={selectedImageIndex === null}
-                      onClick={() => {
-                        setSelectedImageIndex(index);
-                      }}
-                    >
-                      Select Avatar
-                    </Button>
+      <h1 className="title">Avatar Generator</h1>
+      <Form onSubmit={handleSubmit}>
+        <FormLayout columns={{ base: "1", md: "2" }}>
+          {isLoading ? (
+            <CircularProgress isIndeterminate color="primary.300" />
+          ) : (
+            <>
+              <VStack>
+                <Select width="90%">
+                  {trainedModel.map((trainedModel, index) => (
+                    <option key={trainedModel.id} label={trainedModel.model_name}>
+                      {trainedModel.model_name}
+                    </option>
+                  ))}
+                </Select>
+                <Grid width="90%" templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
+                  <GridItem colSpan={1}>
+                    <Textarea value={prompt} placeholder="describe the entire image your model should be portrayed in" onChange={(e) => setPrompt(e.target.value)} />
                   </GridItem>
-                ))}
-              </Grid>
-            </VStack>
-          </>
-        )}
-      </FormLayout>
-    </Form>
-  </Box>
-  
+                  <GridItem colSpan={1}>
+                    <Textarea value={negative_prompt} placeholder="specify anything you do not want to see in the image" onChange={(e) => setNegativePrompt(e.target.value)} />
+                  </GridItem>
+                  {images.map((imgUrl, index) => (
+                    <GridItem key={index} colSpan={1}>
+                      <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} />
+                      <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
+                      <Button
+                        isDisabled={selectedImageIndex === null}
+                        onClick={() => {
+                          setSelectedImageIndex(index);
+                        }}
+                      >
+                        Select Avatar
+                      </Button>
+                    </GridItem>
+                  ))}
+                </Grid>
+              </VStack>
+            </>
+          )}
+        </FormLayout>
+      </Form>
+    </Box>
+
   );
 };
 
