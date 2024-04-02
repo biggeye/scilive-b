@@ -27,7 +27,7 @@ export async function uploadPrediction(
     console.log("Inserting URL and prediction_id into 'items' table...");
 
     const { data: insertData, error: insertError } = await supabase
-      .from('items')
+      .from('items_test')
       .insert({ url: url, prediction_id: predictionId });
 
     if (insertError) {
