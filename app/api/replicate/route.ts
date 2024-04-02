@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     const responseData = await predictionCallResponse.json();
     if (responseData.status) {
       const createRecord = await supabase
-        .from('master')
+        .from('master-test')
         .insert('prediction_id', responseData.id);
       if (createRecord) {
         return new Response(JSON.stringify({

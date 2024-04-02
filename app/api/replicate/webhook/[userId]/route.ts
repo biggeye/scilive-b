@@ -39,7 +39,7 @@ export async function POST(req: Request) {
           'temp_id': temporaryPredictionId
         };
         const { data, error } = await supabase
-          .from('master')
+          .from('master-test')
           .upsert(payload);
         if (data) {
           console.log("master table updated:", data);
