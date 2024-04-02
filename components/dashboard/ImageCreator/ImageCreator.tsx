@@ -74,6 +74,12 @@ const ImageCreator = () => {
     }
   };
 
+const handleCancelPrediction = () => {
+  setGlobalLoading(false);
+  setUserInput('');
+
+}
+
   return (
     <Box
       marginLeft="25px"
@@ -86,7 +92,10 @@ const ImageCreator = () => {
       <form onSubmit={handleSubmit}>
         <VStack>
           {globalLoading ? ( 
+            <VStack>
             <CircularProgress isIndeterminate />
+            <button onClick={handleCancelPrediction}>Cancel</button>
+            </VStack>
           ) : (
             <>
               <ToolOptions localPage="createImage" />

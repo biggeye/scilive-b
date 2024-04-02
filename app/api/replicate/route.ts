@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const payload = {
       version,
       input: { prompt, image },
-      webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}+${temporaryPredictionId}`,
+      webhook: `https://scilive.cloud/api/replicate/webhook/${user_id}+${temporaryPredictionId}`,
 
     };  
    
@@ -41,13 +41,17 @@ export async function POST(req: Request) {
     }
     const responseData = await response.json();
     if (response.status === 201) {
+      const createRecord = await supabase
+      .from('master')
+      .insert('prediction_id', responseData.id);
+      if (createRecord) {
       return new Response(JSON.stringify({
         id: responseData.id,
         message: "Prediction started successfully"
       }), {
         status: 201,
         headers: { 'Content-Type': 'application/json' }
-      });
+      })};
     } else {
       return new Response(JSON.stringify(responseData), { status: response.status });
     }

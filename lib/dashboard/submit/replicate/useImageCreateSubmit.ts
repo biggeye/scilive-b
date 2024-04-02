@@ -50,8 +50,8 @@ export const useImageCreateSubmit = () => {
     console.log("useImageCreateSubmit, requestBody: ", requestBody);
 
     try {
-      await fetchPrediction(requestBody);
-
+      const fetchedPrediction = await fetchPrediction(requestBody);
+        console.log("fetchedPrediction: ", fetchedPrediction)
       return temporaryPredictionId; // Return the unique temporary prediction identifier
     } catch (err) {
       console.error("An unexpected error occurred");
