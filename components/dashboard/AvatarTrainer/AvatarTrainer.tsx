@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Grid, GridItem, Card, CardHeader, Heading, HStack, Text, Box, Button, FormControl, FormLabel, Input, Select, useToast, VStack } from '@chakra-ui/react';
-import { modelIdState, modelTrainingDataState, numberOfImagesState, typeOfModelState, trainingModelNameState } from '@/state/leap/trainedModel-atoms';
 import { userProfileState } from '@/state/user/user_state-atoms';
-import { useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { createClient } from '@/utils/supabase/client';
@@ -24,11 +23,10 @@ const AvatarTrainer: React.FC = () => {
   const auth = useAuth();
   const { profileLoading, profileError } = useUserProfile();
   const userId = userProfile.id;
-  const [modelId, setModelId] = useRecoilState(modelIdState);
-  const [modelTrainingData, setModelTrainingData] = useRecoilState(modelTrainingDataState);
-  const [numberOfImages, setNumberOfImages] = useRecoilState(numberOfImagesState);
-  const [typeOfModel, setTypeOfModel] = useRecoilState(typeOfModelState);
-  const [trainingModelName, setTrainingModelName] = useRecoilState(trainingModelNameState);
+  const [modelTrainingData, setModelTrainingData] = useState(null);
+  const [numberOfImages, setNumberOfImages] = useState(null);
+  const [typeOfModel, setTypeOfModel] = useState("");
+  const [trainingModelName, setTrainingModelName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]); // State to manage uploaded files
 
@@ -36,7 +34,7 @@ const AvatarTrainer: React.FC = () => {
 
   useEffect(() => {
     const subscription = supabase
-      .channel('custom-insert-channel')
+      .channel('model-training-channel')
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'trained_models' },
         (payload: any) => {
           toast({
@@ -66,11 +64,11 @@ const AvatarTrainer: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model_name: trainingModelName,
-          type_of_model: typeOfModel,
-          uploaded_images: modelTrainingData,
-          number_of_images: numberOfImages,
-          user_id: userId,
+          "model_name": trainingModelName,
+          "type_of_model": typeOfModel,
+          "uploaded_images": modelTrainingData,
+          "number_of_images": numberOfImages,
+          "user_id": userId,
         }),
       });
 

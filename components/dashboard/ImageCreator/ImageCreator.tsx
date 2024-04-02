@@ -78,12 +78,11 @@ const ImageCreator = () => {
     <Box
       marginLeft="25px"
       mt={5}
-      className="card-standard">
-       
+      className="card-standard"
+      > 
       <h1 className="title">
         imgCreator
       </h1>
-     
       <form onSubmit={handleSubmit}>
         <VStack>
           {globalLoading ? ( 
@@ -91,7 +90,6 @@ const ImageCreator = () => {
           ) : (
             <>
               <ToolOptions localPage="createImage" />
-   
               <Input
                 boxShadow="lg"
                 value={userInput}

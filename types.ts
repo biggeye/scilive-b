@@ -85,7 +85,7 @@ export type GalleryImageView = {  prediction_id: string;
   friendly_name?: string;
   created_at: string;
   created_by: string;
-  url: string; // array of URLs
+  url: string[]; // array of URLs
 };
 
 

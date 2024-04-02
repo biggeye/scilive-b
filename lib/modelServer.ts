@@ -66,3 +66,16 @@ export async function fetchModelInputs(selectedModelId: string) {
         throw new Error('Internal Server Error');
     }
 }
+
+export async function fetchTrainedModels() {
+    try {
+        const { data, error } = await supabase
+        .from('trained_models')
+        .select('model_name, id, model_type')
+        if (error) throw error;
+        return data;
+    } catch (error) {
+        console.error ("Error fetching trained models: ", error);
+        throw new Error('Trained Model server error.')
+    }
+    }

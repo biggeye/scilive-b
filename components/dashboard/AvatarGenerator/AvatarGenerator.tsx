@@ -1,9 +1,9 @@
-
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, Heading, HStack, Box, Button, CircularProgress, Grid, GridItem, Image, useToast } from '@chakra-ui/react';
+import { Textarea, Card, CardHeader, Heading, HStack, Box, Button, CircularProgress, Grid, GridItem, Image, useToast, Select, VStack } from '@chakra-ui/react';
 import { FileUploadPreview, FormLayout, Form, Field, FileUpload, FileUploadDropzone, FileUploadTrigger } from '@saas-ui/react'; // Added FileUploadTrigger import
-import { modelIdState, dataset } from '@/state/leap/trainedModel-atoms';
+import { trainedModelsSelector } from '@/state/leap/trainedModel-atoms';
+import { fetchTrainedModels } from '@/lib/modelServer';
 import { createClient } from '@/utils/supabase/client';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
@@ -13,35 +13,40 @@ import { useUserProfile } from '@/lib/user/useUserProfile';
 const AvatarGenerator: React.FC = () => {
   const supabase = createClient();
   const userProfile = useRecoilValue(userProfileState);
+  const trainedModel = useRecoilValue(trainedModelsSelector);
+
+  const [prompt, setPrompt] = useState("");
+  const [negative_prompt, set_negative_prompt] = useState("");
+
   const auth = useAuth();
   const { profileLoading, profileError } = useUserProfile();
-  const modelId = useRecoilValue(modelIdState);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const toast = useToast();
 
-/*
-  useEffect(() => {
-    const subscription = supabase
-      .channel('custom-insert-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'trained_models_generated' }, (payload) => {
-        console.log('Change received!', payload);
-        if (payload.new && payload.new.url) {
-          setImages(currentImages => {
-            const updatedImages = [...currentImages, payload.new.url];
-            // Assume loading is complete once an image is successfully received and added
-            setIsLoading(false);
-            return updatedImages;
-          });
-        }
-      })
-      .subscribe();
-    return () => {
-      supabase.removeChannel(subscription);
-    };
-  }, []);
-  */
+
+  /*
+    useEffect(() => {
+      const subscription = supabase
+        .channel('custom-insert-channel')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'trained_models_generated' }, (payload) => {
+          console.log('Change received!', payload);
+          if (payload.new && payload.new.url) {
+            setImages(currentImages => {
+              const updatedImages = [...currentImages, payload.new.url];
+              // Assume loading is complete once an image is successfully received and added
+              setIsLoading(false);
+              return updatedImages;
+            });
+          }
+        })
+        .subscribe();
+      return () => {
+        supabase.removeChannel(subscription);
+      };
+    }, []);
+    */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,43 +92,51 @@ const AvatarGenerator: React.FC = () => {
   };
 
   return (
-    <Box
-      marginLeft="25px"
-      mt={5}
-      className="card-standard">
-      <h1 className="title">
-        Avatar Generator
-      </h1>
-
-      <Form onSubmit={handleSubmit}>
-        <FormLayout columns={[1, null, 2]}>
-
-
-          {isLoading ? (
-            <CircularProgress isIndeterminate color="primary.300" />
-          ) : (
-            <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
-              {images.map((imgUrl, index) => (
-                <GridItem key={index} colSpan={1}>
-                  <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} />
-                  <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
+    <Box marginLeft="25px" mt={5} className="card-standard">
+    <h1 className="title">Avatar Generator</h1>
+    <Form onSubmit={handleSubmit}>
+      <FormLayout columns={{base: "1", md: "2"}}>
+        {isLoading ? (
+          <CircularProgress isIndeterminate color="primary.300" />
+        ) : (
+          <>
+            <VStack>
+              <Select width="90%">
+                {trainedModel.map((trainedModel, index) => (
+                  <option key={trainedModel.id} label={trainedModel.model_name}>
+                    {trainedModel.model_name}
+                  </option>
+                ))}
+              </Select>
+              <Grid width="90%" templateRows="repeat(2, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
+                <GridItem colSpan="1">
+                <Textarea value={prompt} placeholder="describe the entire image your model should be portrayed in" onChange={(e) => setPrompt(e.target.value)} />
                 </GridItem>
-              ))}
-            </Grid>
-          )}
-          <Button
-            isDisabled={selectedImageIndex === null}
-            onClick={() => {
-              if (selectedImageIndex !== null) {
-                // setAvatarUrl(images[selectedImageIndex]); // setAvatarUrl is not defined
-              }
-            }}
-          >
-            Select Avatar
-          </Button>
-        </FormLayout>
-      </Form>
-    </Box>
+                <GridItem colSpan="1">
+                <Textarea value={negative_prompt} placeholder="specify anything you do not want to see in the image" onChange={(e) => setNegativePrompt(e.target.value)} />
+                </GridItem>
+                {images.map((imgUrl, index) => (
+                  <GridItem key={index} colSpan={1}>
+                    <Image src={imgUrl} alt={`Avatar Image ${index + 1}`} />
+                    <Checkbox isChecked={selectedImageIndex === index} onChange={() => setSelectedImageIndex(index)} />
+                    <Button
+                      isDisabled={selectedImageIndex === null}
+                      onClick={() => {
+                        setSelectedImageIndex(index);
+                      }}
+                    >
+                      Select Avatar
+                    </Button>
+                  </GridItem>
+                ))}
+              </Grid>
+            </VStack>
+          </>
+        )}
+      </FormLayout>
+    </Form>
+  </Box>
+  
   );
 };
 

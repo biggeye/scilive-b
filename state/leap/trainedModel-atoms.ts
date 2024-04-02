@@ -1,26 +1,35 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
+import { fetchTrainedModels } from "@/lib/modelServer";
 
-export const modelTrainingDataState = atom<File[]>({
-    key: 'modelTrainingDataState',
+
+export interface TrainedModelSelect {
+    id: string | "",
+    typeOfModel: string | "",
+    name: string | "",
+}
+
+export const trainedModelsState = atom<TrainedModel[]>({
+    key: 'trainedModelsState',
     default: [],
 });
 
-export const modelIdState = atom<string | null>({
-    key: 'modelIdState',
-    default: null,
-});
 
-export const typeOfModelState = atom<string | null>({
-    key: 'typeOfModelState',
-    default: null, 
-});
 
-export const numberOfImagesState = atom<string | null>({
-    key: 'numberOfImagesState',
-    default: null,
+export const trainedModelsSelector = selector({
+  key: 'trainedModelsSelector',
+  get: async () => {
+    try {
+      // Fetch trained models data
+      const trainedModelsData = await fetchTrainedModels();
+      console.log("trainedModelsSelector (fetching data): ", trainedModelsData);
+      // Assuming trainedModelsData is the array of trained models we need
+      if (trainedModelsData) {
+        return trainedModelsData;
+      }
+    } catch (error) {
+      console.error('Error fetching trained models data:', error);
+      // Return default state in case of error
+      return [];
+    }
+  },
 });
-
-export const trainingModelNameState = atom<string>({
-    key: 'modelNameState',
-    default: '',
-})

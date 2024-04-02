@@ -35,3 +35,25 @@ export const useUserProfile = () => {
 
     return { profileLoading, profileError };
 };
+
+export const useUserId = async (userId) => {
+    const supabase = createClient();
+    try {
+        const { data, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', userId)
+        if (error) {
+            throw error;
+        }
+        if (data) {
+            const { userProfileData } = data;
+            return userProfileData;
+        }
+    } catch (error) {
+
+    } finally {
+
+    }
+};
+
