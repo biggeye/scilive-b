@@ -40,7 +40,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const setGlobalLoading = useSetRecoilState(globalLoadingState);
   const setPredictionProgress = useSetRecoilState(predictionProgressState);
   const setPredictionStatus = useSetRecoilState(predictionStatusState);
-  const setFinalPrediction = useSetRecoilState(finalPredictionState);
+  const [finalPrediction, setFinalPrediction] = useRecoilState(finalPredictionState);
 
   const handleSignOut = async () => {
     const formData = new FormData();
@@ -52,6 +52,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const toast = useToast();
   const supabase = createClient();
 
+
+
   useEffect(() => {
     const handleEvent = (payload: any) => {
       console.log("webhook payload: ", payload);
@@ -59,24 +61,24 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       setGlobalLoading(false);
       setPredictionStatus("Succeeded");
       // cancelTempId(newRow.temp_id);
-      setFinalPrediction(newRow.temp_url);
+      if (newRow && newRow.url) {
+        setFinalPrediction(newRow.url);
+      } else {
+        console.error("Error: 'url' value not found in payload");
+      }
     };
+    
 
     const itemInsertSubscriptions = supabase
-      .channel('item_inserts')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'items' }, handleEvent)
-      .subscribe();
-
-    const masterInsertSubscriptions = supabase
-      .channel('master_inserts')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'master' }, handleEvent)
+      .channel('items_test_inserts')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'items_test' }, handleEvent)
       .subscribe();
 
     return () => {
       supabase.removeChannel(itemInsertSubscriptions);
-      supabase.removeChannel(masterInsertSubscriptions);
+
     };
-  }, []);
+  }, [finalPrediction]);
 
   if (!isAuthCheckComplete) {
     return <VStack><LoadingCircle /></VStack>;

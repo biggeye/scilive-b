@@ -38,6 +38,7 @@ export async function uploadPrediction(
     }
 
     return url;
+
   } catch (error) {
     console.error('Error during uploadPrediction:', error);
     throw error;

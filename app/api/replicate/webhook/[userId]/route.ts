@@ -52,16 +52,17 @@ export async function POST(req: Request) {
           console.log("error occured: ", error)
           return new Response(JSON.stringify({ message: 'Webhook crash & burn', error }))
         }
-        const { upload }: any = await uploadPrediction(tempdisplay, id);
-        const uploadPredictionResponse = await upload.json;
+        const upload: any = await uploadPrediction(tempdisplay, id);
+        const uploadPredictionResponse = await upload;
         if (uploadPredictionResponse) {
           return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
           })
         };
       }
     }
+    return new Response(JSON.stringify({ status: 201 }));
   } catch (error) {
     console.error('Error processing webhook:', error);
     return new Response(JSON.stringify({ error: 'Error processing webhook' }), {
