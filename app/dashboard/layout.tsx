@@ -10,6 +10,7 @@ import { useAuth } from "@saas-ui/auth";
 import { SignOut } from "@/utils/auth-helpers/server";
 //import components
 import LoadingCircle from "@/components/ui/LoadingDots/LoadingCircle";
+import DisplayResults from "@/components/dashboard/DisplayResults";
 import NavbarAlpha from "@/components/NavbarAlpha";
 //import UI
 import { Box, Button, useToast, CircularProgress, VStack, Tooltip, useBreakpointValue } from '@chakra-ui/react';
@@ -89,6 +90,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 <Suspense fallback={<VStack><LoadingCircle /></VStack>}>
       <AppShell
         navbar={<NavbarAlpha handleSignOut={handleSignOut} />}>
+        <DisplayResults />
         {children}
       </AppShell>
 </Suspense>
