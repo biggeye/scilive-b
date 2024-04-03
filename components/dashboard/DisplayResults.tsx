@@ -47,7 +47,7 @@ const DisplayResults = () => {
   const finalPrediction = useRecoilValue(finalPredictionState);
   const finalPredictionPrompt = useRecoilValue(finalPredictionPromptState);
   const userImagePreview = useRecoilValue(userImagePreviewState);
-  const model = useRecoilValueLoadable(selectedModelConfigSelector);
+  const { model } = useRecoilValueLoadable(selectedModelConfigSelector);
 
   const displayedImage = finalPrediction || userImagePreview;
 
@@ -58,10 +58,11 @@ const DisplayResults = () => {
 
   return (
     <VStack>
-      {userImagePreview || finalPrediction &&
-      <Card>
+      {userImagePreview  || finalPrediction &&
+      <Card bgGradient="linear(to-br, primary.300, gray.200, transparent)" height="80vw" width="80vw" position="absolute" top="10%">
         <CardHeader>
-
+             
+                <Text>   {model.fruendly_name}</Text>
           {globalLoading && cancelPrediction ? (
             <Link href={cancelPrediction}>Cancel Image Creation</Link>
           ) : (

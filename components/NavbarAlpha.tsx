@@ -82,8 +82,8 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                             flexWrap="nowrap">
                             <NavGroup>
                                 <HStack>
-                                    <NavItem href="/dashboard"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">Production</Text></NavItem>
-                                    <NavItem href="/dashboard/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">Assets</Text></NavItem>
+                                    <NavItem href="/dashboard"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">pr0d</Text></NavItem>
+                                    <NavItem href="/dashboard/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">ass3ts</Text></NavItem>
                                 </HStack>
                             </NavGroup>
 

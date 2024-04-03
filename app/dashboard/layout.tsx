@@ -68,7 +68,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         console.error("Error: 'url' value not found in payload");
       }
     };
-    
+
 
     const itemInsertSubscriptions = supabase
       .channel('items_test_inserts')
@@ -87,13 +87,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   return (
     <ErrorBoundary>
-<Suspense fallback={<VStack><LoadingCircle /></VStack>}>
-      <AppShell
-        navbar={<NavbarAlpha handleSignOut={handleSignOut} />}>
-        <DisplayResults />
-        {children}
-      </AppShell>
-</Suspense>
+      <Suspense fallback={<VStack><LoadingCircle /></VStack>}>
+        <AppShell
+          navbar={<NavbarAlpha handleSignOut={handleSignOut} />}>
+
+          {children}
+
+        </AppShell>
+      </Suspense>
     </ErrorBoundary>
   );
 };

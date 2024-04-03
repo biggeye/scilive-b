@@ -18,17 +18,20 @@ const DashboardPage = () => {
   const columns = useBreakpointValue({ base: 2, md: 1 });
 
   const renderTabs = () => (
+    <VStack>
+          <DisplayResults />
     <Tabs
       fontSize={{ base: "sm", md: "md" }}
       variant="enclosed-colored"
+      width="100vw"
     >
-      <TabList mb="1em">
-        <Tab>Image Creator</Tab>
-        <Tab>Image Editor</Tab>
-        <Tab>Script Writer</Tab>
-        <Tab>Avatar Creator</Tab>
-        <Tab>Avatar Trainer</Tab>
-        <Tab>Avatar Generator</Tab>
+      <TabList mt="1em" mb="1em">
+        <Tab>imgCreator</Tab>
+        <Tab>imgEditor</Tab>
+        <Tab>scr!ptWriter</Tab>
+        <Tab>avatarCreator</Tab>
+        <Tab>avatarTrainer</Tab>
+        <Tab>avatarGenerator</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
@@ -36,7 +39,7 @@ const DashboardPage = () => {
            // TODO toolOptions  is rendering incorrect list of models for createImage / imageCreator
             <Box position="fixed" backdropFilter="blur(50px)" width="90%">
               <ImageCreator />
-              <DisplayResults />  
+  
             </Box>
           </VStack>
         </TabPanel>
@@ -45,7 +48,7 @@ const DashboardPage = () => {
            // TODO ImageEditor gallery sidepanel opens, but with no contents
             <Box position="fixed" backdropFilter="blur(50px)" width="90%">
               <ImageEditor />
-              <DisplayResults />   
+  
             </Box>
           </VStack>
         </TabPanel>
@@ -71,6 +74,8 @@ const DashboardPage = () => {
         </TabPanel>
       </TabPanels>
     </Tabs>
+
+    </VStack>
   )
 
   const renderGrid = () => (

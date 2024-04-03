@@ -19,6 +19,7 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
+import { finalPredictionPrompt } from '@/state/replicate/prediction-atoms';
 import {
   predictionErrorState,
   finalPredictionState,
@@ -29,7 +30,7 @@ import { userProfileState, currentPageState } from '@/state/user/user_state-atom
 import ToolOptions from '../ToolOptions';
 import { predictionProgressState } from '@/state/replicate/prediction-atoms';
 
-const ImageCreator = () => {
+const ImageCreator = async () => {
 
   const toast = useToast();
   const userProfile = useRecoilValue(userProfileState);
@@ -61,18 +62,18 @@ const ImageCreator = () => {
     }
 
     const prediction_id = await imageCreateSubmit(userInput);
-
-    if (prediction_id) {
-      console.log(prediction_id);
-      toast({
-        title: 'Processing',
-        description: `Your image is now processing (ID: ${prediction_id}).`,
-        status: 'info',
-        duration: 0,
-        isClosable: false,
-      });
-    }
   };
+
+useEffect(() => {
+      if(finalPredictionPrompt) {
+        
+        toast({
+          title: 'Processing',
+          description: `Your predicthun ith prothething (Prompt: ${finalPredictionPrompt}).`,
+          status: 'info',
+          duration: 1000,
+          isClosable: false,
+        })}}, [finalPredictionPrompt]);
 
 const handleCancelPrediction = () => {
   setGlobalLoading(false);
@@ -113,6 +114,6 @@ const handleCancelPrediction = () => {
       
     </Box>
   );
-};
+          };
 
 export default ImageCreator;

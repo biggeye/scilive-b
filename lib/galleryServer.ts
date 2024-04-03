@@ -16,7 +16,7 @@ export async function fetchGalleryImages() {
   }
 
   const { data: masterData, error: masterError } = await supabase
-    .from('master_with_url')
+    .from('master_with_url_test')
     .select('*');
 
   if (masterError) {
