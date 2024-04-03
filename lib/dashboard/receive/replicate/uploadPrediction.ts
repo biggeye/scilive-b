@@ -2,15 +2,17 @@
 import { createClient } from "@/utils/supabase/server";
 
 export async function uploadPrediction(
+  userId: string,
   content: string,
   predictionId: string
 ): Promise<string> {
   const supabase = createClient();
 
   try {
-    console.log("Fetching content from URL:", content);
+   
     const predictionOutput = await fetch(content);
-
+    const created_by = userId;
+    console.log("Fetched content from URL: ", predictionOutput);
     if (!predictionOutput.ok) {
       throw new Error(`Failed to fetch content from URL: ${content}, Response status: ${predictionOutput.status}`);
     }

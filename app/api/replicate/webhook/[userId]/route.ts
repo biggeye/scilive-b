@@ -28,31 +28,27 @@ export async function POST(req: Request) {
       const [userId, temporaryPredictionId] = pathname.split(/[\/+]/).filter(Boolean).slice(-2);
 
 
-      console.log("Received webhook body");
+      console.log("So where are you from originally?");
 
       if (status === 'succeeded' && output && userId) {
-        console.log("Prediction successful, attempting to save to database");
-        const tempdisplay = output[0];
+        console.log(status, output, userId);
+        const predictionUrl = output[0];
         const payload = {
           'prediction_id': id,
           'model_id': version,
           'created_by': userId,
           'prompt': prompt,
-          'temp_url': tempdisplay,
-          'temp_id': temporaryPredictionId
         };
         const { data, error } = await supabase
           .from('master_test')
           .upsert(payload)
           .like('prediction_id', id);
 
-        if (data) {
-          console.log("master table updated:", data);
-        } else if (error) {
+       if (error) {
           console.log("error occured: ", error)
-          return new Response(JSON.stringify({ message: 'Webhook crash & burn', error }))
+          return new Response(JSON.stringify({ message: 'Webhook crash & burn updating master table', error }))
         }
-        const upload: any = await uploadPrediction(tempdisplay, id);
+        const upload: any = await uploadPrediction(predictionUrl, id, userId);
         const uploadPredictionResponse = await upload;
         if (uploadPredictionResponse) {
           return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {

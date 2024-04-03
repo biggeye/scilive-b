@@ -24,35 +24,46 @@ export const userImageDataUriState = atom<string>({
 
 
 
-  // MONITORING 
+// MONITORING 
+export const temporaryPredictionIdState = atom<string | null>({
+  key: 'temporaryPredictionId',
+  default: null,
+});
+
 export const globalLoadingState = atom<boolean>({
   key: 'globalLoadingState',
   default: false,
 });
+
 export const predictionPendingState = atom<boolean>({
   key: 'predictionPendingState',
   default: false,
-})
+});
+
 export const cancelRunningPredictionState = atom<string | null>({
   key: 'cancelRuningPredictionState',
   default: null,
-})
+});
+
 export const modelBootResultState = atom<string | null>({
   key: 'modelBootResultState',
   default: "Model not started",
 });
+
 export const predictionErrorState = atom<string | null>({
   key: 'predictionErrorState',
   default: null,
 });
+
 export const predictionProgressState = atom<string | null>({
   key: 'predictionProgressState',
   default: null, // Default progress is 0
 });
+
 export const predictionStatusState = atom({
   key: 'predictionStatusState',
   default: '',
-})
+});
 
 
 
@@ -64,8 +75,8 @@ export const finalPredictionState = atom<string | null>({
 });
 
 export const finalPredictionPromptState = atom<string>({
-key: 'finalPredictionPromptState',
-default: '',
+  key: 'finalPredictionPromptState',
+  default: '',
 });
 
 export const finalNarrativePredictionState = atom<string | null>({

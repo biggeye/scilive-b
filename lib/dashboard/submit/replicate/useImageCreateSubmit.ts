@@ -1,5 +1,4 @@
 // useImageCreateSubmit.ts
-
 import { useState } from "react";
 import { generateUUID } from "@/utils/helpers";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -10,10 +9,17 @@ import { buildRequestBody } from './requestBodyBuilder';
 import { fetchPrediction } from './fetchPrediction';
 import { convertToDataURI } from "@/utils/convertToDataURI";
 
-import { userImageUploadState, userImageDataUriState, finalPredictionPromptState } from "@/state/replicate/prediction-atoms";
+import { 
+    userImageUploadState, 
+    userImageDataUriState, 
+    finalPredictionPromptState, 
+    temporaryPredictionIdState } 
+  from "@/state/replicate/prediction-atoms";
 import { selectedModelIdState } from "@/state/replicate/config-atoms";
 
 export const useImageCreateSubmit = () => {
+
+  const [temporaryPredictionId, setTemporaryPredictionId] = useRecoilState(temporaryPredictionIdState);
 
   // user account state
   const userProfile = useRecoilValue(userProfileState);
@@ -35,6 +41,7 @@ export const useImageCreateSubmit = () => {
       console.error("User Login required!");
       return null;
     }
+
     if (userImageUpload) {
       try {
         const imageUpload: string = await convertToDataURI(userImageUpload);
@@ -45,7 +52,7 @@ export const useImageCreateSubmit = () => {
     }
 
     const temporaryPredictionId = generateUUID();
-
+    setTemporaryPredictionId(temporaryPredictionId);
     const requestBody = buildRequestBody(userId, modelId, userImageUri, userInput, temporaryPredictionId);
     console.log("useImageCreateSubmit, requestBody: ", requestBody);
 
