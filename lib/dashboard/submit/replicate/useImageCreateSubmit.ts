@@ -1,7 +1,7 @@
 // useImageCreateSubmit.ts
 
 import { useState } from "react";
-import generateUUID from "@/utils/generateUUID"; // Import UUID library
+import { generateUUID } from "@/utils/helpers";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userProfileState } from "@/state/user/user_state-atoms";
 //import utilities

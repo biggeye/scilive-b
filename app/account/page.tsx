@@ -33,7 +33,6 @@ export default async function Account() {
         </div>
       </div>
       <div className="p-4">
-        <button onClick={handleTikApiSignIn}>Connect TikToK</button>
         <CustomerPortalForm subscription={subscription} />
         <NameForm userName={userDetails?.full_name ?? ''} userEmail={''} />
         <GalleryImageTable />

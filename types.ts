@@ -65,7 +65,7 @@ export type ContentItem = {
   created_by?: string;
   created_at: string;
   model_id?: string;
-  prediction_id?: string;
+  prediction_id: string;
   prompt?: string;
   is_public?: boolean;
 };

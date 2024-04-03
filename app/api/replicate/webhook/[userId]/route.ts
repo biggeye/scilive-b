@@ -27,50 +27,40 @@ export async function POST(req: Request) {
     if (pathname && status === 'succeeded' && output) {
       const [userId, temporaryPredictionId] = pathname.split(/[\/+]/).filter(Boolean).slice(-2);
 
-      console.log("Prediction successful, attempting to save to database");
 
-      // Construct payload for database upsert
-      const tempdisplay = output[0];
-      const payload = {
-        'prediction_id': id,
-        'model_id': version,
-        'created_by': userId,
-        'prompt': prompt,
-        'temp_url': tempdisplay,
-        'temp_id': temporaryPredictionId
-      };
+      console.log("Received webhook body");
 
-      // Upsert payload to database
-      const { data, error } = await supabase.from('master_test').upsert(payload);
-      if (error) {
-        console.error("Error occurred during database upsert:", error);
-        return new Response(JSON.stringify({ error: 'Database error', details: error }), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        });
+      if (status === 'succeeded' && output && userId) {
+        console.log("Prediction successful, attempting to save to database");
+        const tempdisplay = output[0];
+        const payload = {
+          'prediction_id': id,
+          'model_id': version,
+          'created_by': userId,
+          'prompt': prompt,
+          'temp_url': tempdisplay,
+          'temp_id': temporaryPredictionId
+        };
+        const { data, error } = await supabase
+          .from('master_test')
+          .upsert(payload)
+          .like('prediction_id', id);
+
+        if (data) {
+          console.log("master table updated:", data);
+        } else if (error) {
+          console.log("error occured: ", error)
+          return new Response(JSON.stringify({ message: 'Webhook crash & burn', error }))
+        }
+        const { upload }: any = await uploadPrediction(tempdisplay, id);
+        const uploadPredictionResponse = await upload.json;
+        if (uploadPredictionResponse) {
+          return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        };
       }
-
-      // Upload prediction
-      const upload = await uploadPrediction(tempdisplay, id);
-      if (upload) {
-        console.log("Webhook processed successfully");
-        return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      } else {
-        console.error("Error occurred during prediction upload");
-        return new Response(JSON.stringify({ error: 'Prediction upload error' }), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-    } else {
-      console.error("Invalid request or missing data");
-      return new Response(JSON.stringify({ error: 'Invalid request or missing data' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
     }
   } catch (error) {
     console.error('Error processing webhook:', error);

@@ -43,7 +43,7 @@ export default function AuthPage() {
               onSuccess={(view, error) => {
                 if (view === 'login') {
                   snackbar.success('Welcome back!')
-                  router.push('/dashboard')
+                  router.push('/auth/callback')
                 }
               }}
               onError={(view, error) => {
@@ -51,7 +51,7 @@ export default function AuthPage() {
                   snackbar.error(error.message)
                 }
               }}
-              redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/dashboard`}
+              redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/auth/callback`}
 
             />
 
