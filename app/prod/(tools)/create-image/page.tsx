@@ -18,17 +18,17 @@ const ImageCreatorPage = () => {
             <Skeleton height="400px"
                 width="400px"
                 className="element-pulse" />}>
-             
-                <VStack
-                    display="flex"
-                    justifyContent="space-between">
-                     {globalLoading && <CircularProgress isIndeterminate />}
-                    <DisplayResults />
-                    <Box position="absolute" bottom={{ base: "40px", md: "0px" }}>
-                        <ImageCreator />
-                    </Box>
-                </VStack>
-            
+
+            <VStack
+                display="flex"
+                justifyContent="space-between">
+                {globalLoading && <CircularProgress isIndeterminate />}
+                <DisplayResults />
+                <Box position="absolute" bottom={{ base: "40px", md: "0px" }}>
+                    <ImageCreator />
+                </Box>
+            </VStack>
+
         </Suspense>
     )
 }

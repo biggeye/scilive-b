@@ -60,12 +60,7 @@ const ImageCreator = async () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <VStack>
-          {globalLoading ? (
-            <VStack>
-              <Button onClick={handleCancelPrediction}>Cancel</Button>
-            </VStack>
-          ) : (
-            <>
+          {globalLoading && <Button onClick={handleCancelPrediction}>Cancel</Button>}
               <ToolOptions localPage="createImage" />
               <Textarea
                 // Render Textarea when inputType is 'textarea'
@@ -76,14 +71,10 @@ const ImageCreator = async () => {
                   setUserInput(e.target.value);
                 }}
               />
-
-
               <Button size="lg" boxShadow="sm" type="submit">
                 Create Image
               </Button>
-            </>
-          )}
-        </VStack>
+         </VStack>
       </form>
 
     </Box>
