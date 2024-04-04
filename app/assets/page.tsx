@@ -12,11 +12,12 @@ const GalleryPage: React.FC = () => {
       width="90%"
       margin="10px"
     >
-
       <Gallery
         items={contentItems.map(item => ({
-          id: item.content_id,
+          content_id: item.content_id,
           url: item.url,
+          friendly_name: item.friendly_name,
+          content_type: item.content_type,
           title: item.title,
           prompt: item.prompt,
         }))}

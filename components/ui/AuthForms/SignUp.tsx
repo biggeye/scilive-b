@@ -40,7 +40,7 @@ const SignUp: React.FC = () => {
           onSuccess={(view, error) => {
             if (view === 'login') {
               snackbar.success('Welcome back!')
-              router.push('/dashboard')
+              router.push('/prod')
             }
           }}
           onError={(view, error) => {
@@ -48,7 +48,7 @@ const SignUp: React.FC = () => {
               snackbar.error(error.message)
             }
           }}
-          redirectUrl={getAbsoluteUrl('/dashboard')}
+          redirectUrl={getAbsoluteUrl('/prod')}
         
         />
 

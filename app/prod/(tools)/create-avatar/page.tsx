@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import AvatarCreator from '@/components/dashboard/AvatarCreator';
+import AvatarCreator from '@/components/prod/AvatarCreator';
 import { CircularProgress, Grid, GridItem, Skeleton } from '@chakra-ui/react';
 import { Suspense, useEffect } from 'react';
 import { currentPageState } from '@/state/user/user_state-atoms';

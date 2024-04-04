@@ -1,9 +1,9 @@
 //state/gallery-atoms.ts
 
 import { atom } from "recoil";
-import { GalleryImageView } from '@/types';
+import { GalleryItem } from '@/types';
 
-export const contentItemsState = atom<GalleryImageView[]>({
+export const contentItemsState = atom<GalleryItem[]>({
   key: 'contentItemsState',
   default: [],
 });

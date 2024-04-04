@@ -21,24 +21,14 @@ import {
   Tr,
   Th,
   Td,
+  VStack
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@/components/icons/UI';
-
-interface GalleryProps {
-  items: {
-    id: string;
-    url: string;
-    title?: string;
-    prompt?: string;
-    content?: string;
-  }[];
-  onEdit: (url: string) => void;
-  onDelete: (id: string) => void;
-}
+import { GalleryProps, GalleryItem } from '@/types';
 
 const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<GalleryItem>(null);
   const [inputValue, setInputValue] = useState('');
   const [useTable, setUseTable] = useState(false); // State to track rendering as table
 
@@ -69,15 +59,23 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
           <Thead>
             <Tr>
               <Th>Prompt</Th>
+              <Th>Model Name</Th>
+              <Th>Model Type</Th>
               <Th>Link</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {items.map((item) => (
-              <Tr key={item.id}>
-                <Td><Text maxWidth="60%">{item.prompt}</Text></Td>
-                <Td><Link href={item.url}>Link</Link></Td>
+            {items.map((item, index) => (
+              <Tr key={item.content_id}>
+                <Td>
+                  <Text maxWidth="60%">{item.prompt}</Text></Td>
+                <Td>
+                  <Text>{item.friendly_name}</Text></Td>
+                <Td>
+                  <Text>{item.content_type}</Text></Td>
+                <Td>
+                  <Link href={item.url}>Open</Link></Td>
                 <Td>
                   <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.id)} />
                 </Td>
@@ -88,11 +86,15 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
       ) : (
         <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
           {items.map((item) => (
-            <Box key={item.id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
+            <Box key={item.content_id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
               {item.content ? (
                 <Text>{item.content}</Text>
               ) : (
+                <VStack>
+                  <Text>{item.friendly_name}</Text>
                 <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.id)} />
+                <Text>{item.prompt}</Text>
+                </VStack>
               )}
               <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
                 <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.url)} mr="2" />

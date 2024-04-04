@@ -6,10 +6,10 @@ import { userProfileState } from '@/state/user/user_state-atoms';
 import { useAuth } from '@saas-ui/auth';
 import { useUserProfile } from '@/lib/user/useUserProfile';
 import { useImageCreateSubmit } from '@/lib/dashboard/submit/replicate/useImageCreateSubmit';
-import { handleGalleryEditSelection } from '@/lib/gallery/handleGalleryEditSelection';
 import { convertToDataURI } from '@/utils/convertToDataURI';
 // import UI
 import {
+  Spacer,
   CircularProgress, VStack, Alert, Input, InputGroup, InputRightAddon, FormControl, HStack, Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useDisclosure,
   Image, Grid, GridItem, Text, Card, CardBody, CardHeader, CardFooter
 } from '@chakra-ui/react';
@@ -23,55 +23,46 @@ import {
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import { finalPredictionState, userImageDataUriState, userImagePreviewState, userImageUploadState, predictionErrorState, globalLoadingState } from '@/state/replicate/prediction-atoms';
 import { selectedModelIdState } from '@/state/replicate/config-atoms';
-import { currentPageState } from '@/state/user/user_state-atoms';
+
 // import TYPES
 import ToolOptions from '../ToolOptions';
 
 const ImageEditor = () => {
-  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
-  const auth = useAuth();
-  const supabase = createClient();
+
   const userProfile = useRecoilValue(userProfileState);
-
   const userId = userProfile?.id;
-  const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
-
-  useEffect(() => {
-    setCurrentPage("editImage");
-  }, [currentPage]);
 
   const imageEditSubmit = useImageCreateSubmit();
-  // read Global State
+
   const finalPrediction = useRecoilValue(finalPredictionState);
   const modelId = useRecoilValue(selectedModelIdState);
   const predictionError = useRecoilValue(predictionErrorState);
 
   const [userInput, setUserInput] = useState<string>('');
-  const setUserImagePreview = useSetRecoilState(userImagePreviewState);
-  const [userImageUpload, setUserImageUpload] = useRecoilState(userImageUploadState);
   const [userImageDataUri, setUserImageDataUri] = useRecoilState(userImageDataUriState);
+  const setUserImagePreview = useSetRecoilState(userImagePreviewState);
+  const setUserImageUpload = useSetRecoilState(userImageUploadState);
+  const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
       console.log("File:", file); // Log the file object
-  
-      const imagePreview = URL.createObjectURL(file);
-      console.log("Image Preview URL:", imagePreview); // Log the image preview URL
-  
-      setUserImageUpload(file);
-  
-      setUserImagePreview(imagePreview);
-      console.log("Set User Image Preview State:", imagePreview); // Log the image preview state
-  
-      const URI = await convertToDataURI(file);
-      console.log("Data URI:", URI); // Log the data URI
-  
-      setUserImageDataUri(URI);
-      console.log("Set User Image Data URI State:", URI); // Log the data URI state
+      if (file) {
+        setUserImageUpload(file);
+        const imagePreview = await URL.createObjectURL(file);
+        if (imagePreview) {
+          setUserImagePreview(imagePreview);
+          console.log("Image Preview URL:", imagePreview); // Log the image preview URL
+        }
+        const URI = await convertToDataURI(file);
+        if (URI) {
+          console.log("Data URI:", userImageDataUri); // Log the data URI
+          setUserImageDataUri(URI);
+        }
+      }
     }
   };
-  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserInput(e.target.value);
 
@@ -92,67 +83,73 @@ const ImageEditor = () => {
   const handleCancelPrediction = () => {
     setGlobalLoading(false);
     setUserInput('');
-  
   }
-  
+
 
   return (
     <Box
       marginLeft="25px"
       mt={5}
-      className="card-standard">
-      <h1 className="title">
-        imgEditor
-      </h1>
-
+      className="card-standard">  
       <form onSubmit={handleUserImageEditSubmit}>
-        <VStack>
-        {globalLoading ? ( 
+
+          {globalLoading ? (
             <VStack>
-            <CircularProgress isIndeterminate />
-            <button onClick={handleCancelPrediction}>Cancel</button>
+              <CircularProgress isIndeterminate />
+              <button onClick={handleCancelPrediction}>Cancel</button>
             </VStack>
           ) : (
-            <>
-          <ToolOptions localPage="editImage" />
-          <FileUpload
-            boxShadow="lg"
-            maxFileSize={10000 * 10000}
-            maxFiles={1}
-            accept="image/*"
-            onChange={handleFileChange}
-          >
-            {({ files, deleteFile }) => (
-              <FileUploadDropzone
-              >
-                {!files?.length ? (
-                  <FileUploadTrigger color="teal" as={Button}>Drop Image or Click</FileUploadTrigger>
-                ) : (
+            <Box display="flex" flexDirection={{base: "column", md: "row"}}>
+              <ToolOptions localPage="editImage" />
+              <Spacer />
+              <Grid templateAreas={`"upload prompt"`}
+                gridTemplateColumns="2">
+                <GridItem area="upload">
+                  <FileUpload
+                    boxShadow="lg"
+                    maxFileSize={10000 * 10000}
+                    maxFiles={1}
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  >
+                    {({ files, deleteFile }) => (
+                      <FileUploadDropzone
+                      >
+                        {!files?.length ? (
+                          <FileUploadTrigger color="teal" as={Button}>Drop Image or Click</FileUploadTrigger>
+                        ) : (
+                          <HStack>
+                            <Text fontSize="sm">{files[0].name}</Text>
+                            <Button
+                              boxShadow="sm"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                deleteFile(files[0])
+                              }}
+                            >
+                              Clear
+                            </Button>
+                          </HStack>
+                        )}
+                      </FileUploadDropzone>
+                    )}
+                  </FileUpload>
+                </GridItem>
+                <GridItem area="prompt">
                   <HStack>
-                    <Text fontSize="sm">{files[0].name}</Text>
-                    <Button
-                      boxShadow="sm"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        deleteFile(files[0])
-                      }}
-                    >
-                      Clear
-                    </Button>
+                  <Input
+                    value={userInput}
+                    onChange={handleInputChange}
+                  />
+                  <Button boxShadow="sm" size="lg" type="submit">
+                    Perform Edit
+                  </Button>
                   </HStack>
-                )}
-              </FileUploadDropzone>
+                </GridItem>
+              </Grid>
+            </Box>
             )}
-          </FileUpload>
-          <Input
-            value={userInput}
-            onChange={handleInputChange}
-          />
-          <Button boxShadow="sm" size="lg" type="submit">
-            Edit Image
-          </Button>
-          </>)}
-        </VStack>
+
       </form>
       {predictionError && <Alert fontSize={{ base: "sm", md: "md" }}>{predictionError}</Alert>}
     </Box >

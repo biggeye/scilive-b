@@ -24,10 +24,9 @@ useEffect(()  => {
   return (
     <Box marginBottom="3px" maxWidth="640px" p="5px">
       <Flex alignItems="center" justifyContent="center">
+      
         <Spacer />
-        <Text fontSize={{ base: "sm", md: "md" }}>MODEL:  {"   "}</Text>
-        <Spacer />
-        <Select fontSize={{ base: "sm", md: "md" }} variant="flushed" width="75%" value={selectedModelId} onChange={handleSelectionChange} size="xs">
+        <Select fontSize={{ base: "sm", md: "md" }} variant="flushed" value={selectedModelId} placeholder="Choose Image Editor" onChange={handleSelectionChange} size="xs">
           {modelList.map((model: any, id) => (
             <option key={model.id} value={model.id}>{model.friendly_name}</option>
           ))}

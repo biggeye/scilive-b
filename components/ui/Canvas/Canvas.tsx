@@ -18,8 +18,8 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { PenToolIcon, CpuIcon, FileIcon } from 'lucide-react';
-import ToolOptions from '@/components/dashboard/ToolOptions';
-import DisplayResults from '@/components/dashboard/DisplayResults';
+import ToolOptions from '@/components/prod/ToolOptions';
+import DisplayResults from '@/components/prod/DisplayResults';
 
 type CanvasComponentProps = {
   children: React.ReactNode

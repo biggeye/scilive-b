@@ -32,10 +32,10 @@ const Toolbar = () => {
         <VStack
             display="flex" justifyContent="space-between"
             align="flex-start" position="fixed" left="0" top="200px" spacing={4}>
-            <ToolbarButton icon={<CreateImageIcon />} label="Create Images" href="/dashboard/create-image" />
-            <ToolbarButton icon={<EditImageIcon />} label="Edit Images" href="/dashboard/edit-image" />
+            <ToolbarButton icon={<CreateImageIcon />} label="Create Images" href="/create-image" />
+            <ToolbarButton icon={<EditImageIcon />} label="Edit Images" href="/edit-image" />
             <Spacer />
-            <ToolbarButton icon={<CreateAvatarIcon />} label="Design Avatar" href="/dashboard/create-avatar" />
+            <ToolbarButton icon={<CreateAvatarIcon />} label="Design Avatar" href="/create-avatar" />
             <ToolbarButton icon={<Axis3dIcon />} label="Train Model" href="/dashboard/AvatarTrainer" />
             <ToolbarButton icon={<WandIcon />} label="Generate Model Images" href="/AvatarGenerator" />
             <Spacer />

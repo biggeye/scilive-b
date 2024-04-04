@@ -111,21 +111,42 @@ export interface DisplayResultsProps {
   localPage: string | null,
 }
 
+interface GalleryProps {
+  items: {
+    content_id: string;
+    url: string;
+    content_type: string;
+    model_id: string;
+    friendly_name: string;
+    title?: string;
+    name?: string;
+    prompt?: string;
+    content?: string;
+  }[];
+  onEdit: (url: string) => void;
+  onDelete: (id: string) => void;
+}
+
 export interface GalleryItem {
   content_id: string; // Adjust types according to your actual data structure
   url: string;
-  name: string;
+  content_type: string;
+  model_id: string;
+  friendly_name: string;
+  title?: string
+  name?: string;
+  prompt?: string;
+  content?: string;
 }
 
-
 export type currentIndex = {
+  content_id: string;
   url: string;
   content_type: string;
   prompt?: string;
   model_id?: string;
 
 };
-
 
 // Replicate
 export interface SelectedModel {

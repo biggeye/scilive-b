@@ -36,7 +36,7 @@ import {
     // Assuming MdScript and MdTraining are imported and exported correctly elsewhere in your code
 } from '@/components/icons/UI';
 import { PersonaAvatar, NavGroup, NavItem, Navbar, NavbarItem, NavbarLink, NavbarBrand, NavbarContent, PlusIcon } from '@saas-ui/react';
-import ViewModeSwitch from './dashboard/ViewModeSwitch';
+import ViewModeSwitch from './prod/ViewModeSwitch';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
@@ -82,8 +82,8 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                             flexWrap="nowrap">
                             <NavGroup>
                                 <HStack>
-                                    <NavItem href="/dashboard"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">pr0d</Text></NavItem>
-                                    <NavItem href="/dashboard/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">ass3ts</Text></NavItem>
+                                    <NavItem href="/prod"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">pr0d</Text></NavItem>
+                                    <NavItem href="/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">ass3ts</Text></NavItem>
                                 </HStack>
                             </NavGroup>
 
@@ -111,7 +111,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                             <h1 className="blinking-cursor">{userProfile?.full_name}</h1>
                                         </Box>
                                         <MenuDivider />
-                                        <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
+                                        <NavItem icon={<PhotosIcon />} href="/assets">Gallery</NavItem>
                                         <NavItem icon={<SettingsIcon />} href="/account">Account</NavItem>
                                         <MenuDivider />
 
@@ -141,7 +141,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                             left="45%"
                             icon={<PlusIcon />}
                             aria-label="Dashboard"
-                            onClick={() => router.push('/dashboard')}
+                            onClick={() => router.push('/prod')}
                         />
                     </Tooltip>
                     <Box
@@ -172,7 +172,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
 
                                 icon={<PhotosIcon />}
                                 aria-label="Gallery"
-                                onClick={() => router.push('/dashboard/assets')}
+                                onClick={() => router.push('/assets')}
                             />
                         </Tooltip>
 
@@ -206,16 +206,16 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
                                 <NavGroup><Text as="h1" color="primary.500">pr0duc3</Text>
-                                    <NavItem icon={<PlusIcon />} href="/dashboard/create-image">Create Images</NavItem>
-                                    <NavItem icon={<PencilIcon />} href="/dashboard/edit-image">Edit Images</NavItem>
-                                    <NavItem icon={<MessageSquareIcon />} href="/dashboard/create-avatar">Create Avatar</NavItem>
-                                    <NavItem icon={<PersonStandingIcon />} href="/dashboard/write-script">Write Script</NavItem>
+                                    <NavItem icon={<PlusIcon />} href="/create-image">Create Images</NavItem>
+                                    <NavItem icon={<PencilIcon />} href="/edit-image">Edit Images</NavItem>
+                                    <NavItem icon={<MessageSquareIcon />} href="/create-avatar">Create Avatar</NavItem>
+                                    <NavItem icon={<PersonStandingIcon />} href="/write-script">Write Script</NavItem>
                                 </NavGroup>
                                 <NavGroup><Text as="h1" color="primary.500">tr@ining</Text>
                                     <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
                                 </NavGroup>
                                 <NavGroup><Text as="h1" color="primary.500">acc0unt</Text>
-                                    <NavItem icon={<PhotosIcon />} href="/dashboard/assets">Gallery</NavItem>
+                                    <NavItem icon={<PhotosIcon />} href="/assets">Gallery</NavItem>
                                     <NavItem icon={<SettingsIcon />} href="/account">Settings</NavItem>
                                 </NavGroup>
                             </Stack>

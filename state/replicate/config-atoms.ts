@@ -3,13 +3,10 @@ import { selector } from "recoil";
 import { fetchModelInputs, fetchModels, fetchModel } from "@/lib/modelServer";
 import { ModelList, SelectedModel, ModelInputs } from '@/types';
 
-// Atom definitions
 export const selectedModelIdState = atom<string>({
   key: "selectedModelIdState",
   default: "",
 });
-
-
 
 export const selectedModelConfigSelector = selector({
   key: 'selectedModelConfigSelector',
@@ -17,7 +14,7 @@ export const selectedModelConfigSelector = selector({
     const selectedModelId = get(selectedModelIdState);
     console.log("selectedModelConfigSelector (setting selected model):", selectedModelId);
     try {
-      // Fetch model data
+
       const modelData = await fetchModel(selectedModelId);
       console.log("selectedModelConfigSelector (fetching data): ", modelData);
       const selectedModel = modelData.find(model => model.id === selectedModelId);
