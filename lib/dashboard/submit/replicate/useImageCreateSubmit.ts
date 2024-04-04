@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { userProfileState } from "@/state/user/user_state-atoms";
 //import utilities
 import { useUserProfile } from "@/lib/user/useUserProfile";
-import { buildRequestBody } from './requestBodyBuilder';
+import { buildEditorRequestBody, buildRequestBody } from './requestBodyBuilder';
 import { fetchPrediction } from './fetchPrediction';
 import { convertToDataURI } from "@/utils/convertToDataURI";
 
@@ -34,7 +34,7 @@ export const useImageCreateSubmit = () => {
   const userImageUri = useRecoilValue<string | null>(userImageDataUriState);
   const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState<string>(finalPredictionPromptState);
 
-  const submitImageCreate = async (userInput: string, userImageDataUri?: string): Promise<string | null> => {
+  const submitImageCreate = async (userInput: string, userImageUri?: string) => {
     setFinalPredictionPrompt(userInput);
 
     if (!userId) {
@@ -42,20 +42,12 @@ export const useImageCreateSubmit = () => {
       return null;
     }
 
-    if (userImageUpload) {
-      try {
-        const imageUpload: string = await convertToDataURI(userImageUpload);
-      } catch (error) {
-        console.error("Error converting image to Data URI:", error);
-        return null;
-      }
-    }
-
-    const temporaryPredictionId = generateUUID();
+      const temporaryPredictionId = generateUUID();
     setTemporaryPredictionId(temporaryPredictionId);
-    const requestBody = buildRequestBody(userId, modelId, userImageUri, userInput, temporaryPredictionId);
+    if (userImageUri) {
+    const requestBody = await buildEditorRequestBody(userId, modelId, userImageUri, userInput, temporaryPredictionId);
     console.log("useImageCreateSubmit, requestBody: ", requestBody);
-
+    } else { const requestBody = await buildRequestBody(userId, modelId, userInput, temporaryPredictionId);
     try {
       const fetchedPrediction = await fetchPrediction(requestBody);
         console.log("fetchedPrediction: ", fetchedPrediction)
@@ -64,7 +56,7 @@ export const useImageCreateSubmit = () => {
       console.error("An unexpected error occurred");
       return null;
     }
-  };
+  }};
 
   return submitImageCreate;
 };

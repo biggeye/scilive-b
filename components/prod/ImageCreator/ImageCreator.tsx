@@ -62,7 +62,6 @@ const ImageCreator = async () => {
         <VStack>
           {globalLoading ? (
             <VStack>
-              <CircularProgress isIndeterminate />
               <Button onClick={handleCancelPrediction}>Cancel</Button>
             </VStack>
           ) : (

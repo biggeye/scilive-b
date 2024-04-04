@@ -64,7 +64,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                 // Non-mobile navbar rendering goes here...
                 <Navbar
                     minWidth="480px"
-                    
+
                     backdropFilter="blur(50px)"
                     position="sticky"
                     top="0"
@@ -82,11 +82,26 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                             flexWrap="nowrap">
                             <NavGroup>
                                 <HStack>
-                                    <NavItem href="/prod"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">pr0d</Text></NavItem>
+                                    <Menu>
+                                        <MenuButton bgColor="primary.50">
+                                            <NavItem><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">pr0d</Text></NavItem>
+                                        </MenuButton>
+                                        <MenuList>
+                                            <MenuGroup as="h1" title="pr0duce">
+                                                <NavItem href="/prod/create-image">Create Images</NavItem>
+                                                <NavItem href="/prod/edit-image">Edit Images</NavItem>
+                                                <NavItem href="/prod/write-script">Write Script</NavItem>
+                                            </MenuGroup>
+                                            <MenuDivider />
+                                            <MenuGroup as="h1" title="avatar">
+                                                <NavItem href="/prod/create-avatar">Create Avatar</NavItem>
+                                                <NavItem href="/prod/train-avatar">Train Avatar Model</NavItem>
+                                            </MenuGroup>
+                                        </MenuList>
+                                    </Menu>
                                     <NavItem href="/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">ass3ts</Text></NavItem>
                                 </HStack>
                             </NavGroup>
-
                         </NavbarContent>
                     }
                     <NavbarContent as="div" justifyContent="end">
@@ -206,13 +221,15 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                         {auth.isAuthenticated &&
                             <Stack as="nav" spacing={4}>
                                 <NavGroup><Text as="h1" color="primary.500">pr0duc3</Text>
-                                    <NavItem icon={<PlusIcon />} href="/create-image">Create Images</NavItem>
-                                    <NavItem icon={<PencilIcon />} href="/edit-image">Edit Images</NavItem>
-                                    <NavItem icon={<MessageSquareIcon />} href="/create-avatar">Create Avatar</NavItem>
-                                    <NavItem icon={<PersonStandingIcon />} href="/write-script">Write Script</NavItem>
+                                    <NavItem icon={<PlusIcon />} href="/prod/create-image">Create Images</NavItem>
+                                    <NavItem icon={<PencilIcon />} href="/prod/edit-image">Edit Images</NavItem>
+                                   
+                                    <NavItem icon={<PersonStandingIcon />} href="/prod/write-script">Write Script</NavItem>
                                 </NavGroup>
-                                <NavGroup><Text as="h1" color="primary.500">tr@ining</Text>
-                                    <NavItem icon={<WeightIcon />} href="/train">Train SDXL Model</NavItem>
+                                <NavGroup><Text as="h1" color="primary.500">avatar</Text>
+                                    <NavItem icon={<MessageSquareIcon />} href="/prod/create-avatar">Create Avatar</NavItem>
+                                    <NavItem icon={<WeightIcon />} href="/prod/train-avatar">Train SDXL Model</NavItem>
+                                    <NavItem icon={<PlusIcon />} href="/prod/generate-avatar">Generate SDXL Images</NavItem>
                                 </NavGroup>
                                 <NavGroup><Text as="h1" color="primary.500">acc0unt</Text>
                                     <NavItem icon={<PhotosIcon />} href="/assets">Gallery</NavItem>
