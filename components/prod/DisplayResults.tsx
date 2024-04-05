@@ -90,7 +90,7 @@ const DisplayResults = () => {
               >
                 {finalPrediction ? (
                   <VStack>
-                    <Text>After: </Text>
+                
                     <Image maxW={{ base: "75vw", md: "35vw" }} src={finalPrediction} />
                   </VStack>
                 ) : (

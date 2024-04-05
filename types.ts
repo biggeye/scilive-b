@@ -57,61 +57,7 @@ export interface ModalProps {
   handleDelete: object,
 }
 
-export type ContentItem = {
-  content_id: string;
-  name?: string;
-  title?: string;
-  url: string;
-  created_by?: string;
-  created_at: string;
-  model_id?: string;
-  prediction_id: string;
-  prompt?: string;
-  is_public?: boolean;
-};
-
-export type GalleryImage = {
-  content_id: string;
-  prediction_id: string;
-  prompt: string;
-  friendly_name?: string;
-  created_at: string;
-  created_by: string;
-  url: string; // array of URLs
-};
-
-export type GalleryImageView = {  prediction_id: string;
-  prompt: string;
-  friendly_name?: string;
-  created_at: string;
-  created_by: string;
-  url: string[]; // array of URLs
-};
-
-
-export type ImageCardProps = {
-  imageUrl: string,
-  prompt: string,
-  modelName: string,
-};
-
-export type GalleryImageCardProps = {
-  key: unknown,
-  imageUrl: string,
-  prompt: string,
-  modelName: string,
-  width: string,
-  onEdit: object,
-  onDelete: object,
-  onSetProfile: object,
-  onClick: object,
-};
-
-export interface DisplayResultsProps {
-  localPage: string | null,
-}
-
-interface GalleryProps {
+export interface GalleryProps {
   items: {
     content_id: string;
     url: string;
@@ -138,6 +84,12 @@ export interface GalleryItem {
   prompt?: string;
   content?: string;
 }
+
+export interface DisplayResultsProps {
+  localPage: string | null,
+}
+
+
 
 export type currentIndex = {
   content_id: string;

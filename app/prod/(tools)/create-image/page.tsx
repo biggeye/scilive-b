@@ -39,18 +39,29 @@ const ImageCreatorPage = () => {
     };
 
     const insertSubscription = supabase
-      .channel('master_inserts')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'master_test' }, handleEvent)
-      .subscribe();
-
-    const updateSubscription = supabase
-      .channel('items_inserts')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'items_test' }, handleEvent)
-      .subscribe();
+    .channel('db-changes')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'items_test',
+      },
+      (payload) => handleEvent(payload)
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'master_test',
+      },
+      (payload) => handleEvent(payload)
+    )
+    .subscribe()
 
     return () => {
       supabase.removeChannel(insertSubscription);
-      supabase.removeChannel(updateSubscription);
     };
   }, []);
 

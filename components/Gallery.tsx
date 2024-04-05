@@ -28,12 +28,12 @@ import { GalleryProps, GalleryItem } from '@/types';
 
 const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedItem, setSelectedItem] = useState<GalleryItem>(null);
+  const [selectedItem, setSelectedItem] = useState("");
   const [inputValue, setInputValue] = useState('');
   const [useTable, setUseTable] = useState(false); // State to track rendering as table
 
-  const handleSelectItem = (id: string) => {
-    setSelectedItem(id);
+  const handleSelectItem = (content_id: string) => {
+    setSelectedItem(content_id);
     onOpen();
   };
 
@@ -66,7 +66,7 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {items.map((item, index) => (
+            {items.map((item: any, content_id: any) => (
               <Tr key={item.content_id}>
                 <Td>
                   <Text maxWidth="60%">{item.prompt}</Text></Td>
@@ -92,13 +92,13 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
               ) : (
                 <VStack>
                   <Text>{item.friendly_name}</Text>
-                <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.id)} />
+                <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.content_id)} />
                 <Text>{item.prompt}</Text>
                 </VStack>
               )}
               <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
                 <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.url)} mr="2" />
-                <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.id)} />
+                <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.content_id)} />
               </Box>
               {item.title && (
                 <Text fontSize="sm" color="white" pos="absolute" bottom="2" left="2" noOfLines={1}>
@@ -122,7 +122,7 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
           <ModalOverlay />
           <ModalContent>
             <ModalBody>
-              <Image src={items.find((item) => item.id === selectedItem)?.url} alt="Selected item" maxW="full" maxH="60vh" objectFit="contain" />
+              <Image src={items.find((item) => item.content_id === selectedItem)?.url} alt="Selected item" maxW="full" maxH="60vh" objectFit="contain" />
             </ModalBody>
           </ModalContent>
         </Modal>
