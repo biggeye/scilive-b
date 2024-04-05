@@ -145,20 +145,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                 </Navbar >
             ) : (
                 <>
-                    <Tooltip label="Dashboard">
-                        <IconButton
-                            bgColor="primary.100"
-                            borderWidth="0.5px"
-                            zIndex="5000"
-                            position="fixed"
-                            bottom="15px"
-                            right="45%"
-                            left="45%"
-                            icon={<PlusIcon />}
-                            aria-label="Dashboard"
-                            onClick={() => router.push('/prod')}
-                        />
-                    </Tooltip>
+                    
                     <Box
                         zIndex="250"
                         display="flex"

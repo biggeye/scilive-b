@@ -47,7 +47,6 @@ const ImageEditor = () => {
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
-      console.log("File:", file); // Log the file object
       if (file) {
         setUserImageUpload(file);
         const imagePreview = await URL.createObjectURL(file);
@@ -57,8 +56,9 @@ const ImageEditor = () => {
         }
         const URI = await convertToDataURI(file);
         if (URI) {
-          console.log("Data URI:", userImageDataUri); // Log the data URI
+         
           setUserImageDataUri(URI);
+          console.log("Data URI:", userImageDataUri); // Log the data URI
         }
       }
     }
@@ -72,7 +72,7 @@ const ImageEditor = () => {
       return;
     }
     setGlobalLoading(true);
-    await imageEditSubmit(userInput, userImageDataUri);
+    await imageEditSubmit(userInput);
     if (finalPrediction) {
       setUserImageUpload(null);
       setUserImagePreview(null);
@@ -100,7 +100,7 @@ const ImageEditor = () => {
             </VStack>
           ) : (
             <Box display="flex" flexDirection={{base: "column", md: "row"}}>
-              <ToolOptions localPage="editImage" />
+              <ToolOptions />
               <Spacer />
               <Grid templateAreas={`"upload prompt"`}
                 gridTemplateColumns="2">

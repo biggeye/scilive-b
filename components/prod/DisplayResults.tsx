@@ -36,7 +36,7 @@ const DisplayResults = () => {
 
   return (
     <VStack>
-      <Card bgGradient="linear(to-br, primary.50, gray.50, transparent, transparent)" height="80vw" width="80vw" position="absolute" top="10%">
+      <Card bgGradient="linear(to-br, primary.50, transparent)" height="80vw" width="90vw" position="absolute" top="10%">
         <CardHeader>
 
           {globalLoading && <Button onClick={handleCancel}>Cancel Image Creation</Button>}
@@ -58,21 +58,15 @@ const DisplayResults = () => {
                 justifyContent="space-evenly"
               >
                 {globalLoading ? (
-                  <Card height="400px" width="400px">
-                    <CircularProgress isIndeterminate className="element-pulse-fast" />
-                    <Text as="h3" className="subtitle">
-                      Model Status: {modelBootResult}
-                    </Text>
-                    <Text as="h3" className="subtitle">
-                      Prediction Status: {predictionStatus}
-                    </Text>
-                  </Card>
+                  <Skeleton height="400px" width="400px" className="element-pulse-fast" />
+                  
+        
                 ) : (
                   <Box>
                     {userImagePreview &&
                       <VStack>
                         <Text>Before:</Text>
-                        <Image maxW={{ base: "75vw", md: "35vw" }} src={userImagePreview} />
+                        <Image borderRadius="10px" boxShadow="sm" maxW={{ base: "75vw", md: "45vw" }} src={userImagePreview} />
                       </VStack>
                     }
                   </Box>
@@ -87,7 +81,8 @@ const DisplayResults = () => {
               >
                 {finalPrediction ? (
                   <VStack>
-                    <Image maxW={{ base: "75vw", md: "35vw" }} src={finalPrediction} />
+                
+                    <Image borderRadius="10px" borderColor="primary.50" borderWidth="1px" boxShadow="sm " maxW={{ base: "75vw", md: "45vw" }} src={finalPrediction} />
                   </VStack>
                 ) : (
                   <VStack>
@@ -101,19 +96,13 @@ const DisplayResults = () => {
                         Prediction Status: {predictionStatus}
                       </Text>
                     }
-                    <Skeleton maxW="35vw" className="Logo" />
                   </VStack>
                 )}
               </VStack>
             </GridItem>
           </Grid>
         </CardBody>
-        <CardFooter>
-          <Text as="h3" className="subtitle">
-            {finalPredictionPrompt}
-          </Text>
-        </CardFooter>
-      </Card>
+           </Card>
     </VStack >
   );
 };

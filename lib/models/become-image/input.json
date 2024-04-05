@@ -1,0 +1,109 @@
+{
+    "type": "object",
+    "title": "Input",
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "x-order": 11,
+        "description": "Fix the random seed for reproducibility"
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "format": "uri",
+        "x-order": 0,
+        "description": "An image of a person to be converted"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "a person",
+        "x-order": 2
+      },
+      "image_to_become": {
+        "type": "string",
+        "title": "Image To Become",
+        "format": "uri",
+        "x-order": 1,
+        "description": "Any image to convert the person to"
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "default": "",
+        "x-order": 3,
+        "description": "Things you do not want in the image"
+      },
+      "prompt_strength": {
+        "type": "number",
+        "title": "Prompt Strength",
+        "default": 2,
+        "maximum": 3,
+        "minimum": 0,
+        "x-order": 6,
+        "description": "Strength of the prompt. This is the CFG scale, higher numbers lead to stronger prompt, lower numbers will keep more of a likeness to the original."
+      },
+      "number_of_images": {
+        "type": "integer",
+        "title": "Number Of Images",
+        "default": 2,
+        "maximum": 10,
+        "minimum": 1,
+        "x-order": 4,
+        "description": "Number of images to generate"
+      },
+      "denoising_strength": {
+        "type": "number",
+        "title": "Denoising Strength",
+        "default": 1,
+        "maximum": 1,
+        "minimum": 0,
+        "x-order": 5,
+        "description": "How much of the original image of the person to keep. 1 is the complete destruction of the original image, 0 is the original image"
+      },
+      "instant_id_strength": {
+        "type": "number",
+        "title": "Instant Id Strength",
+        "default": 1,
+        "maximum": 1,
+        "minimum": 0,
+        "x-order": 8,
+        "description": "How strong the InstantID will be."
+      },
+      "image_to_become_noise": {
+        "type": "number",
+        "title": "Image To Become Noise",
+        "default": 0.3,
+        "maximum": 1,
+        "minimum": 0,
+        "x-order": 10,
+        "description": "How much noise to add to the style image before processing. An alternative way of controlling stength."
+      },
+      "control_depth_strength": {
+        "type": "number",
+        "title": "Control Depth Strength",
+        "default": 0.8,
+        "maximum": 1,
+        "minimum": 0,
+        "x-order": 7,
+        "description": "Strength of depth controlnet. The bigger this is, the more controlnet affects the output."
+      },
+      "disable_safety_checker": {
+        "type": "boolean",
+        "title": "Disable Safety Checker",
+        "default": false,
+        "x-order": 12,
+        "description": "Disable safety checker for generated images"
+      },
+      "image_to_become_strength": {
+        "type": "number",
+        "title": "Image To Become Strength",
+        "default": 0.75,
+        "maximum": 1,
+        "minimum": 0,
+        "x-order": 9,
+        "description": "How strong the style will be applied"
+      }
+    }
+  }

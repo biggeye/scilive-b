@@ -18,23 +18,18 @@ import {
 import { selectedModelIdState } from "@/state/replicate/config-atoms";
 
 export const useImageCreateSubmit = () => {
-
+  const userImageUri = useRecoilValue<string | null>(userImageDataUriState);
   const [temporaryPredictionId, setTemporaryPredictionId] = useRecoilState(temporaryPredictionIdState);
+  const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState<string>(finalPredictionPromptState);
 
-  // user account state
   const userProfile = useRecoilValue(userProfileState);
   const { profileLoading, profileError } = useUserProfile();
   const userId = userProfile?.id;
 
-  // model information state
   const modelId = useRecoilValue<string>(selectedModelIdState);
 
-  // user input state
-  const userImageUpload = useRecoilValue<File | null>(userImageUploadState);
-  const userImageUri = useRecoilValue<string | null>(userImageDataUriState);
-  const [finalPredictionPrompt, setFinalPredictionPrompt] = useRecoilState<string>(finalPredictionPromptState);
-
-  const submitImageCreate = async (userInput: string, userImageUri?: string) => {
+  const submitImageCreate = async (userInput: string) => {
+   
     setFinalPredictionPrompt(userInput);
 
     if (!userId) {

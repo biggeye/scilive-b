@@ -23,7 +23,7 @@ const ImageCreatorPage = () => {
       const newRow = payload.new;
       const predictionId = newRow.id;
       toast({
-        title: `${predictionId} complete!`,
+        title: `!mgCreation complete!`,
         status: 'info',
         duration: 5000,
         isClosable: true,
@@ -72,8 +72,10 @@ const ImageCreatorPage = () => {
         display="flex"
         justifyContent="space-between">
         
+      
         <DisplayResults />
-        <Box position="absolute" bottom={{ base: "40px", md: "0px" }}>
+        {globalLoading && <CircularProgress isIndeterminate />}
+        <Box position="fixed" bottom={{ base: "40px", md: "0px" }}>
           <ImageCreator />
           {globalLoading && <CircularProgress isIndeterminate />}
         </Box>

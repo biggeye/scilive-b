@@ -6,9 +6,9 @@ const supabase = createClient();
 // Cached data for models fetched by type
 let cachedModels: Record<string, any> = {};
 
-export async function fetchModels() {
+export async function fetchModelList() {
     if (!cachedModels.all) {
-        const { data, error } = await supabase.from('models_master').select('*');
+        const { data, error } = await supabase.from('models_master_test').select('id, friendly_name');
         console.log("fetchModels: ", data)
         if (error) throw error;
         cachedModels.all = data;
@@ -44,10 +44,12 @@ export async function fetchImg2ImgModels() {
     return cachedModels.img2img;
 }
 
+
+
 // The remaining functions can't be effectively memoized as they depend on the selectedModelId
 // However, you can optimize them further by memoizing based on selectedModelId if it's appropriate for your use case.
 export async function fetchModel(selectedModelId: string) {
-    const { data, error } = await supabase.from('models_master').select('*').eq('id', `${selectedModelId}`);
+    const { data, error } = await supabase.from('models_master_test').select('*').eq('id', `${selectedModelId}`);
     console.log("fetchModels: ", data)
     if (error) throw error;
     return data;
