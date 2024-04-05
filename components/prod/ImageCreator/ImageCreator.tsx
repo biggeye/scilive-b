@@ -24,7 +24,7 @@ import {
 import { useImageCreateSubmit } from '@/lib/dashboard/submit/replicate/useImageCreateSubmit';
 import ToolOptions from '../ToolOptions';
 
-const ImageCreator = async () => {
+const ImageCreator = () => {
 
   const modelId = useRecoilValue(selectedModelIdState);
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
@@ -60,7 +60,10 @@ const ImageCreator = async () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <VStack>
-          {globalLoading && <Button onClick={handleCancelPrediction}>Cancel</Button>}
+          {globalLoading ? (
+            <Button onClick={handleCancelPrediction}>Cancel</Button>
+          ) : (
+            <VStack>
               <ToolOptions localPage="createImage" />
               <Textarea
                 // Render Textarea when inputType is 'textarea'
@@ -74,7 +77,11 @@ const ImageCreator = async () => {
               <Button size="lg" boxShadow="sm" type="submit">
                 Create Image
               </Button>
-         </VStack>
+            </VStack>
+          )}
+
+
+        </VStack>
       </form>
 
     </Box>

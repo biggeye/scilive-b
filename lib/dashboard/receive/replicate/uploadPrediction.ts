@@ -3,18 +3,18 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function uploadPrediction(
   userId: string,
-  content: string,
+  predictionUrl: string,
   predictionId: string
 ): Promise<string> {
   const supabase = createClient();
 
   try {
    
-    const predictionOutput = await fetch(content);
+    const predictionOutput = await fetch(predictionUrl);
     const created_by = userId;
     console.log("Fetched content from URL: ", predictionOutput);
     if (!predictionOutput.ok) {
-      throw new Error(`Failed to fetch content from URL: ${content}, Response status: ${predictionOutput.status}`);
+      throw new Error(`Failed to fetch content from URL: ${predictionUrl}, Response status: ${predictionOutput.status}`);
     }
 
     const imageBlob = await predictionOutput.blob();

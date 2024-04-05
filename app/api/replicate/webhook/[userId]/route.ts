@@ -25,7 +25,9 @@ export async function POST(req: Request) {
     const pathname = urlObj.pathname;
 
     if (pathname && status === 'succeeded' && output) {
-      const [userId, temporaryPredictionId] = pathname.split(/[\/+]/).filter(Boolean).slice(-2);
+      const pathnameParts = pathname.split('/'); // Split the pathname by '/'
+      const userId = pathnameParts[pathnameParts.length - 1]; // Get the last part, which should be the UUID
+
 
 
       console.log("So where are you from originally?");
@@ -48,10 +50,10 @@ export async function POST(req: Request) {
           console.log("error occured: ", error)
           return new Response(JSON.stringify({ message: 'Webhook crash & burn updating master table', error }))
         }
-        const upload: any = await uploadPrediction(predictionUrl, id, userId);
+        const upload: any = await uploadPrediction(userId, predictionUrl, id);
         const uploadPredictionResponse = await upload;
         if (uploadPredictionResponse) {
-          return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
+          return new Response(JSON.stringify({ message: 'Webhook data uploaded successfully' }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
           })

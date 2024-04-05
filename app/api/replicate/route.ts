@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     const payload = {
       version,
       input: { prompt, input_images },
-      webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}+${temporaryPredictionId}`,
+      webhook: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/replicate/webhook/${user_id}`,
     };
     const predictionCallResponse = await fetch('https://api.replicate.com/v1/predictions', {
       method: 'POST',

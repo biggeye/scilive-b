@@ -44,9 +44,11 @@ const DisplayResults = () => {
 
         </CardHeader>
         <CardBody>
-          <Grid gridTemplateAreas={{ base: `"preview"
+          <Grid gridTemplateAreas={{
+            base: `"preview"
                                            "final"`,
-                                  md: `preview final`}}
+            md: `preview final`
+          }}
             gridTemplateColumns={{ base: "1", md: "2" }}
           >
             <GridItem area="preview">
@@ -67,12 +69,15 @@ const DisplayResults = () => {
                   </Skeleton>
                 ) : (
                   <Box>
-                    <VStack>
-                      <Text>Before:</Text>
-                      {userImagePreview &&
-                        <Image maxW={{ base: "75vw", md: "35vw"}} src={userImagePreview} />
-                      }
-                    </VStack>
+
+
+                    {userImagePreview &&
+                      <VStack>
+                        <Text>Before:</Text>
+                        <Image maxW={{ base: "75vw", md: "35vw" }} src={userImagePreview} />
+                      </VStack>
+                    }
+
                   </Box>
                 )}
               </VStack>
@@ -86,7 +91,7 @@ const DisplayResults = () => {
                 {finalPrediction ? (
                   <VStack>
                     <Text>After: </Text>
-                    <Image maxW={{ base: "75vw", md: "35vw"}}  src={finalPrediction} />
+                    <Image maxW={{ base: "75vw", md: "35vw" }} src={finalPrediction} />
                   </VStack>
                 ) : (
                   <VStack>
