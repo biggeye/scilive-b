@@ -73,7 +73,7 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
                 <Td>
                   <Text>{item.friendly_name}</Text></Td>
                 <Td>
-                  <Text>{item.content_type}</Text></Td>
+                  <Text>{item.model_type}</Text></Td>
                 <Td>
                   <Link href={item.url}>Open</Link></Td>
                 <Td>
