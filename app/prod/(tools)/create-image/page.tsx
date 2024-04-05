@@ -12,8 +12,6 @@ import { finalPredictionState, predictionProgressState, globalLoadingState } fro
 
 const ImageCreatorPage = () => {
 
-
-
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   const [finalPrediction, setFinalPrediction] = useRecoilState(finalPredictionState);
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
@@ -70,14 +68,14 @@ const ImageCreatorPage = () => {
       <Skeleton height="400px"
         width="400px"
         className="element-pulse" />}>
-
       <VStack
         display="flex"
         justifyContent="space-between">
-        {globalLoading && <CircularProgress isIndeterminate />}
+        
         <DisplayResults />
         <Box position="absolute" bottom={{ base: "40px", md: "0px" }}>
           <ImageCreator />
+          {globalLoading && <CircularProgress isIndeterminate />}
         </Box>
       </VStack>
 

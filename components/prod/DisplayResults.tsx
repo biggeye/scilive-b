@@ -36,7 +36,7 @@ const DisplayResults = () => {
 
   return (
     <VStack>
-      <Card bgGradient="linear(to-br, primary.300, gray.200, transparent)" height="80vw" width="80vw" position="absolute" top="10%">
+      <Card bgGradient="linear(to-br, primary.50, gray.50, transparent, transparent)" height="80vw" width="80vw" position="absolute" top="10%">
         <CardHeader>
 
           {globalLoading && <Button onClick={handleCancel}>Cancel Image Creation</Button>}
@@ -46,7 +46,7 @@ const DisplayResults = () => {
         <CardBody>
           <Grid gridTemplateAreas={{
             base: `"preview"
-                                           "final"`,
+                      "final"`,
             md: `preview final`
           }}
             gridTemplateColumns={{ base: "1", md: "2" }}
@@ -58,7 +58,7 @@ const DisplayResults = () => {
                 justifyContent="space-evenly"
               >
                 {globalLoading ? (
-                  <Skeleton height="400px" width="400px" className="Logo">
+                  <Card height="400px" width="400px">
                     <CircularProgress isIndeterminate className="element-pulse-fast" />
                     <Text as="h3" className="subtitle">
                       Model Status: {modelBootResult}
@@ -66,18 +66,15 @@ const DisplayResults = () => {
                     <Text as="h3" className="subtitle">
                       Prediction Status: {predictionStatus}
                     </Text>
-                  </Skeleton>
+                  </Card>
                 ) : (
                   <Box>
-
-
                     {userImagePreview &&
                       <VStack>
                         <Text>Before:</Text>
                         <Image maxW={{ base: "75vw", md: "35vw" }} src={userImagePreview} />
                       </VStack>
                     }
-
                   </Box>
                 )}
               </VStack>
@@ -90,7 +87,6 @@ const DisplayResults = () => {
               >
                 {finalPrediction ? (
                   <VStack>
-                
                     <Image maxW={{ base: "75vw", md: "35vw" }} src={finalPrediction} />
                   </VStack>
                 ) : (

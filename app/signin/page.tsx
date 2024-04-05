@@ -17,18 +17,15 @@ export default function AuthPage() {
     return window.location.origin
   }
 
-
-
   return (
     <VStack>
       <Flex display="row">
         <Spacer />
-        <Card w="350px" flex="1" maxW="400px">
+        <Card w={{base: "80vw", md: "400px"}} flex="1" maxW="400px">
           <CardHeader display="flex" alignItems="center" justifyContent="center">
             <Image src={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/scilive4.png`} height="200px" width="200px" />
           </CardHeader>
           <CardBody>
-
             <Auth
               view="signup"
               providers={{
@@ -54,8 +51,6 @@ export default function AuthPage() {
               redirectUrl={`${process.env.NEXT_PUBLIC_DEFAULT_URL}/auth/callback`}
 
             />
-
-
           </CardBody>
         </Card>
         <Spacer />

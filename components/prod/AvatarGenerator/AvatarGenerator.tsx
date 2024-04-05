@@ -92,7 +92,9 @@ const AvatarGenerator: React.FC = () => {
   };
 
   return (
-    <Box marginLeft="25px" mt={5} className="card-standard">
+    <Box 
+    
+    marginLeft="25px" marginRight="25px" mt={5} className="card-standard">
       <h1 className="title">Avatar Generator</h1>
       <Form onSubmit={handleSubmit}>
         <FormLayout columns={{ base: "1", md: "2" }}>

@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       {
         workflow_id: "wkf_mxK73zGMRoN5th",
         webhook_url:
-          "https://29c1-2603-8000-2700-d75b-00-1258.ngrok-free.app/api/leap/trainer/hook",
+          `${process.env.NEXT_PUBLIC_NGROK_URL}/api/leap/trainer/hook`,
         input: {
           name_of_model: model_name,
           type_of_model: type_of_model,

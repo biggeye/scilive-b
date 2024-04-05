@@ -108,6 +108,7 @@ const AvatarCreator: React.FC = () => {
   return (
     <Box
       marginLeft="25px"
+      marginRight="25px"
       mt={5}
       className="card-standard">
       <h1 className="title">
