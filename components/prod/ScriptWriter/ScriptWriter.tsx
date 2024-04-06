@@ -10,6 +10,7 @@ import { Form, FormLayout } from '@saas-ui/react';
 import { globalLoadingState } from '@/state/replicate/prediction-atoms';
 import { voiceoverScriptState, webpageUrlState, hostNameState, podcastNameState } from '@/state/leap/scriptWriter-atoms';
 import { userProfileState } from '@/state/user/user_state-atoms';
+import { fetchVoiceoverScript } '@/lib/dashboard/submit/leap/fetchVoiceoverScript';
 
 const ScriptWriter = () => {
   const toast = useToast();
@@ -32,19 +33,19 @@ const ScriptWriter = () => {
 
   const handleScriptFetch = async (event) => {
     event.preventDefault();
-    if (hostName && podcastName && webpageUrl && userId) {
+    if (hostName && podcastName && webpageUrl || user_summary && userId) {
       try {
         const data = await fetchVoiceoverScript(
           hostName,
           podcastName,
-          webpageUrl,
+          webpageUrl || user_summary,
           userId
         );
         if (data) {
           setIsScriptFetched(true);
           toast({
             title: "Processing",
-            description: `Script is generating, Prediction ID: ${data.prediction_id}`,
+            description: "Script is generating",
             status: "success",
             duration: 5000,
             isClosable: true,

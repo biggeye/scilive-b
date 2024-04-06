@@ -60,7 +60,8 @@ export interface ModalProps {
 export interface GalleryProps {
   items: {
     content_id: string;
-    url: string;
+    url?: string;
+    script?: string;
     content_type: string;
     model_id: string;
     friendly_name: string;
@@ -75,10 +76,11 @@ export interface GalleryProps {
 
 export interface GalleryItem {
   content_id: string; // Adjust types according to your actual data structure
-  url: string;
   content_type: string;
   model_id: string;
   friendly_name: string;
+  url?: string;
+  script?: string;
   title?: string
   name?: string;
   prompt?: string;

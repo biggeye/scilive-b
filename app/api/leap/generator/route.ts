@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       {
         workflow_id: "wkf_fENKVAhNzDo2cq",
         webhook_url:
-          `${process.env.NEXT_PUBLIC_NGROK_URL}/api/leap/avatar/hook`,
+          `${process.env.NEXT_PUBLIC_NGROK_URL}/api/leap/generator/hook`,
         input: {
           avatar_name: avatar_name,
           avatar_description:

@@ -4,22 +4,27 @@ import { UploadWebsiteSummaryProps } from '@/types';
 export const uploadWebsiteSummary = async (
   userId: string,
   predictionId: string,
-  content?: string,
+  script?: string,
   modelId?: string,
-  prompt?: string
+  prompt?: string,
+  name?: string,
+  title?: string
 ): Promise<UploadWebsiteSummaryProps | null> => {
     const supabase = createClient();
 
-    if (content) {
-        console.log("content: ", content)
+    if (script) {
+        console.log("script: ", script)
         const { data, error } = await supabase
-            .from('master_content')
-            .update({
+            .from('master_content_test')
+            .upsert({
+                prediction_id: predictionId,
                 model_id: modelId,
                 prompt: prompt,
-                content: content
+                name: name,
+                title: title,
+                script: `["${script}"]`
+                
             })
-            .eq('prediction_id', predictionId);
 
         if (error) {
             console.error('Error uploading website summary:', error);
