@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  HStack,
   Link,
   Box,
   Image,
@@ -21,7 +22,8 @@ import {
   Tr,
   Th,
   Td,
-  VStack
+  VStack,
+  Tooltip
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@/components/icons/UI';
 import { GalleryProps, GalleryItem } from '@/types';
@@ -85,15 +87,32 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
         </Table>
       ) : (
         <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing="4">
-          {items.map((item) => (
+          {items.map((item: any, content_id: any) => (
             <Box key={item.content_id} pos="relative" boxShadow="md" borderRadius="lg" overflow="hidden">
-              {item.content ? (
-                <Text>{item.content}</Text>
+              {item.script ? (
+                <VStack>
+                  <HStack display="flex" justifyContent="space-between">
+                    <Text>{item.friendly_name}</Text><Text>{item.model_type}</Text>
+                  </HStack>
+                  <Text
+                    maxHeight="100px"
+                  >{item.script}</Text>
+                </VStack>
               ) : (
                 <VStack>
-                  <Text>{item.friendly_name}</Text>
-                <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.content_id)} />
-                <Text>{item.prompt}</Text>
+                  <Tooltip label={item.prompt}>
+                    <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.content_id)} />
+                    <Text sx={{
+                      marginLeft: '5%',
+                      marginRight: '5%',
+                      maxWidth: '90%',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {item.prompt}</Text>
+                  </Tooltip>
+                  <HStack><Text fontSize="xs">{item.friendly_name}</Text><Text fontSize="xs">{item.model_type}</Text></HStack>
                 </VStack>
               )}
               <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">

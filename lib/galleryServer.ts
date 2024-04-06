@@ -1,18 +1,15 @@
-// /lib/galleryServer.ts
-
-'use server'; // Should this be 'use strict'?
+'use server'; 
 
 import { createClient } from "@/utils/supabase/server";
-import { GalleryImageView } from '@/types';
-import { useAccountDetails } from "./user/useUserServer";
+import { GalleryItem } from "@/types";
 
 const supabase = createClient();
 
-let cachedGalleryImages: any = null;
+let cachedGalleryItems: any = null;
 
-export async function fetchGalleryImages() {
-  if (cachedGalleryImages) {
-    return cachedGalleryImages;
+export async function fetchGalleryItems() {
+  if (cachedGalleryItems) {
+    return cachedGalleryItems;
   }
 
   const { data: masterData, error: masterError } = await supabase
@@ -24,8 +21,8 @@ export async function fetchGalleryImages() {
     throw new Error('Supabase - Master Content Fetch Error');
   }
 
-  const galleryImages = await masterData;
+  const galleryItems = await masterData;
 
-  cachedGalleryImages = galleryImages;
-  return cachedGalleryImages;
+  cachedGalleryItems = galleryItems;
+  return cachedGalleryItems as GalleryItem;
 }
