@@ -43,9 +43,8 @@ export async function POST(req: Request) {
     
     if (body.status === 'completed' && body.output) {
       console.log('Script Writer content complete: ', body.id)
-        const { script: script, user_id: user_id, prompt: prompt, name: host_name, title: podcast_name } = body.output;
         const script = body.output.script;
-        const user_id = body.output.user_id;
+        const userId = body.output.user_id;
         const prompt = body.output.prompt;
         const name = body.output.host_name;
         const title = body.output.podcast_name;

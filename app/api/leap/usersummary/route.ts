@@ -7,9 +7,7 @@ export async function POST(req: Request) {
     const leap = new Leap({
       apiKey: "le_4c206806_xa10A9R1zHlbdB6JPjhx2MeH", //
     });
-    console.log("hostName: ", host_name, "podcastName: ", podcast_name, "webpageUrl: ", webpage_url, "userId: ", user_id);
-
-    const response = await fetch("https://api.workflows.tryleap.ai/v1/runs", {
+      const response = await fetch("https://api.workflows.tryleap.ai/v1/runs", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
