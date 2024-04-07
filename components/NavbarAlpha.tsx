@@ -172,16 +172,12 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     p={.25}
                 >
                         <NavbarContent>
-                            <PersonaAvatar
-                                src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
-                                name={userProfile?.full_name || ""}
-                                borderRadius="5px"
-                                size="sm"
-                                aria-label="User menu"
-                                onClick={onDrawerOpen}
-                                presence={auth.isAuthenticated ? ("online") : ("offline")}
-                                bottom="0px"
-                            />
+                            <PersonaAvatar 
+                            aria-label="Settings"
+                            icon={<SettingsIcon />}
+                            borderRadius="5px"
+                            size="sm"
+                            bgColor="primary.100" />
                             <Spacer />
                             <Menu>
                                 <MenuButton bgColor="transparent">
@@ -190,7 +186,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                         icon={<PlusIcon />}
                                         borderRadius="5px"
                                         size="sm"
-                                        bgColor="primary.50"
+                                        bgColor="primary.100"
                                     />
                                 </MenuButton>
                                 <MenuList>
@@ -211,7 +207,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                 <PersonaAvatar
                                     borderRadius="5px"
                                     size="sm"
-                                    bgColor="primary.50"
+                                    bgColor="primary.100"
                                     icon={<PhotosIcon />}
                                     aria-label="Gallery"
                                     onClick={() => router.push('/assets')}

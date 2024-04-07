@@ -74,7 +74,7 @@ export interface GalleryProps {
   onDelete: (id: string) => void;
 }
 
-type GalleryItem = {
+export type GalleryItem = {
   content_id: string;
   url?: string;
   script?: string;

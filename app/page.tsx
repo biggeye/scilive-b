@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Spacer, Image, Link, VStack } from '@chakra-ui/react';
 import OpeningSequence from '@/components/ui/Features/OpeningSequence';
-import { fetchGalleryImages } from '@/lib/galleryServer';
+import { fetchGalleryItems } from '@/lib/galleryServer';
 
 const HomePage = () => {
 
