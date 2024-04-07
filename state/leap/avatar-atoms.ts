@@ -25,4 +25,3 @@ export const avatarNameState = atom<string | null>({
     key: 'imageArrayState',
     default: [],
   })
-  

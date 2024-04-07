@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -37,26 +36,26 @@ const ImageCreatorPage = () => {
     };
 
     const insertSubscription = supabase
-    .channel('db-changes')
-    .on(
-      'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'items_test',
-      },
-      (payload) => handleEvent(payload)
-    )
-    .on(
-      'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'master_test',
-      },
-      (payload) => handleEvent(payload)
-    )
-    .subscribe()
+      .channel('db-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'items_test',
+        },
+        (payload) => handleEvent(payload)
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'master_test',
+        },
+        (payload) => handleEvent(payload)
+      )
+      .subscribe()
 
     return () => {
       supabase.removeChannel(insertSubscription);
@@ -71,8 +70,8 @@ const ImageCreatorPage = () => {
       <VStack
         display="flex"
         justifyContent="space-between">
-        
-      
+
+
         <DisplayResults />
         {globalLoading && <CircularProgress isIndeterminate />}
         <Box position="fixed" bottom={{ base: "40px", md: "0px" }}>

@@ -46,21 +46,15 @@ const ImageEditorPage = () => {
             <Skeleton height="400px"
                 width="400px"
                 className="element-pulse" />}>
-            {globalLoading ? (
-                <CircularProgress isIndeterminate />
-            ) : (
-                <VStack
-                    display="flex"
-                    justifyContent="space-between">
-                    <Box position="absolute" top={{ base: "5px", md: "75px" }}>
-                        <DisplayResults />
-                        <Text>Display ... results?</Text>
-                    </Box>
-                    <Box position="fixed" bottom={{base: "30px", md: "0px"}}>
-                        <ImageEditor />
-                    </Box>
-                </VStack>
-            )}
+            <VStack
+                display="flex"
+                justifyContent="space-between">
+                <DisplayResults />
+                <Box position="fixed" bottom={{ base: "40px", md: "0px" }}>
+                    <ImageEditor />
+                </Box>
+            </VStack>
+
         </Suspense>
     );
 }

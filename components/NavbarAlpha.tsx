@@ -63,11 +63,23 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
             {!isMobile ? (
                 // Non-mobile navbar rendering goes here...
                 <Navbar
+                    display="flex"
+                    justifyContent="space-between"
+                    zIndex="10000"
+                    borderTopRightRadius="17px"
+                    borderColor="primary.300"
+                    borderBottomWidth="0px"
+                    borderTopWidth="1px"
+                    borderLeftWidth="0px"
+                    padding="7px"
+                    boxShadow="1px 3px 2px rgba(0, 0, 0, 0.22)"
+                    bgGradient="linear(to-r, primary.50, primary.300, transparent)"
                     minWidth="480px"
 
                     backdropFilter="blur(50px)"
                     position="sticky"
                     top="0"
+
                 >
                     <NavbarBrand>
                         <IconButton
@@ -144,42 +156,71 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                     </NavbarContent>
                 </Navbar >
             ) : (
-                <>
-                    
-                    <Box
-                        zIndex="250"
-                        display="flex"
-                        justifyContent="space-between"
-                        position="fixed"
-                        bottom="0"
-                        width="100%"
-                        bg="primary.50"
-                        p={1}
-
-                    >
-                        <PersonaAvatar
-                            src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
-                            name={userProfile?.full_name || ""}
-                            borderRadius="full"
-                            size="xs"
-                            aria-label="User menu"
-                            onClick={onDrawerOpen}
-                            presence={auth.isAuthenticated ? ("online") : ("offline")}
-                            bottom="0px"
-                        />
-                        <Spacer />
-                        <Tooltip label="gallery">
-                            <IconButton
-                                bottom="2px"
-
-                                icon={<PhotosIcon />}
-                                aria-label="Gallery"
-                                onClick={() => router.push('/assets')}
+                <Navbar
+                    zIndex="250"
+                    borderTopRightRadius="17px"
+                    borderColor="primary.300"
+                    borderBottomWidth="0px"
+                    borderTopWidth="1px"
+                    borderLeftWidth="0px"
+                    padding="7px"
+                    boxShadow="2px -3px 2px rgba(0, 0, 0, 0.22)"
+                    bgGradient="linear(to-l, primary.50, primary.300, transparent)"
+                    position="fixed"
+                    bottom="0"
+                    width="100%"
+                    p={.25}
+                >
+                        <NavbarContent>
+                            <PersonaAvatar
+                                src={userProfile?.avatar_url || "https://scilive.cloud/avatar-icon.svg"}
+                                name={userProfile?.full_name || ""}
+                                borderRadius="5px"
+                                size="sm"
+                                aria-label="User menu"
+                                onClick={onDrawerOpen}
+                                presence={auth.isAuthenticated ? ("online") : ("offline")}
+                                bottom="0px"
                             />
-                        </Tooltip>
+                            <Spacer />
+                            <Menu>
+                                <MenuButton bgColor="transparent">
+                                    <PersonaAvatar
+                                        aria-label="New"
+                                        icon={<PlusIcon />}
+                                        borderRadius="5px"
+                                        size="sm"
+                                        bgColor="primary.50"
+                                    />
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuGroup as="h1" title="pr0duce">
+                                        <NavItem href="/prod/create-image">Create Images</NavItem>
+                                        <NavItem href="/prod/edit-image">Edit Images</NavItem>
+                                        <NavItem href="/prod/write-script">Write Script</NavItem>
+                                    </MenuGroup>
+                                    <MenuDivider />
+                                    <MenuGroup as="h1" title="avatar">
+                                        <NavItem href="/prod/create-avatar">Create Avatar</NavItem>
+                                        <NavItem href="/prod/train-avatar">Train Avatar Model</NavItem>
+                                    </MenuGroup>
+                                </MenuList>
+                            </Menu>
+                            <Spacer />
+                            <Tooltip label="gallery">
+                                <PersonaAvatar
+                                    borderRadius="5px"
+                                    size="sm"
+                                    bgColor="primary.50"
+                                    icon={<PhotosIcon />}
+                                    aria-label="Gallery"
+                                    onClick={() => router.push('/assets')}
+                                />
+                            </Tooltip>
+                        </NavbarContent>
 
-                    </Box>
-                </>)}
+                </Navbar>
+            )}
             <Drawer isOpen={isDrawerOpen} placement="left" onClose={onDrawerClose}>
                 <DrawerOverlay />
                 <DrawerContent bgGradient="linear(to-b, transparent, gray.50, gray.100, transparent, primary.100)">
@@ -210,7 +251,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                 <NavGroup><Text as="h1" color="primary.500">pr0duc3</Text>
                                     <NavItem icon={<PlusIcon />} href="/prod/create-image">Create Images</NavItem>
                                     <NavItem icon={<PencilIcon />} href="/prod/edit-image">Edit Images</NavItem>
-                                   
+
                                     <NavItem icon={<PersonStandingIcon />} href="/prod/write-script">Write Script</NavItem>
                                 </NavGroup>
                                 <NavGroup><Text as="h1" color="primary.500">avatar</Text>

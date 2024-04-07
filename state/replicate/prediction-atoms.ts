@@ -24,7 +24,7 @@ export const userImageDataUriState = atom<string>({
 
 
 
-// MONITORING 
+// MONITORING
 export const temporaryPredictionIdState = atom<string | null>({
   key: 'temporaryPredictionId',
   default: null,

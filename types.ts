@@ -74,18 +74,19 @@ export interface GalleryProps {
   onDelete: (id: string) => void;
 }
 
-export interface GalleryItem {
-  content_id: string; // Adjust types according to your actual data structure
-  content_type: string;
-  model_id: string;
-  friendly_name: string;
+type GalleryItem = {
+  content_id: string;
   url?: string;
   script?: string;
-  title?: string
+  content_type: string;
+  model_id?: string; // Make this optional if that suits your use case
+  friendly_name: string;
+  title?: string;
   name?: string;
   prompt?: string;
   content?: string;
-}
+};
+
 
 export interface DisplayResultsProps {
   localPage: string | null,

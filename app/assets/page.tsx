@@ -17,7 +17,7 @@ const GalleryPage: React.FC = () => {
           content_id: item.content_id,
           url: item.url,
           friendly_name: item.friendly_name,
-          content_type: item.content_type,
+          content_type: item.model_type,
           title: item.title,
           prompt: item.prompt,
         }))}

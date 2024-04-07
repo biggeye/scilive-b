@@ -40,8 +40,8 @@ const ImageEditor = () => {
 
   const [userInput, setUserInput] = useState<string>('');
   const [userImageDataUri, setUserImageDataUri] = useRecoilState(userImageDataUriState);
-  const setUserImagePreview = useSetRecoilState(userImagePreviewState);
-  const setUserImageUpload = useSetRecoilState(userImageUploadState);
+  const [userImagePreview, setUserImagePreview] = useRecoilState(userImagePreviewState);
+  const [userImageUpload, setUserImageUpload] = useRecoilState(userImageUploadState);
   const [globalLoading, setGlobalLoading] = useRecoilState(globalLoadingState);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +54,7 @@ const ImageEditor = () => {
           setUserImagePreview(imagePreview);
           console.log("Image Preview URL:", imagePreview); // Log the image preview URL
         }
-        const URI = await convertToDataURI(file);
+        const URI: any = await convertToDataURI(file);
         if (URI) {
          
           setUserImageDataUri(URI);
@@ -63,6 +63,7 @@ const ImageEditor = () => {
       }
     }
   };
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserInput(e.target.value);
 
