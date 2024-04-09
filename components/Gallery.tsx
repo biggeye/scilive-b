@@ -100,18 +100,20 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
                 </VStack>
               ) : (
                 <VStack>
-                  <Tooltip label={item.prompt}>
+                  <Tooltip label={item.prompt} size="lg">
                     <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.content_id)} />
-                    <Text sx={{
+                    
+                  </Tooltip>
+                  <Text sx={{
                       marginLeft: '5%',
                       marginRight: '5%',
                       maxWidth: '90%',
+                      
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
                     }}>
                       {item.prompt}</Text>
-                  </Tooltip>
                   <HStack><Text fontSize="xs">{item.friendly_name}</Text><Text fontSize="xs">{item.model_type}</Text></HStack>
                 </VStack>
               )}

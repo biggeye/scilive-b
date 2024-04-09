@@ -59,8 +59,6 @@ export const useImageCreateSubmit = () => {
     } catch (error) {
       console.error("An unexpected error occurred during image creation:", error);
       setUserError("An unexpected error occurred. Please try again.");
-    } finally {
-      setGlobalLoading(false);
     }
   };
 

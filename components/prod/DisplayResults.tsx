@@ -58,13 +58,13 @@ const DisplayResults = () => {
                 justifyContent="space-evenly"
               >
                 {globalLoading ? (
-                  <Skeleton height="400px" width="400px" className="element-pulse-fast" />
+                  <Skeleton height="auto" width="auto" className="element-pulse-fast" />
                   
         
                 ) : (
                   <Box>
                     {userImagePreview &&
-                      <VStack>
+                      <VStack className="image-card">
                         <Text>Before:</Text>
                         <Image borderRadius="10px" boxShadow="sm" maxW={{ base: "75vw", md: "45vw" }} src={userImagePreview} />
                       </VStack>

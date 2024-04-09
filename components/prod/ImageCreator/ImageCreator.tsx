@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import {
+  Progress,
   Card,
   CardBody,
   CardFooter,
@@ -38,15 +39,16 @@ useEffect(() => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setGlobalLoading(true);
-    setPrePrediction(false);
-
     if (!modelId) {
       alert('Please select a model');
       console.error('No modelId available')
       setGlobalLoading(false);
       return;
     }
+    setGlobalLoading(true);
+    setPrePrediction(false);
+
+    
     await imageCreateSubmit(userInput);
   };
 
@@ -64,7 +66,10 @@ useEffect(() => {
       <form onSubmit={handleSubmit}>
         <VStack>
           {globalLoading ? (
+            <Box width="80vw" height="auto">
             <Button onClick={handleCancelPrediction}>Cancel</Button>
+            <Progress isIndeterminate className="element-pulse" />
+            </Box>
           ) : (
             <VStack>
               <ToolOptions />

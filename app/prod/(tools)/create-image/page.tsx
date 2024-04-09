@@ -24,7 +24,7 @@ const ImageCreatorPage = () => {
       toast({
         title: `!mgCreation complete!`,
         status: 'info',
-        duration: 5000,
+        duration: 5000, 
         isClosable: true,
       });
       // Corrected access to payload data
@@ -46,16 +46,7 @@ const ImageCreatorPage = () => {
         },
         (payload) => handleEvent(payload)
       )
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'master_test',
-        },
-        (payload) => handleEvent(payload)
-      )
-      .subscribe()
+        .subscribe()
 
     return () => {
       supabase.removeChannel(insertSubscription);
@@ -64,8 +55,8 @@ const ImageCreatorPage = () => {
 
   return (
     <Suspense fallback={
-      <Skeleton height="400px"
-        width="400px"
+      <Skeleton height="auto"
+        width="auto"
         className="element-pulse" />}>
       <VStack
         display="flex"
@@ -73,7 +64,7 @@ const ImageCreatorPage = () => {
 
 
         <DisplayResults />
-        {globalLoading && <CircularProgress isIndeterminate />}
+        {globalLoading && <CircularProgress isIndeterminate className="element-pulse" />}
         <Box position="fixed" bottom={{ base: "40px", md: "0px" }}>
           <ImageCreator />
           {globalLoading && <CircularProgress isIndeterminate />}
