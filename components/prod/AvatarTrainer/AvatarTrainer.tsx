@@ -30,27 +30,36 @@ const AvatarTrainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]); // State to manage uploaded files
 
-  const toast = useToast();
-
   useEffect(() => {
-    const subscription = supabase
-      .channel('model-training-channel')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'trained_models' },
-        (payload: any) => {
-          toast({
-            title: 'Model Training Complete!',
-            status: 'info',
-            duration: 5000,
-            isClosable: true,
-          });
-          console.log("webhook payload: ", payload)
-          // Corrected access to payload data
-          const output = payload.new.id; // Assuming this is the correct path to the data
-          setModelId(output); // Update state here
-        })
-      .subscribe();
+    const handleEvent = (payload: any) => {
+      console.log("webhook payload: ", payload);
+      const newRow = payload.new;
+
+      toast({
+        title: `Avatar Trainer update!`,
+        status: 'info',
+        duration: 5000,
+        isClosable: true,
+      });
+
+    };
+
+
+    const insertSubscription = supabase
+      .channel('avatar-trainer-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'trained_models',
+        },
+        (payload) => handleEvent(payload)
+      )
+      .subscribe()
+
     return () => {
-      supabase.removeChannel(subscription);
+      supabase.removeChannel(insertSubscription);
     };
   }, []);
 
@@ -116,48 +125,54 @@ const AvatarTrainer: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         <VStack spacing={4} display="flex" flexDirection="column" alignItems="center" mb={4}>
           <FormControl isRequired>
-     
+
             <Input
-            boxShadow="lg"
+              boxShadow="lg"
               value={trainingModelName}
               onChange={(e) => setTrainingModelName(e.target.value)}
               placeholder="Enter model name" />
           </FormControl>
 
-          <FileUpload
-            maxFileSize={1024 * 1024}
-            maxFiles={50}
-            accept="image/*"
-          >
+          <FileUpload maxFileSize={1024 * 1024} maxFiles={50} accept="image/*">
             {({ files, deleteFile }) => (
               <FileUploadDropzone>
                 {!files?.length ? (
-                  <>
-              
-                    <FileUploadTrigger as={Button}>drop image / browse files</FileUploadTrigger>
-                  </>
+                  <FileUploadTrigger as={Button}>drop image / browse files</FileUploadTrigger>
                 ) : (
-                  <HStack>
-                    <FileUploadPreview file={files[0]} width="200px" />
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteFile(files[0]);
-                      }}
-                    >
-                      Remove
-                    </Button>
-                  </HStack>
+                  <VStack>
+                    {files.map((file, index) => (
+                      <HStack key={index} position="relative">
+                        <FileUploadPreview file={file} width="200px" />
+                        <Button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteFile(file);
+                          }}
+                          position="absolute"
+                          top="0"
+                          right="0"
+                          backgroundColor="blackAlpha.600"
+                          colorScheme="red"
+                          borderRadius="full"
+                          size="sm"
+                          p={1}
+                        >
+                          X
+                        </Button>
+                      </HStack>
+                    ))}
+                  </VStack>
                 )}
               </FileUploadDropzone>
             )}
           </FileUpload>
 
+
           <FormControl isRequired>
-        
-            <Select 
-            boxShadow="md"
-            onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
+
+            <Select
+              boxShadow="md"
+              onChange={(e) => setTypeOfModel(e.target.value)} placeholder="Select model type">
               <option value="man">Man</option>
               <option value="woman">Woman</option>
               <option value="animal">Animal</option>

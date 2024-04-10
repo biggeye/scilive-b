@@ -50,7 +50,6 @@ export async function fetchImg2ImgModels() {
 // However, you can optimize them further by memoizing based on selectedModelId if it's appropriate for your use case.
 export async function fetchModel(selectedModelId: string) {
     const { data, error } = await supabase.from('models_master_test').select('*').eq('id', `${selectedModelId}`);
-    console.log("fetchModels: ", data)
     if (error) throw error;
     return data;
 }

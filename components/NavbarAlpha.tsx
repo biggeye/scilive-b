@@ -108,7 +108,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                             <MenuGroup as="h1" title="avatar">
                                                 <NavItem href="/prod/create-avatar">Create Avatar</NavItem>
                                                 <NavItem href="/prod/train-avatar">Train Avatar Model</NavItem>
-                                            </MenuGroup>
+                                                <NavItem href="/prod/generate-avatar">Generate Avatar Images</NavItem>                                           </MenuGroup>
                                         </MenuList>
                                     </Menu>
                                     <NavItem href="/assets"><Text as="h1" fontSize={{ base: "14px", md: "18px" }} color="primary.800">ass3ts</Text></NavItem>
@@ -199,6 +199,7 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                     <MenuGroup as="h1" title="avatar">
                                         <NavItem href="/prod/create-avatar">Create Avatar</NavItem>
                                         <NavItem href="/prod/train-avatar">Train Avatar Model</NavItem>
+                                        <NavItem href="/prod/generate-avatar">Generate Avatar Images</NavItem>
                                     </MenuGroup>
                                 </MenuList>
                             </Menu>
@@ -252,8 +253,8 @@ const NavbarAlpha: React.FC<NavbarAlphaProps> = ({ handleSignOut }) => {
                                 </NavGroup>
                                 <NavGroup><Text as="h1" color="primary.500">avatar</Text>
                                     <NavItem icon={<MessageSquareIcon />} href="/prod/create-avatar">Create Avatar</NavItem>
-                                    <NavItem icon={<WeightIcon />} href="/prod/train-avatar">Train SDXL Model</NavItem>
-                                    <NavItem icon={<PlusIcon />} href="/prod/generate-avatar">Generate SDXL Images</NavItem>
+                                    <NavItem icon={<WeightIcon />} href="/prod/train-avatar">Train Avatar Model</NavItem>
+                                    <NavItem icon={<PlusIcon />} href="/prod/generate-avatar">Generate Avatar Images</NavItem>
                                 </NavGroup>
                                 <NavGroup><Text as="h1" color="primary.500">acc0unt</Text>
                                     <NavItem icon={<PhotosIcon />} href="/assets">Gallery</NavItem>

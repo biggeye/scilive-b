@@ -20,7 +20,7 @@ export const fetchPrediction = async (requestBody: any) => {
       if (predictionResponse.id) {
         return predictionResponse.id;
       } else {
-        throw new Error(predictionResponse.detail || "Unknown error");
+        throw new Error(predictionResponse.detail || "No Prediction Found");
       }
     } else {
       throw new Error("Response not JSON");
