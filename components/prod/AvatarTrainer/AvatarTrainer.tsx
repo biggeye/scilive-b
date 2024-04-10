@@ -36,7 +36,7 @@ const AvatarTrainer: React.FC = () => {
       const newRow = payload.new;
 
       toast({
-        title: `Avatar Trainer update!`,
+        title: `Avatar Model Training Complete!`,
         status: 'info',
         duration: 5000,
         isClosable: true,

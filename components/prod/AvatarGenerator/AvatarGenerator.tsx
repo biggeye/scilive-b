@@ -8,12 +8,12 @@ import { createClient } from '@/utils/supabase/client';
 import { userProfileState } from '@/state/user/user_state-atoms';
 import { useRecoilValue } from 'recoil';
 import { useAuth } from '@saas-ui/auth';
-import { useUserProfile } from '@/lib/user/useUserProfile';
 
 const AvatarGenerator: React.FC = () => {
   const supabase = createClient();
-  const userProfile = useRecoilValue(userProfileState);
   const trainedModel = useRecoilValue(trainedModelsSelector);
+  const userProfile = useUserProfile();
+  const userId = useRecoilValue(userProfileState);
 
   const [prompt, setPrompt] = useState("");
   const [negative_prompt, set_negative_prompt] = useState("");
@@ -30,8 +30,8 @@ const AvatarGenerator: React.FC = () => {
     useEffect(() => {
       const subscription = supabase
         .channel('custom-insert-channel')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'trained_models_generated' }, (payload) => {
-          console.log('Change received!', payload);
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'items_test' }, (payload) => {
+          console.log('Avatar Generator Complete!', payload);
           if (payload.new && payload.new.url) {
             setImages(currentImages => {
               const updatedImages = [...currentImages, payload.new.url];
@@ -59,7 +59,8 @@ const AvatarGenerator: React.FC = () => {
         },
         body: JSON.stringify({
           model_id: modelId,
-          prompt: prompt, // Replace 'Your prompt here' with the actual prompt
+          prompt: prompt,
+          negative_prompt: negative_prompt // Replace 'Your prompt here' with the actual prompt
         }),
       });
 

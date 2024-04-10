@@ -33,13 +33,11 @@ const AvatarCreator: React.FC = () => {
 
   const toast = useToast();
 
-
-/*
   useEffect(() => {
     const subscription = supabase
       .channel('custom-insert-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'predictions', table: 'master' }, (payload: any) => {
-        console.log('Change received!', payload);
+      .on('postgres_changes', { event: 'INSERT', schema: 'predictions', table: 'items_test' }, (payload: any) => {
+        console.log('Avatar Created!', payload);
         if (payload.new && payload.new.url) {
           setImages(currentImages => {
             const updatedImages = [...currentImages, payload.new.url];
@@ -54,7 +52,6 @@ const AvatarCreator: React.FC = () => {
       supabase.removeChannel(subscription);
     };
   }, []);
-*/
 
   const handleSubmit = async (e: React.FormEvent) => {
 

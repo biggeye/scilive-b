@@ -38,7 +38,7 @@ export const uploadAvatar = async (
 
     // Insert the prediction data into the master_content table
     const { data, error: insertError } = await supabase
-        .from('master_content')
+        .from('master_test')
         .insert([{
             created_by: user_id,
             name: avatar_name,
