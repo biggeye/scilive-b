@@ -1,0 +1,101 @@
+# components
+
+└── [Gallery.tsx](https://github.com/biggeye/scilive-b/blob/main/components/Gallery.tsx)
+└── [GalleryDrawer.tsx](https://github.com/biggeye/scilive-b/blob/main/components/GalleryDrawer.tsx)
+└── [NavbarAlpha.tsx](https://github.com/biggeye/scilive-b/blob/main/components/NavbarAlpha.tsx)
+└── [Toolbar.tsx](https://github.com/biggeye/scilive-b/blob/main/components/Toolbar.tsx)
+└── [dashboard.json](https://github.com/biggeye/scilive-b/blob/main/components/dashboard.json)
+└── 📁icons
+    └── [GitHub.tsx](https://github.com/biggeye/scilive-b/blob/main/components/icons/GitHub.tsx)
+    └── [Logo.tsx](https://github.com/biggeye/scilive-b/blob/main/components/icons/Logo.tsx)
+    └── [UI.tsx](https://github.com/biggeye/scilive-b/blob/main/components/icons/UI.tsx)
+└── 📁prod
+    └── [DisplayResults.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/DisplayResults.tsx)
+    └── [ToolOptions.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/ToolOptions.tsx)
+    └── [ViewModeSwitch.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/ViewModeSwitch.tsx)
+    └── 📁AvatarCreator
+        └── [AvatarCreator.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/AvatarCreator/AvatarCreator.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/prod/AvatarCreator/index.ts)
+    └── 📁AvatarGenerator
+        └── [AvatarGenerator.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/AvatarGenerator/AvatarGenerator.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/prod/AvatarGenerator/index.ts)
+    └── 📁AvatarTrainer
+        └── [AvatarTrainer.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/AvatarTrainer/AvatarTrainer.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/prod/AvatarTrainer/index.ts)
+    └── 📁ImageCreator
+        └── [ImageCreator.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/ImageCreator/ImageCreator.tsx)
+        └── [ImageCreatorNew.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/ImageCreator/ImageCreatorNew.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/prod/ImageCreator/index.ts)
+    └── 📁ImageEditor
+        └── [ImageEditor.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/ImageEditor/ImageEditor.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/prod/ImageEditor/index.ts)
+    └── 📁ScriptWriter
+        └── [ScriptWriter.tsx](https://github.com/biggeye/scilive-b/blob/main/components/prod/ScriptWriter/ScriptWriter.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/prod/ScriptWriter/index.ts)
+└── 📁ui
+    └── 📁AccountForms
+        └── [CustomerPortalForm.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AccountForms/CustomerPortalForm.tsx)
+        └── [EmailForm.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AccountForms/EmailForm.tsx)
+        └── [NameForm.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AccountForms/NameForm.tsx)
+    └── 📁AuthForms
+        └── [EmailSignIn.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/EmailSignIn.tsx)
+        └── [ForgotPassword.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/ForgotPassword.tsx)
+        └── [NewSignUp.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/NewSignUp.tsx)
+        └── [OauthSignIn.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/OauthSignIn.tsx)
+        └── [PasswordSignIn.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/PasswordSignIn.tsx)
+        └── [Separator.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/Separator.tsx)
+        └── [SignUp.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/SignUp.tsx)
+        └── [SignUpButton.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/SignUpButton.tsx)
+        └── [TikTokConnectButton.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/TikTokConnectButton.tsx)
+        └── [UpdatePassword.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/AuthForms/UpdatePassword.tsx)
+    └── 📁Canvas
+        └── [Canvas.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Canvas/Canvas.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/Canvas/index.ts)
+    └── 📁ContentTables
+        └── [GalleryImageTable.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/ContentTables/GalleryImageTable.tsx)
+    └── 📁Features
+        └── [FeatureCard.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Features/FeatureCard.tsx)
+        └── [FeaturesSection.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Features/FeaturesSection.tsx)
+        └── [OpeningSequence.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Features/OpeningSequence.tsx)
+    └── 📁Footer
+        └── [Footer.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Footer/Footer.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/Footer/index.ts)
+    └── 📁Input
+        └── [Input.module.css](https://github.com/biggeye/scilive-b/blob/main/components/ui/Input/Input.module.css)
+        └── [Input.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Input/Input.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/Input/index.ts)
+    └── 📁LoadingDots
+        └── [LoadingCircle.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/LoadingDots/LoadingCircle.tsx)
+        └── [LoadingDots.module.css](https://github.com/biggeye/scilive-b/blob/main/components/ui/LoadingDots/LoadingDots.module.css)
+        └── [LoadingDots.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/LoadingDots/LoadingDots.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/LoadingDots/index.ts)
+    └── 📁LogoCloud
+        └── [LogoCloud.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/LogoCloud/LogoCloud.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/LogoCloud/index.ts)
+    └── 📁Persona
+        └── [Persona.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Persona/Persona.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/Persona/index.ts)
+    └── 📁Pricing
+        └── [Pricing.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Pricing/Pricing.tsx)
+        └── [StripeWidget.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Pricing/StripeWidget.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/Pricing/index.ts)
+    └── 📁SaasButton
+        └── [Button.module.css](https://github.com/biggeye/scilive-b/blob/main/components/ui/SaasButton/Button.module.css)
+        └── [SaasButton.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/SaasButton/SaasButton.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/SaasButton/index.ts)
+    └── 📁SaasCard
+        └── [SaasCard.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/SaasCard/SaasCard.tsx)
+        └── [index.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/SaasCard/index.ts)
+    └── 📁Toasts
+        └── [toast.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Toasts/toast.tsx)
+        └── [toaster.tsx](https://github.com/biggeye/scilive-b/blob/main/components/ui/Toasts/toaster.tsx)
+        └── [use-toast.ts](https://github.com/biggeye/scilive-b/blob/main/components/ui/Toasts/use-toast.ts)
+└── 📁utils
+    └── [AudioPlayer.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/AudioPlayer.tsx)
+    └── [Cards.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/Cards.tsx)
+    └── [CircularProgress.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/CircularProgress.tsx)
+    └── [Code.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/Code.tsx)
+    └── [Header.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/Header.tsx)
+    └── [Logo.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/Logo.tsx)
+    └── [Pagination.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/Pagination.tsx)
+    └── [SidePanelButton.tsx](https://github.com/biggeye/scilive-b/blob/main/components/utils/SidePanelButton.tsx)

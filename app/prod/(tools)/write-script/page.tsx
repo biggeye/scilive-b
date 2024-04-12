@@ -30,10 +30,12 @@ const ScriptWriterPage = () => {
             // Check for the script and set it if available
             if (newRow.script) {
                 const scriptOutput = newRow.script;
+                console.log("Script output available: ", scriptOutput);
                 setGlobalLoading(false);
                 setVoiceoverScript(scriptOutput);
             } else if (newRow.url) { // Fallback to handle cases where an URL is provided
                 const imageUrl = newRow.url;
+                console.log("Image URL available: ", imageUrl);
                 // Handle image URL if needed, for example:
                 // setImageUrl(imageUrl);
                 setGlobalLoading(false);
@@ -54,7 +56,10 @@ const ScriptWriterPage = () => {
                     schema: 'public',
                     table: 'items_test',
                 },
-                (payload) => handleEvent(payload)
+                (payload) => {
+                    console.log("Received payload from items_test: ", payload);
+                    handleEvent(payload);
+                }
             )
             .on(
                 'postgres_changes',
@@ -63,11 +68,15 @@ const ScriptWriterPage = () => {
                     schema: 'public',
                     table: 'master_test',
                 },
-                (payload) => handleEvent(payload)
+                (payload) => {
+                    console.log("Received payload from master_test: ", payload);
+                    handleEvent(payload);
+                }
             )
             .subscribe()
 
         return () => {
+            console.log("Cleaning up...");
             supabase.removeChannel(insertSubscription);
         };
     }, []);

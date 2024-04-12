@@ -1,0 +1,25 @@
+# utils
+
+└── [chunkArray.ts](https://github.com/biggeye/scilive-b/blob/main/utils/chunkArray.ts)
+└── [cn.ts](https://github.com/biggeye/scilive-b/blob/main/utils/cn.ts)
+└── [convertToDataURI.ts](https://github.com/biggeye/scilive-b/blob/main/utils/convertToDataURI.ts)
+└── [helpers.ts](https://github.com/biggeye/scilive-b/blob/main/utils/helpers.ts)
+└── 📁auth-helpers
+    └── [client.ts](https://github.com/biggeye/scilive-b/blob/main/utils/auth-helpers/client.ts)
+    └── [server.ts](https://github.com/biggeye/scilive-b/blob/main/utils/auth-helpers/server.ts)
+    └── [settings.ts](https://github.com/biggeye/scilive-b/blob/main/utils/auth-helpers/settings.ts)
+└── 📁stripe
+    └── [client.ts](https://github.com/biggeye/scilive-b/blob/main/utils/stripe/client.ts)
+    └── [config.ts](https://github.com/biggeye/scilive-b/blob/main/utils/stripe/config.ts)
+    └── [server.ts](https://github.com/biggeye/scilive-b/blob/main/utils/stripe/server.ts)
+└── 📁supabase
+    └── [admin.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/admin.ts)
+    └── [client.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/client.ts)
+    └── [middleware.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/middleware.ts)
+    └── [modelsServer.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/modelsServer.ts)
+    └── [predictionsClient.js](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/predictionsClient.js)
+    └── [predictionsServer.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/predictionsServer.ts)
+    └── [route.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/route.ts)
+    └── [server.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/server.ts)
+    └── [service.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/service.ts)
+    └── [serviceClient.ts](https://github.com/biggeye/scilive-b/blob/main/utils/supabase/serviceClient.ts)
