@@ -1,29 +1,25 @@
-import { uploadWebsiteSummary } from '@/lib/dashboard/receive/leap/uploadWebsiteSummary';
+import { Leap } from "@leap-ai/workflows";
+import { createClient } from "@/utils/supabase/route";
 
-type WorkflowStatus = 'queued' | 'completed' | 'running' | 'failed';
-
-interface WorkflowOutput {
+interface BodyData {
+  model_id: string;
   prompt: string;
+  negative_prompt: string;
+  avatar_name: string;
   user_id: string;
-  script: string;
-  host_name: string;
-  podcast_name: string;
 }
 
-interface WorkflowWebhookRequestBody {
-  id: string;
-  version_id: string;
-  status: WorkflowStatus;
-  created_at: string;
-  started_at: string | null;
-  ended_at: string | null;
-  workflow_id: string;
-  error: string | null;
-  input: Record<string, any>;
-  output: WorkflowOutput | null;
+interface SupabaseData {
+  created_by: string;
+  name: string;
+  model_id: string;
+  prediction_id: string;
+  prompt: string;
+  url: string;
 }
 
 export async function POST(req: Request) {
+  const supabase = createClient(req);
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({
       error: 'Method Not Allowed',
@@ -35,35 +31,73 @@ export async function POST(req: Request) {
   }
 
   try {
-    const body: WorkflowWebhookRequestBody = await req.json();
-    console.log('Received webhook for workflow:', body.id);
-    if (body.status === 'queued' || body.status === 'running') {
-      console.log('New Script Writer content processing: ', body.id);
-      }
-    
-    if (body.status === 'completed' && body.output) {
-      console.log('Script Writer content complete: ', body.id)
-        const script = body.output.script;
-        const userId = body.output.user_id;
-        const prompt = body.output.prompt;
-        const name = body.output.host_name;
-        const title = body.output.podcast_name;
-        const predictionId = body.id;
-      
-      await uploadWebsiteSummary(userId, predictionId, script, "leap_scriptWriterUserSummary", prompt, name, title);
-  }
-  
+    const bodyData: BodyData = await req.json();
+    const payload = {
+      model_id: bodyData.model_id,
+      prompt: bodyData.prompt,
+      negative_prompt: bodyData.negative_prompt
+    }
 
-    // Assuming you want to return a success message after processing
-    return new Response(JSON.stringify({ message: 'Webhook processed successfully' }), {
-      status: 200,
+    const leap = new Leap({
+      apiKey: "le_2063514b_i5qgFukiMYVcCKDBK00U6Mgp",
+    });
+
+    const response = await leap.workflowRuns.workflow(
+      {
+        workflow_id: "wkf_4fajYoe5IKVwmT",
+        webhook_url: `${process.env.NEXT_PUBLIC_NGROK_URL}/api/leap/generator/hook`,
+        input: payload,
+      },
+    );
+
+    if (response.status !== 201) {
+      return new Response(JSON.stringify({
+        status: 'error',
+        message: 'Error with the workflow response.'
+      }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const supabaseData: SupabaseData = {
+      created_by: bodyData.user_id,
+      name: bodyData.avatar_name,
+      model_id: bodyData.model_id,
+      prediction_id: response.data.id,
+      prompt: bodyData.prompt,
+      url: response.data.output ?? ""
+    }
+
+    const { data, error: insertError } = await supabase
+        .from('master_test')
+        .insert([supabaseData]);
+
+    if (insertError) {
+      console.error('Error posting prediction data to Supabase:', insertError);
+      throw new Error('Error posting prediction data to Supabase!');
+    }
+
+    return new Response(JSON.stringify({
+      id: response.data.id,
+      status: response.data.status,
+      created_at: response.data.created_at,
+      workflow_id: response.data.workflow_id,
+      input: response.data.input,
+      output: response.data.output, // This will be null if the workflow is still running
+    }), {
+      status: 201,
       headers: { 'Content-Type': 'application/json' }
     });
+
   } catch (error) {
-    console.error('Error processing webhook:', error);
+    // Check if the error is an instance of Error to access its message property
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error(error);
     return new Response(JSON.stringify({
       status: 'error',
-      message: 'Internal Server Error'
+      message: 'Internal Server Error',
+      details: errorMessage
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
