@@ -27,7 +27,6 @@ export interface UserProfile {
   website: string | "" | null;
   email: string | "" | null;
 }
-
 export interface UserState {
   profile: boolean;
   loading: boolean;
@@ -40,15 +39,12 @@ export interface UserContextType {
   userProfile: UserProfile;
   setUserProfile: React.Dispatch<React.SetStateAction<UserProfile>>;
 }
-
 export interface UserDetailsResponse {
   userId?: string;
   profile?: UserProfile;
   error?: string;
 }
-
 // Gallery State
-
 export interface ModalProps {
   isOpen: boolean,
   onClose: boolean,
@@ -56,15 +52,14 @@ export interface ModalProps {
   url: string,
   handleDelete: object,
 }
-
 export interface GalleryProps {
   items: {
     content_id: string;
-    url?: string;
-    script?: string;
     content_type: string;
     model_id: string;
     friendly_name: string;
+    url?: string;
+    script?: string;
     title?: string;
     name?: string;
     prompt?: string;
@@ -73,26 +68,19 @@ export interface GalleryProps {
   onEdit: (url: string) => void;
   onDelete: (id: string) => void;
 }
-
 export type GalleryItem = {
   content_id: string;
-  url?: string;
-  script?: string;
   content_type: string;
-  model_id?: string; // Make this optional if that suits your use case
   friendly_name: string;
+  model_id?: string;
   title?: string;
   name?: string;
   prompt?: string;
   content?: string;
-};
-
-
-export interface DisplayResultsProps {
-  localPage: string | null,
-}
-
-
+} & (
+  { url: string; script?: never } |
+  { script: string; url?: never }
+);
 
 export type currentIndex = {
   content_id: string;
@@ -103,6 +91,9 @@ export type currentIndex = {
 
 };
 
+export interface DisplayResultsProps {
+  localPage: string | null,
+}
 // Replicate
 export interface SelectedModel {
   id: string,
@@ -113,14 +104,12 @@ export interface SelectedModel {
   shortDesc: string,
   inputType: string,
 }
-
 export type ModelList = {
   id: string,
   name: string,
   friendlyName: string,
   shortDesc: string
 }
-
 export interface ModelInputs {
   variable: string,
   default_value: string,
@@ -179,7 +168,7 @@ export interface PredictionResponsePostBody {
 // Leap AI
 export type WorkflowStatus = 'completed' | 'running' | 'failed';
 
-export interface WorkflowOutput {
+export interface AvatarCreatorWorkflowOutput {
   images: string[],
   user_id: string,
   avatar_name: string,
@@ -188,7 +177,7 @@ export interface WorkflowOutput {
   avatar_description: string
 }
 
-export interface WorkflowWebhookRequestBody {
+export interface AvatarCreatorWebhookRequestBody {
   id: string;
   version_id: string;
   status: WorkflowStatus;
@@ -198,8 +187,9 @@ export interface WorkflowWebhookRequestBody {
   workflow_id: string;
   error: string | null;
   input: Record<string, any>;
-  output: WorkflowOutput | null;
+  output: AvatarCreatorWorkflowOutput | null;
 }
+
 
 export interface UploadAvatarProps {
   image: File[] | File,

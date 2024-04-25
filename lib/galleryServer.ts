@@ -1,13 +1,13 @@
-'use server'; 
+'use server';
 
 import { createClient } from "@/utils/supabase/server";
 import { GalleryItem } from "@/types";
 
 const supabase = createClient();
 
-let cachedGalleryItems: any = null;
+let cachedGalleryItems: GalleryItem[] | null = null;
 
-export async function fetchGalleryItems() {
+export async function fetchGalleryItems(): Promise<GalleryItem[]> {
   if (cachedGalleryItems) {
     return cachedGalleryItems;
   }
@@ -21,8 +21,6 @@ export async function fetchGalleryItems() {
     throw new Error('Supabase - Master Content Fetch Error');
   }
 
-  const galleryItems = await masterData;
-
-  cachedGalleryItems = galleryItems;
-  return cachedGalleryItems as GalleryItem;
+  cachedGalleryItems = masterData as GalleryItem[];
+  return cachedGalleryItems;
 }

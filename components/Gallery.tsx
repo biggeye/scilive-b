@@ -104,22 +104,12 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
                     <Image src={item.url} alt={item.title || 'Gallery item'} objectFit="cover" w="full" h="full" onClick={() => handleSelectItem(item.content_id)} />
                     
                   </Tooltip>
-                  <Text sx={{
-                      marginLeft: '5%',
-                      marginRight: '5%',
-                      maxWidth: '90%',
-                      
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}>
-                      {item.prompt}</Text>
-                  <HStack><Text fontSize="xs">{item.friendly_name}</Text><Text fontSize="xs">{item.model_type}</Text></HStack>
+                 <HStack><Text fontSize="xs">{item.friendly_name}</Text><Text fontSize="xs">{item.model_type}</Text></HStack>
                 </VStack>
               )}
               <Box pos="absolute" top="2" right="2" display="flex" alignItems="center">
-                <IconButton aria-label="Edit item" icon={<EditIcon />} size="sm" onClick={() => onEdit(item.url)} mr="2" />
-                <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="sm" onClick={() => onDelete(item.content_id)} />
+                <IconButton aria-label="Edit item" icon={<EditIcon />} size="xs" onClick={() => onEdit(item.url)} mr="2" />
+                <IconButton aria-label="Delete item" icon={<DeleteIcon />} size="xs" onClick={() => onDelete(item.content_id)} />
               </Box>
               {item.title && (
                 <Text fontSize="sm" color="white" pos="absolute" bottom="2" left="2" noOfLines={1}>
@@ -133,8 +123,10 @@ const Gallery: React.FC<GalleryProps> = ({ items, onEdit, onDelete }) => {
 
       <Box display="flex" justifyContent="center" marginTop="4" marginBottom="10">
         <Box as="form" onSubmit={handleFormSubmit} display="flex" justifyContent="center">
-          <Input type="number" min="1" value={inputValue} onChange={handleInputChange} marginRight="2" />
+          <HStack>
+          <Input type="number" min="1" value={inputValue} width="50px" onChange={handleInputChange} />
           <Button type="submit">Go to page</Button>
+          </HStack>
         </Box>
       </Box>
 
