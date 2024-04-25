@@ -48,7 +48,7 @@ const HomePage = () => {
 
   return (
     <VStack>
-      <Box position="relative" w="100%" h="100vh" bgImage="url('https://scilive.cloud/features/IMG_2636.jpeg')" bgAttachment="fixed">
+      <Box position="relative" w="100%" h="100vh" bgImage="url('https://scilive.cloud/sciLive.png')" bgAttachment="fixed">
         <VStack spacing={5} position="relative" top="50%" transform="translateY(-50%)" textAlign="center">
           <Text fontSize="4xl" fontWeight="bold" color="white"></Text>
           <Text fontSize="xl" color="gray.200">sciLive.cloud</Text>
