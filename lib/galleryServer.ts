@@ -1,6 +1,6 @@
-'use server';
+'use client';
 
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 import { GalleryItem } from "@/types";
 
 const supabase = createClient();
