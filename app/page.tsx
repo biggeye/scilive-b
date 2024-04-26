@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Stack, Button, HStack, Box, Spacer, Image, Link, VStack, Text, Grid, Flex } from '@chakra-ui/react';
+import { Card, Stack, Button, HStack, Box, Spacer, Image, Link, VStack, Text, Grid, Flex } from '@chakra-ui/react';
 import { useAuth } from '@saas-ui/auth';
 import { useRouter } from 'next/navigation';
 import { GitHubLogo } from '@/public/logos';
@@ -51,20 +51,19 @@ const HomePage = () => {
       <Box position="relative" w="100%" h="100vh" bgImage="url('https://scilive.cloud/sciLive.png')" bgAttachment="fixed">
         <VStack spacing={5} position="relative" top="50%" transform="translateY(-50%)" textAlign="center">
           <Text fontSize="4xl" fontWeight="bold" color="white"></Text>
+          <Card bgColor="#262626">
           <Text fontSize="xl" color="gray.200">sciLive.cloud</Text>
-          <HStack spacing={4}>
-            <Button colorScheme="teal" size="lg">Get Started</Button>
-            <Button colorScheme="gray" size="lg" onClick={() => window.scrollTo({ top: document.body.offsetHeight, behavior: 'smooth' })}>Learn More</Button>
-          </HStack>
+   
+             </Card>
         </VStack>
       </Box>
-      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+      <Grid templateColumns="repeat(2, 1fr)" gap={6}>
         {features.map(feature => (
           <Box bg="white" p={6} rounded="md" boxShadow="lg" style={{ transform: 'translateY(-50px)' }}>
             <Text fontSize="2xl" fontWeight="bold">{feature.title}</Text>
             <Text>{feature.description}</Text>
             <Image src={feature.image} />
-            <Button mt={4} onClick={() => router.push(`/demo/${feature.key}`)}>Try It Now</Button>
+{/*<Button mt={4} onClick={() => router.push(`/demo/${feature.key}`)}>Try It Now</Button> */}
           </Box>
         ))}
       </Grid>
