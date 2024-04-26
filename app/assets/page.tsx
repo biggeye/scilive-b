@@ -4,20 +4,6 @@ import { Box } from '@chakra-ui/react';
 import Gallery from '@/components/Gallery';
 import { useGalleryLogic } from '@/lib/gallery/useGalleryLogic';
 
-type GalleryProps = {
-  items: Array<{
-    content_id: string;
-    url?: string;
-    script?: string;
-    content_type: string;
-    friendly_name: string;
-    title?: string;
-    prompt?: string;
-  }>;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-};
-
 const GalleryPage: React.FC = () => {
   const { contentItems, handleEdit, handleDelete } = useGalleryLogic();
 
