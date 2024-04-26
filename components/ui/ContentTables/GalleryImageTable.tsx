@@ -2,22 +2,22 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Link, Text, Card } from '@chakra-ui/react';
 import { DataTable, ColumnDef, Web3Address } from '@saas-ui/react';
-import { fetchGalleryImages } from '@/lib/galleryServer';
-import { GalleryImage } from '@/types';
+import { fetchGalleryItems } from '@/lib/galleryServer';
+import { GalleryItem } from '@/types';
 
 const GalleryImageTable = () => {
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const images: GalleryImage[] = await fetchGalleryImages();
+      const images: GalleryItem[] = await fetchGalleryItems();
       setGalleryImages(images);
     };
     fetchData();
   }, []);
 
 
-  const columns: ColumnDef<GalleryImage>[] = [
+  const columns: ColumnDef<GalleryItem>[] = [
     {
       header: 'Prompt',
       accessorKey: 'prompt',
