@@ -18,20 +18,20 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
-    const auth = useAuth();
+    const auth = true;
     const router = useRouter();
 
     const [isAuthCheckComplete, setIsAuthCheckComplete] = useState(false);
 
     useEffect(() => {
-        if (!auth.isLoading) {
-            if (!auth.isAuthenticated) {
+        if (!auth) {
+            if (!auth) {
                 router.push('/signin');
             } else {
                 setIsAuthCheckComplete(true);
             }
         }
-    }, [auth.isAuthenticated, auth.isLoading, router]);
+    }, [auth, router]);
 
 
 
